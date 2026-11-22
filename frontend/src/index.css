@@ -117,6 +117,11 @@
     0 1px 3px rgb(20 13 12 / 45%);
 }
 
+/* Etiqueta que chocaba con otra de más prioridad (ver acomodarEtiquetas). */
+.yaku-marcador-etiqueta--oculta {
+  visibility: hidden;
+}
+
 /* Etiqueta píldora debajo del círculo: "Nombre · NIVEL". */
 .yaku-marcador-etiqueta {
   position: absolute;
@@ -135,4 +140,29 @@
   white-space: nowrap;
   box-shadow: 0 1px 2px rgb(20 13 12 / 20%);
   pointer-events: none;
+}
+
+/* Lugares alternativos cuando abajo choca con otra etiqueta o punto. */
+.yaku-marcador-etiqueta--derecha {
+  top: 50%;
+  left: 100%;
+  transform: translateY(-50%);
+  margin-top: 0;
+  margin-left: -4px;
+}
+
+.yaku-marcador-etiqueta--izquierda {
+  top: 50%;
+  left: auto;
+  right: 100%;
+  transform: translateY(-50%);
+  margin-top: 0;
+  margin-right: -4px;
+}
+
+.yaku-marcador-etiqueta--arriba {
+  top: auto;
+  bottom: 100%;
+  margin-top: 0;
+  margin-bottom: 3px;
 }

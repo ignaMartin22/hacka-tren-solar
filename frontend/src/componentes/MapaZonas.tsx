@@ -32,6 +32,82 @@ function iconoZona(zona: EstadoZona, seleccionada: boolean): L.DivIcon {
 
 const etiquetaAccesible = (zona: EstadoZona) => `${zona.nombre}, nivel ${estiloNivel(zona.nivel).etiqueta}`;
 
+const RIESGO: Record<string, number> = { rojo: 4, naranja: 3, amarillo: 2, verde: 1 };
+
+// Las zonas de la Quebrada están muy juntas: con poco zoom las etiquetas se
+// pisan. Se muestran en orden de prioridad (seleccionada, después mayor riesgo)
+// y se oculta toda etiqueta que choque con una ya mostrada. El punto y su
+// aria-label quedan siempre; al acercar el mapa reaparecen las etiquetas.
+function acomodarEtiquetas(
+  contenedor: HTMLElement | null,
+  marcadores: Map<string, L.Marker>,
+  zonas: EstadoZona[],
+  seleccionadaId: string | null,
+) {
+  const prioridad = (z: EstadoZona) => (z.zonaId === seleccionadaId ? 10 : (RIESGO[z.nivel ?? ''] ?? 0));
+  const ordenadas = zonas
+    .map((z, i) => ({ z, i }))
+    .sort((a, b) => prioridad(b.z) - prioridad(a.z) || a.i - b.i)
+    .map(({ z }) => z);
+
+  // Obstáculos fijos: los controles sobre el mapa y los puntos de todas las zonas.
+  const rects = (selector: string) =>
+    contenedor ? Array.from(contenedor.querySelectorAll<HTMLElement>(selector), (el) => el.getBoundingClientRect()) : [];
+  const controles = rects('.leaflet-control-zoom, [data-tapa-etiquetas]');
+  const ocupados: DOMRect[] = [...controles, ...rects('.yaku-marcador-punto')];
+  const limites = contenedor?.getBoundingClientRect();
+
+  const seTocan = (r: DOMRect, o: DOMRect) =>
+    r.left < o.right + 2 && r.right + 2 > o.left && r.top < o.bottom + 2 && r.bottom + 2 > o.top;
+  // Una etiqueta que se sale del mapa no se lee: cuenta como choque.
+  const dentro = (r: DOMRect) =>
+    !limites || (r.left >= limites.left + 4 && r.right <= limites.right - 4 && r.top >= limites.top + 4 && r.bottom <= limites.bottom - 4);
+  const choca = (r: DOMRect) => !dentro(r) || ocupados.some((o) => seTocan(r, o));
+  const chocaConControles = (r: DOMRect) => !dentro(r) || controles.some((o) => seTocan(r, o));
+
+  for (const zona of ordenadas) {
+    const etiqueta = marcadores.get(zona.zonaId)?.getElement()?.querySelector<HTMLElement>('.yaku-marcador-etiqueta');
+    if (!etiqueta) continue;
+    etiqueta.classList.remove('yaku-marcador-etiqueta--oculta');
+
+    // Probar cada lugar alrededor del punto y quedarse con el primero libre.
+    let elegido: { posicion: Posicion; rect: DOMRect } | null = null;
+    for (const posicion of POSICIONES) {
+      ponerPosicion(etiqueta, posicion);
+      const rect = etiqueta.getBoundingClientRect();
+      if (rect.width === 0 || !choca(rect)) {
+        elegido = { posicion, rect };
+        break;
+      }
+    }
+
+    if (elegido) {
+      ponerPosicion(etiqueta, elegido.posicion);
+      ocupados.push(elegido.rect);
+    } else if (zona.zonaId === seleccionadaId) {
+      // La seleccionada se ve siempre (su marcador va por encima de los vecinos):
+      // se acepta pisar puntos vecinos, pero no salirse del mapa ni quedar bajo los controles.
+      const posicion =
+        POSICIONES.find((p) => {
+          ponerPosicion(etiqueta, p);
+          return !chocaConControles(etiqueta.getBoundingClientRect());
+        }) ?? 'abajo';
+      ponerPosicion(etiqueta, posicion);
+      ocupados.push(etiqueta.getBoundingClientRect());
+    } else {
+      ponerPosicion(etiqueta, 'abajo');
+      etiqueta.classList.add('yaku-marcador-etiqueta--oculta');
+    }
+  }
+}
+
+type Posicion = 'abajo' | 'derecha' | 'izquierda' | 'arriba';
+const POSICIONES: Posicion[] = ['abajo', 'derecha', 'izquierda', 'arriba'];
+
+function ponerPosicion(etiqueta: HTMLElement, posicion: Posicion) {
+  for (const p of POSICIONES) etiqueta.classList.toggle(`yaku-marcador-etiqueta--${p}`, p === posicion && p !== 'abajo');
+}
+
 // La fecha GIBS viene YYYY-MM-DD; se muestra como dd/mm/aaaa.
 const fechaGibs = (iso: string) => {
   const [a, m, d] = iso.split('-');
@@ -47,6 +123,9 @@ export default function MapaZonas({ zonas, seleccionadaId, onSeleccionar }: Prop
   // El click del marcador usa la última versión del callback sin recrear el mapa.
   const onSeleccionarRef = useRef(onSeleccionar);
   onSeleccionarRef.current = onSeleccionar;
+  // Últimos datos para re-acomodar etiquetas al cambiar el zoom.
+  const datosRef = useRef({ zonas, seleccionadaId });
+  datosRef.current = { zonas, seleccionadaId };
 
   // Crear el mapa una sola vez y limpiar al desmontar (StrictMode lo monta dos
   // veces en desarrollo).
@@ -60,6 +139,14 @@ export default function MapaZonas({ zonas, seleccionadaId, onSeleccionar }: Prop
       attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
     }).addTo(mapa);
     mapaRef.current = mapa;
+    mapa.on('zoomend moveend', () =>
+      acomodarEtiquetas(
+        contenedor.parentElement,
+        marcadoresRef.current,
+        datosRef.current.zonas,
+        datosRef.current.seleccionadaId,
+      ),
+    );
 
     // El contenedor cambia de alto al pasar de celular a escritorio.
     const observer = new ResizeObserver(() => mapa.invalidateSize());
@@ -105,7 +192,8 @@ export default function MapaZonas({ zonas, seleccionadaId, onSeleccionar }: Prop
       const clave = bounds.toBBoxString();
       if (encuadreRef.current !== clave) {
         encuadreRef.current = clave;
-        mapa.fitBounds(bounds, { padding: [32, 32] });
+        // Más margen abajo: ahí están los botones de capa y las etiquetas cuelgan del punto.
+        mapa.fitBounds(bounds, { paddingTopLeft: [32, 32], paddingBottomRight: [32, 56] });
       }
     }
   }, [zonas]);
@@ -116,14 +204,29 @@ export default function MapaZonas({ zonas, seleccionadaId, onSeleccionar }: Prop
     for (const zona of zonas) {
       const marker = marcadores.get(zona.zonaId);
       if (!marker) continue;
-      marker.setIcon(iconoZona(zona, zona.zonaId === seleccionadaId));
+      const seleccionada = zona.zonaId === seleccionadaId;
+      marker.setIcon(iconoZona(zona, seleccionada));
+      // La seleccionada queda por encima de las vecinas.
+      marker.setZIndexOffset(seleccionada ? 1000 : 0);
       const el = marker.getElement();
       if (el) {
         el.setAttribute('aria-label', etiquetaAccesible(zona));
         el.setAttribute('title', etiquetaAccesible(zona));
       }
     }
+    acomodarEtiquetas(contenedorRef.current?.parentElement ?? null, marcadores, zonas, seleccionadaId);
   }, [zonas, seleccionadaId]);
+
+  // Si la zona elegida (por ejemplo desde la lista) quedó fuera de la vista, llevar el mapa hasta ella.
+  useEffect(() => {
+    const mapa = mapaRef.current;
+    const zona = zonas.find((z) => z.zonaId === seleccionadaId);
+    if (!mapa || !zona) return;
+    const punto = L.latLng(zona.lat, zona.lon);
+    if (!mapa.getBounds().pad(-0.1).contains(punto)) mapa.panTo(punto);
+    // Solo al cambiar la selección: un refresco de datos no debe mover el mapa.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [seleccionadaId]);
 
   // Capa satelital GIBS (datos reales de NASA): se apila sobre los tiles base y
   // se saca entera al cambiar o apagarla. Su atribución la muestra Leaflet abajo.
@@ -141,7 +244,7 @@ export default function MapaZonas({ zonas, seleccionadaId, onSeleccionar }: Prop
     <div className="relative h-full w-full">
       <div ref={contenedorRef} className="h-full w-full" aria-label="Mapa de zonas" />
       {/* z-[1000]: los paneles de Leaflet usan z-index 400-700 (controles 1000). */}
-      <div className="absolute bottom-2 left-2 z-[1000] flex flex-col items-start gap-1">
+      <div data-tapa-etiquetas className="absolute bottom-2 left-2 z-[1000] flex flex-col items-start gap-1">
         <div role="group" aria-label="Capa satelital" className="flex gap-1">
           <button
             type="button"

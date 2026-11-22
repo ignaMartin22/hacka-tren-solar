@@ -31,7 +31,7 @@ Ninguno.
 
 | # | Hallazgo | Archivo | Nota |
 |---|---|---|---|
-| 1 | Las etiquetas píldora de los marcadores se **solapan** en el cluster de la Quebrada (6 zonas muy juntas a zoom de encuadre). | `src/componentes/MapaZonas.tsx` | Se leen parcialmente; al acercar se separan. Mejora posible: ocultar etiquetas a zoom bajo o desplazarlas. |
+| 1 | ~~Las etiquetas píldora de los marcadores se **solapan** en el cluster de la Quebrada.~~ | `src/componentes/MapaZonas.tsx` (`acomodarEtiquetas`) | **Resuelto después de la auditoría.** Cada etiqueta prueba abajo, derecha, izquierda y arriba del punto; se oculta solo si choca con otra etiqueta, un punto, los controles o el borde del mapa. Prioridad: seleccionada, después mayor riesgo. Al elegir una zona fuera de la vista el mapa se desplaza hasta ella. Verificado en tiempo real (Edge por CDP) a 360 y 1366 px con zoom +2/−2 y selección: 0 choques, 0 etiquetas cortadas; en escritorio se ven las 8. |
 | 2 | `GraficoTendencia` abrevia los niveles como VER/AMA/NAR/ROJ/S-D en las píldoras bajo cada día. | `src/componentes/GraficoTendencia.tsx:12,93` | Revisado y **aceptado**: la palabra completa no entra en 34 px; cada píldora lleva `<title>` con el nombre y el `aria-label` del gráfico enumera "nivel VERDE" por día. El figcaption explica "el nivel de riesgo". |
 | 3 | La línea de tiempo del Replay muestra la barra de scroll nativa en móvil (el menú del header la oculta, esta no). | `src/replay/PantallaReplay.tsx:179` | Cosmético; el scroll es funcional. |
 | 4 | `en franjas vacías` arriba/abajo del mapa en viewports muy altos (p. ej. 768 px con panel lateral bajo): `fitBounds` centra la franja norte-sur de zonas. | `src/componentes/MapaZonas.tsx` | Cosmético; los tiles fuera del mundo no se dibujan. |
