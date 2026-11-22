@@ -70,7 +70,8 @@ export async function procesarAvisos(estados: EstadoZona[], ahora = new Date()):
 // Aviso de prueba generado desde el panel. Sigue las mismas reglas de envío que uno real y queda marcado como simulacro.
 export async function crearSimulacro(zonaId: string, nivel: Nivel): Promise<Aviso | null> {
   const zona = ZONAS.find((z) => z.id === zonaId);
-  if (!zona || nivel === 'verde') return null;
+  // Solo las zonas de aludes tienen avisos.
+  if (!zona || zona.amenaza !== 'aludes' || nivel === 'verde') return null;
   const motivos: Motivo[] = [{ codigo: 'simulacro', texto: 'Simulacro generado desde el panel. No refleja datos reales.' }];
   const aviso = await crearAviso(zona, { tipo: 'alerta', nivel, envioVecinos: envioSegunNivel(nivel) }, motivos, true, new Date());
   await persistir('avisos');

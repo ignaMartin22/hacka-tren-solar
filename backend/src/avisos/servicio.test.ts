@@ -24,6 +24,8 @@ test('sin bot configurado el aviso queda registrado como sin_canal', async () =>
   assert.equal(aviso?.envioVecinos, 'sin_canal');
   assert.equal(aviso?.simulacro, true);
   assert.equal(await crearSimulacro('no-existe', 'naranja'), null);
+  // Las zonas de sequía no tienen avisos.
+  assert.equal(await crearSimulacro('abra-pampa', 'rojo'), null);
 });
 
 test('naranja sale solo, rojo espera confirmación y al volver a verde se avisa el fin', async () => {
