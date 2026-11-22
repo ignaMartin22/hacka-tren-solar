@@ -1,0 +1,11 @@
+{
+  "name": "yaku",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev:backend": "pnpm --filter yaku-backend dev",
+    "dev:frontend": "pnpm --filter yaku-frontend dev",
+    "test": "pnpm --filter yaku-backend test",
+    "typecheck": "pnpm -r typecheck"
+  }
+}
