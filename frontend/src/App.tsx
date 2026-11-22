@@ -1,36 +1,36 @@
 import { useEffect, useState } from 'react';
-import type { Nivel } from '../../config/riesgo';
 import { obtenerEstado, type EstadoZona, type RespuestaEstado } from './api';
-
-const ESTILO_NIVEL: Record<Nivel, { etiqueta: string; clase: string }> = {
-  verde: { etiqueta: 'VERDE', clase: 'bg-green-600 text-white' },
-  amarillo: { etiqueta: 'AMARILLO', clase: 'bg-yellow-400 text-black' },
-  naranja: { etiqueta: 'NARANJA', clase: 'bg-orange-500 text-black' },
-  rojo: { etiqueta: 'ROJO', clase: 'bg-red-600 text-white' },
-};
-const SIN_DATO = { etiqueta: 'SIN DATO', clase: 'bg-slate-300 text-slate-800' };
+import { estiloNivel } from './niveles';
 
 const fechaHora = (iso: string | null) =>
   iso ? new Date(iso).toLocaleString('es-AR', { dateStyle: 'short', timeStyle: 'short' }) : 'sin datos';
 
-function TarjetaZona({ zona }: { zona: EstadoZona }) {
-  const estilo = zona.nivel ? ESTILO_NIVEL[zona.nivel] : SIN_DATO;
+function BadgeNivel({ zona }: { zona: EstadoZona }) {
+  const estilo = estiloNivel(zona.nivel);
   return (
-    <li className="rounded-lg border border-slate-200 bg-white p-4 shadow-sm">
+    <span className={`rounded-full px-3 py-1 text-[13px] font-bold tracking-[0.04em] ${estilo.clase}`}>
+      {estilo.etiqueta}
+    </span>
+  );
+}
+
+function TarjetaZona({ zona }: { zona: EstadoZona }) {
+  return (
+    <li className="rounded-card border border-line bg-card p-4 shadow-card">
       <div className="flex items-center justify-between gap-3">
         <div>
-          <h2 className="text-lg font-semibold">{zona.nombre}</h2>
-          <p className="text-sm text-slate-500">
+          <h2 className="font-display text-xl font-bold">{zona.nombre}</h2>
+          <p className="text-sm text-muted">
             {zona.region} · {zona.amenaza === 'aludes' ? 'Riesgo de aludes' : 'Sequía'}
           </p>
         </div>
-        <span className={`rounded px-3 py-1 text-sm font-bold ${estilo.clase}`}>{estilo.etiqueta}</span>
+        <BadgeNivel zona={zona} />
       </div>
-      <ul className="mt-3 space-y-1 text-sm text-slate-700">
+      <ul className="mt-3 space-y-1 text-[15px] leading-normal">
         {zona.motivos.map((m) => (
           <li key={m.codigo}>{m.texto}</li>
         ))}
-        {zona.aviso && <li className="text-slate-500">{zona.aviso}</li>}
+        {zona.aviso && <li className="text-muted">{zona.aviso}</li>}
       </ul>
     </li>
   );
@@ -47,17 +47,23 @@ export default function App() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-slate-50 text-slate-900">
-      <header className="bg-sky-900 px-4 py-4 text-white">
-        <h1 className="text-2xl font-bold">Yaku</h1>
-        <p className="text-sm text-sky-100">Alertas satelitales para el agua del norte jujeño</p>
+    <div className="flex min-h-screen flex-col">
+      <header className="border-b border-line bg-papel px-4 py-3 md:px-6">
+        <div className="flex flex-wrap items-center gap-x-4 gap-y-1">
+          <img src="/brand/yaku-horizontal.svg" alt="Yaku" className="h-8 w-auto" width={105} height={32} />
+          <p className="text-sm text-muted">Alertas satelitales para el agua del norte jujeño</p>
+        </div>
       </header>
-      <main className="mx-auto max-w-3xl p-4">
-        {error && <p className="rounded bg-red-100 p-3 text-red-800">No se pudo cargar el estado de las zonas: {error}</p>}
-        {!estado && !error && <p className="text-slate-500">Cargando…</p>}
+      <main className="mx-auto w-full max-w-3xl flex-1 p-4 md:p-6">
+        {error && (
+          <p className="rounded-xl border-l-4 border-muted bg-bg-2 p-3">
+            No se pudo cargar el estado de las zonas: {error}
+          </p>
+        )}
+        {!estado && !error && <p className="text-muted">Cargando…</p>}
         {estado && (
           <>
-            <p className="mb-3 text-sm text-slate-600">Última actualización de datos: {fechaHora(estado.datosDe)}</p>
+            <p className="mb-3 text-sm text-muted">Última actualización de datos: {fechaHora(estado.datosDe)}</p>
             <ul className="grid gap-3 sm:grid-cols-2">
               {estado.zonas.map((z) => (
                 <TarjetaZona key={z.zonaId} zona={z} />
@@ -66,13 +72,15 @@ export default function App() {
           </>
         )}
       </main>
-      <footer className="mx-auto max-w-3xl px-4 pb-6 text-xs text-slate-500">
-        Yaku da una alerta de riesgo, no una predicción ni una detección confirmada. Datos satelitales y de modelos
-        meteorológicos de{' '}
-        <a className="underline" href="https://open-meteo.com/" target="_blank" rel="noreferrer">
-          Open-Meteo
-        </a>
-        . Umbrales iniciales, sin validar.
+      <footer className="bg-bg-2 px-4 py-5 text-sm text-muted md:px-6">
+        <p className="mx-auto max-w-3xl">
+          Yaku da una alerta de riesgo, no una predicción ni una detección confirmada. Datos satelitales y de modelos
+          meteorológicos de{' '}
+          <a className="text-rio-profundo underline" href="https://open-meteo.com/" target="_blank" rel="noreferrer">
+            Open-Meteo
+          </a>
+          . Umbrales iniciales, sin validar.
+        </p>
       </footer>
     </div>
   );

@@ -1,1 +1,57 @@
 @import 'tailwindcss';
+
+/* Tokens del sistema de diseño. Ver frontend/DESIGN.md. */
+@theme {
+  /* Marca (kit de docs/brand) */
+  --color-terracota: #6E180A;
+  --color-arena: #F9D4AD;
+  --color-rio: #4A98A1;
+  --color-rio-profundo: #1B5564;
+  --color-papel: #FFF7EE;
+  --color-noche: #140D0C;
+
+  /* Neutros de interfaz (modo claro) */
+  --color-bg: #FFF7EE;
+  --color-bg-2: #FBEEDF;
+  --color-card: #FFFFFF;
+  --color-line: #EADBCB;
+  --color-fg: #2A1A16;
+  --color-muted: #7A665E;
+  --color-chip: #F6E6D5;
+
+  /* Semáforo: solo para niveles de riesgo */
+  --color-nivel-verde: #3C5833;
+  --color-nivel-amarillo: #E8B517;
+  --color-nivel-naranja: #EC7120;
+  --color-nivel-rojo: #B32814;
+  --color-nivel-sin-dato: #D9CFC6;
+
+  --font-display: ui-rounded, 'SF Pro Rounded', 'Nunito', 'Varela Round', system-ui, sans-serif;
+  --font-sans: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  --font-mono: ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+
+  --radius-card: 20px;
+  --shadow-card: 0 1px 0 #0000000a, 0 12px 32px -18px #6E180A40;
+  --ease-yaku: cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+  }
+  body {
+    @apply bg-bg font-sans text-fg antialiased;
+  }
+  :focus-visible {
+    @apply outline-2 outline-offset-2 outline-rio-profundo;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
