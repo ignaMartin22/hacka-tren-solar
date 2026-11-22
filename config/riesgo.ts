@@ -12,7 +12,7 @@ export const UMBRALES_ALUDES = {
 };
 
 // Cociente entre la lluvia de los últimos 90 días y el promedio histórico del mismo período.
-// El motor de sequía todavía no está implementado.
+// Si el promedio histórico es menor que promedioMinimoMm no se calcula: "época seca, sin dato".
 export const UMBRALES_SEQUIA = {
   verdeDesde: 0.8,
   amarilloDesde: 0.6,
