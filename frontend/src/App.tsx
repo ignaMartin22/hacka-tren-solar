@@ -1,5 +1,8 @@
 import { useEffect, useState } from 'react';
 import { obtenerEstado, type EstadoZona, type RespuestaEstado } from './api';
+import Encabezado from './componentes/Encabezado';
+import MapaZonas from './componentes/MapaZonas';
+import Pie from './componentes/Pie';
 import { estiloNivel } from './niveles';
 
 const fechaHora = (iso: string | null) =>
@@ -8,7 +11,7 @@ const fechaHora = (iso: string | null) =>
 function BadgeNivel({ zona }: { zona: EstadoZona }) {
   const estilo = estiloNivel(zona.nivel);
   return (
-    <span className={`rounded-full px-3 py-1 text-[13px] font-bold tracking-[0.04em] ${estilo.clase}`}>
+    <span className={`shrink-0 rounded-full px-3 py-1 text-[13px] font-bold tracking-[0.04em] ${estilo.clase}`}>
       {estilo.etiqueta}
     </span>
   );
@@ -18,7 +21,7 @@ function TarjetaZona({ zona }: { zona: EstadoZona }) {
   return (
     <li className="rounded-card border border-line bg-card p-4 shadow-card">
       <div className="flex items-center justify-between gap-3">
-        <div>
+        <div className="min-w-0">
           <h2 className="font-display text-xl font-bold">{zona.nombre}</h2>
           <p className="text-sm text-muted">
             {zona.region} · {zona.amenaza === 'aludes' ? 'Riesgo de aludes' : 'Sequía'}
@@ -47,41 +50,41 @@ export default function App() {
   }, []);
 
   return (
-    <div className="flex min-h-screen flex-col">
-      <header className="border-b border-line bg-papel px-4 py-3 md:px-6">
-        <div className="flex flex-wrap items-center gap-x-4 gap-y-1">
-          <img src="/brand/yaku-horizontal.svg" alt="Yaku" className="h-8 w-auto" width={105} height={32} />
-          <p className="text-sm text-muted">Alertas satelitales para el agua del norte jujeño</p>
-        </div>
-      </header>
-      <main className="mx-auto w-full max-w-3xl flex-1 p-4 md:p-6">
-        {error && (
-          <p className="rounded-xl border-l-4 border-muted bg-bg-2 p-3">
-            No se pudo cargar el estado de las zonas: {error}
-          </p>
-        )}
-        {!estado && !error && <p className="text-muted">Cargando…</p>}
-        {estado && (
-          <>
-            <p className="mb-3 text-sm text-muted">Última actualización de datos: {fechaHora(estado.datosDe)}</p>
-            <ul className="grid gap-3 sm:grid-cols-2">
-              {estado.zonas.map((z) => (
-                <TarjetaZona key={z.zonaId} zona={z} />
-              ))}
-            </ul>
-          </>
-        )}
+    // Mobile first: todo en una columna con scroll de página.
+    // Desde md: alto fijo de pantalla, mapa a la izquierda y panel con scroll propio a la derecha.
+    <div className="flex min-h-dvh flex-col md:h-dvh md:min-h-0">
+      <Encabezado />
+
+      <main className="flex flex-1 flex-col md:min-h-0 md:flex-row">
+        <section aria-label="Mapa de zonas" className="relative h-[45dvh] min-h-64 shrink-0 md:h-auto md:min-w-0 md:flex-1">
+          <MapaZonas zonas={estado?.zonas ?? []} />
+        </section>
+
+        <aside
+          aria-label="Estado de las zonas"
+          className="flex flex-1 flex-col md:w-88 md:flex-none md:overflow-y-auto md:border-l md:border-line lg:w-104 xl:w-120"
+        >
+          <div className="flex-1 p-4 md:p-6">
+            {error && (
+              <p className="rounded-xl border-l-4 border-muted bg-bg-2 p-3">
+                No se pudo cargar el estado de las zonas: {error}
+              </p>
+            )}
+            {!estado && !error && <p className="text-muted">Cargando…</p>}
+            {estado && (
+              <>
+                <p className="mb-3 text-sm text-muted">Actualizado: {fechaHora(estado.datosDe)}</p>
+                <ul className="grid gap-3">
+                  {estado.zonas.map((z) => (
+                    <TarjetaZona key={z.zonaId} zona={z} />
+                  ))}
+                </ul>
+              </>
+            )}
+          </div>
+          <Pie />
+        </aside>
       </main>
-      <footer className="bg-bg-2 px-4 py-5 text-sm text-muted md:px-6">
-        <p className="mx-auto max-w-3xl">
-          Yaku da una alerta de riesgo, no una predicción ni una detección confirmada. Datos satelitales y de modelos
-          meteorológicos de{' '}
-          <a className="text-rio-profundo underline" href="https://open-meteo.com/" target="_blank" rel="noreferrer">
-            Open-Meteo
-          </a>
-          . Umbrales iniciales, sin validar.
-        </p>
-      </footer>
     </div>
   );
 }
