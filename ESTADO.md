@@ -2,7 +2,7 @@
 
 Actualizar este archivo cada vez que se termine algo o cambie el plan. Lo leen las personas que retoman el trabajo.
 
-Última actualización: 22/11/2026 14:10 (hora de Jujuy)
+Última actualización: 22/11/2026 14:18 (hora de Jujuy)
 
 Reparto: el asistente hace el backend (`backend/`, `config/`, `data/`); el resto del equipo, frontend, datos y pitch. La API está documentada en `EQUIPO.md`.
 
@@ -21,6 +21,7 @@ Reparto: el asistente hace el backend (`backend/`, `config/`, `data/`); el resto
 - 23 tests del backend (`pnpm test`).
 
 ## En curso
+- Hecho 22/11/2026 14:18: tendencia, Replay y vista institucional del frontend conectadas a la API real (el backend se adaptó a `frontend/contratos/`). Probado en navegador en local. Todas las ramas están unidas en `main`.
 - Frontend: conectar las pantallas a la API real del backend (hoy usan datos de ejemplo y contratos propuestos en `frontend/contratos/`, que no coinciden del todo con lo que expone el backend). Ver pendiente 5.
 
 ## Pendiente (en orden de prioridad)
@@ -50,6 +51,8 @@ Reparto: el asistente hace el backend (`backend/`, `config/`, `data/`); el resto
 - `npm` no funciona desde Git Bash en esta máquina; `pnpm` sí. La red es lenta.
 
 ## Deploy
+- Frontend en Vercel (pendiente): carpeta `frontend/`, con `VITE_API_URL=https://hacka-tren-solar.onrender.com`, `VITE_TELEGRAM_BOT_URL=https://t.me/yaku_alertas_bot` y `VITE_MOSTRAR_REPLAY`, `VITE_MOSTRAR_SUSCRIPCION`, `VITE_MOSTRAR_INSTITUCIONAL`, `VITE_MOSTRAR_TENDENCIA` en `true`.
+- Para mostrar el rojo en la demo: `pnpm --filter yaku-backend simulacro tilcara rojo` y confirmarlo en la vista institucional.
 - **Backend desplegado: https://hacka-tren-solar.onrender.com** (Render, plan gratis, se duerme sin uso). El repo está conectado como público, así que no se actualiza solo: después de cada push a `main`, Manual Deploy → Deploy latest commit. El bot @yaku_alertas_bot corre ahí con webhook. No levantar el backend en local con el mismo token: desconecta el webhook de producción.
 - Backend en Render: raíz del repo, instalar con `pnpm install`, arrancar con `pnpm --filter yaku-backend start`. Variables: `JOB_SECRET`, `ADMIN_PASSWORD`, `TELEGRAM_BOT_TOKEN`, `FRONTEND_ORIGIN`.
 - Cron externo (cron-job.org o GitHub Actions): `POST /api/jobs/run` con el header `x-job-secret`, cada 3 horas.

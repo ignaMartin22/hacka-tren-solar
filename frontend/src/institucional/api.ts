@@ -4,7 +4,7 @@
 import type { Nivel } from '../../../config/riesgo';
 import { AVISOS_EJEMPLO } from '../mocks/institucional';
 
-export const INSTITUCIONAL_DISPONIBLE = false;
+export const INSTITUCIONAL_DISPONIBLE = true;
 
 export type EstadoAviso = 'enviado' | 'pendiente-confirmacion';
 

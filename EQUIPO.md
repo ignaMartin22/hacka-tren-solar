@@ -37,6 +37,16 @@ Stack: React + Vite + TypeScript + Tailwind + Leaflet. La base está en `fronten
 
 Los tipos están en `backend/src/tipos.ts` (`EstadoZona`, `TendenciaDia`, `Aviso`) y `config/riesgo.ts` (`Nivel`). Importarlos con `import type`, no copiarlos.
 
+### Cambios de API del 22/11/2026 14:18 (mandan sobre las tablas de abajo)
+
+El backend quedó adaptado a los contratos de `frontend/contratos/`, y el frontend ya los usa (`*_DISPONIBLE = true`):
+
+- `GET /api/estado/:zonaId/tendencia` → `TendenciaZona`. El nivel de cada día es el más alto que alcanzó. 404 en zonas de sequía.
+- `GET /api/replay` → `{ eventos: [...] }` y `GET /api/replay/:id` → `EventoReplay` (días con sus zonas). Cada zona trae además `lluviaMm`, `desdeHora` y `nivelSoloObservado`.
+- `POST /api/login` → `{ token }`. `GET /api/avisos` (con token) → `{ avisos: [...] }`. `POST /api/avisos/:id/confirmar` (con token) → `{ aviso }`.
+- `GET /api/avisos` ya no es público. `POST /api/admin/simulacros` devuelve `{ aviso }`.
+- Para crear un simulacro en la demo: `pnpm --filter yaku-backend simulacro <zonaId> <naranja|rojo>`.
+
 ### Endpoints públicos
 
 | Método y ruta | Devuelve |

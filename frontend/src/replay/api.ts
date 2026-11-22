@@ -3,7 +3,7 @@
 import type { EventoReplay, IndiceReplay } from './tipos';
 
 // false = el backend todavía no sirve /api/replay. Pasarlo a true cuando exista.
-export const REPLAY_DISPONIBLE = false;
+export const REPLAY_DISPONIBLE = true;
 
 const BASE = import.meta.env.VITE_API_URL ?? '';
 
