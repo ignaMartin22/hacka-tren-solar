@@ -17,7 +17,7 @@ Actualizar este archivo cada vez que se termine algo o cambie el plan. Lo leen l
 - Frontend base (`frontend/`): Vite + React + Tailwind. Muestra la lista de zonas con nivel, motivos y hora de actualización leyendo `/api/estado`. Probado en navegador con datos reales; `pnpm build` pasa. Leaflet ya está instalado pero todavía no se usa.
 
 ## En curso
-- (nada: el equipo sigue con el frontend y el pitch; ver EQUIPO.md)
+- Frontend: lo toma el equipo en la rama `feat/frontend` (mapa, ficha, lista, leyenda). Sistema de diseño basado en el logo en `frontend/DESIGN.md`. No tocar `frontend/` desde el backend.
 
 ## Pendiente (en orden de prioridad)
 1. Mapa con Leaflet y ficha de zona (tendencia de 7 días: la serie horaria ya se guarda, falta calcularla y exponerla)

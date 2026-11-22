@@ -97,7 +97,7 @@ Los tipos ya están escritos: `EstadoZona` en `backend/src/tipos.ts` y `Nivel` e
 
 ### Para no pisarnos
 
-El asistente sigue en `backend/`, `config/` y `data/`. Si el equipo toma `frontend/`, avisen y no se toca desde acá. Commits chicos y `git pull` antes de cada push. Los endpoints que falten (tendencia de 7 días, Replay, suscripción) se anotan en este archivo cuando existan.
+El asistente sigue en `backend/`, `config/` y `data/`. **`frontend/` lo tomó el equipo (desde el 22/11/2026) en la rama `feat/frontend`: no se toca desde acá.** El sistema de diseño está en `frontend/DESIGN.md`. Commits chicos y `git pull` antes de cada push. Los endpoints que falten (tendencia de 7 días, Replay, suscripción) se anotan en este archivo cuando existan.
 
 ---
 
