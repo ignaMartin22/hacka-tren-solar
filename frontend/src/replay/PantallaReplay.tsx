@@ -1,8 +1,8 @@
 // Pantalla del Modo Replay (CONTEXT.md, sección 7): reproduce día por día cómo
-// subía el semáforo antes de un evento. Se prueba con /replay-demo.html.
-// No usa Leaflet ni componentes de otras pantallas: el badge sale de src/niveles.ts.
+// subía el semáforo antes de un evento. Se monta desde App con la ruta #/replay.
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { NIVELES, type Nivel } from '../../../config/riesgo';
+import BadgeNivel from '../componentes/BadgeNivel';
 import { estiloNivel } from '../niveles';
 import type { DiaReplay, EventoReplay, ZonaDiaReplay } from './tipos';
 
@@ -21,15 +21,6 @@ function peorNivelDelDia(dia: DiaReplay): Nivel | null {
     if (z.nivel !== null && (peor === null || NIVELES.indexOf(z.nivel) > NIVELES.indexOf(peor))) peor = z.nivel;
   }
   return peor;
-}
-
-function BadgeNivel({ nivel }: { nivel: Nivel | null }) {
-  const estilo = estiloNivel(nivel);
-  return (
-    <span className={`shrink-0 rounded-full px-3 py-1 text-[13px] font-bold tracking-[0.04em] ${estilo.clase}`}>
-      {estilo.etiqueta}
-    </span>
-  );
 }
 
 function TarjetaZonaDia({ zona }: { zona: ZonaDiaReplay }) {
@@ -84,7 +75,17 @@ export default function PantallaReplay({ evento, deEjemplo }: { evento: EventoRe
   useEffect(() => {
     const alTeclear = (e: KeyboardEvent) => {
       const t = e.target as HTMLElement | null;
-      if (t && (t.tagName === 'INPUT' || t.tagName === 'TEXTAREA' || t.tagName === 'SELECT' || t.isContentEditable)) return;
+      // En botones/enlaces la barra espaciadora ya activa el control: no duplicar.
+      if (
+        t &&
+        (t.tagName === 'INPUT' ||
+          t.tagName === 'TEXTAREA' ||
+          t.tagName === 'SELECT' ||
+          t.tagName === 'BUTTON' ||
+          t.tagName === 'A' ||
+          t.isContentEditable)
+      )
+        return;
       if (e.key === 'ArrowLeft') {
         e.preventDefault();
         setReproduciendo(false);
@@ -226,6 +227,8 @@ export default function PantallaReplay({ evento, deEjemplo }: { evento: EventoRe
           <span className="text-sm text-muted">
             día {indice + 1} de {dias.length}
           </span>
+          {/* El color nunca va solo: el peor nivel del día también en palabra. */}
+          <BadgeNivel nivel={peorNivelDelDia(dia)} />
         </div>
         <ul className="mt-4 grid gap-3 sm:grid-cols-2">
           {dia.zonas.map((z) => (

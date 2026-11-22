@@ -1,9 +1,7 @@
 import { useEffect, useRef, useState, type FormEvent } from 'react';
 import type { EstadoZona } from '../api';
 import { obtenerEstado } from '../api';
-import Encabezado from '../componentes/Encabezado';
-import Pie from '../componentes/Pie';
-import { estiloNivel } from '../niveles';
+import BadgeNivel from '../componentes/BadgeNivel';
 import {
   INSTITUCIONAL_DISPONIBLE,
   borrarToken,
@@ -19,15 +17,6 @@ const fechaHora = (iso: string | null) =>
   iso ? new Date(iso).toLocaleString('es-AR', { dateStyle: 'short', timeStyle: 'short' }) : 'sin datos';
 
 const numero = (n: number | null, decimales = 1) => (n === null ? '—' : n.toFixed(decimales));
-
-function BadgeNivel({ nivel }: { nivel: EstadoZona['nivel'] }) {
-  const estilo = estiloNivel(nivel);
-  return (
-    <span className={`inline-block rounded-full px-3 py-1 text-[13px] font-bold tracking-[0.04em] ${estilo.clase}`}>
-      {estilo.etiqueta}
-    </span>
-  );
-}
 
 function Login({ onEntrar }: { onEntrar: (token: string) => void }) {
   const [clave, setClave] = useState('');
@@ -218,11 +207,8 @@ export default function PantallaInstitucional() {
   };
 
   return (
-    <div className="flex min-h-dvh flex-col">
-      <Encabezado />
-
-      <main className="flex-1 px-4 py-6 md:px-6">
-        {!token && <Login onEntrar={setToken} />}
+    <div className="px-4 py-6 md:px-6">
+      {!token && <Login onEntrar={setToken} />}
 
         {token && (
           <div className="mx-auto max-w-5xl">
@@ -303,10 +289,6 @@ export default function PantallaInstitucional() {
             </section>
           </div>
         )}
-      </main>
-
-      <Pie />
-
       <dialog
         ref={dialogRef}
         onClose={() => setAvisoAConfirmar(null)}

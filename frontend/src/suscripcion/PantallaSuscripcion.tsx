@@ -1,7 +1,5 @@
 import { useEffect, useState } from 'react';
 import type { Zona } from '../../../config/zonas';
-import Encabezado from '../componentes/Encabezado';
-import Pie from '../componentes/Pie';
 
 // Lee la URL base del bot de Telegram (por ejemplo https://t.me/YakuBot).
 // Devuelve null cuando todavía no está configurada: sin bot no hay suscripción.
@@ -33,11 +31,8 @@ export default function PantallaSuscripcion({ enlaceBot }: { enlaceBot: string |
   }, []);
 
   return (
-    <div className="flex min-h-dvh flex-col">
-      <Encabezado />
-
-      <main className="flex-1 px-4 py-6 md:px-6">
-        <div className="mx-auto max-w-md">
+    <div className="px-4 py-6 md:px-6">
+      <div className="mx-auto max-w-md">
           <h1 className="font-display text-2xl font-bold text-terracota">Recibí avisos en tu celular</h1>
           <p className="mt-2 text-base leading-normal">
             Los avisos llegan por Telegram. El NARANJA se envía automático; el ROJO solo cuando lo confirma una
@@ -101,9 +96,6 @@ export default function PantallaSuscripcion({ enlaceBot }: { enlaceBot: string |
             )}
           </form>
         </div>
-      </main>
-
-      <Pie />
     </div>
   );
 }

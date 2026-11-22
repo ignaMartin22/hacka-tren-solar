@@ -77,12 +77,12 @@ export default function GraficoTendencia({
 
       <svg viewBox={`0 0 ${W} ${H}`} width="100%" role="img" aria-label={`${resumen} ${detalle}.`} className="mt-2 block h-auto w-full">
         {/* Eje de lluvia */}
-        <line x1={IZQ} x2={W - DER} y1={TOP} y2={TOP} stroke="#EADBCB" strokeDasharray="3 3" />
-        <line x1={IZQ} x2={W - DER} y1={BASE_Y} y2={BASE_Y} stroke="#7A665E" strokeWidth="1" />
-        <text x={IZQ - 4} y={TOP + 4} textAnchor="end" fontSize="12" fill="#7A665E">
+        <line x1={IZQ} x2={W - DER} y1={TOP} y2={TOP} stroke="var(--color-line)" strokeDasharray="3 3" />
+        <line x1={IZQ} x2={W - DER} y1={BASE_Y} y2={BASE_Y} stroke="var(--color-muted)" strokeWidth="1" />
+        <text x={IZQ - 4} y={TOP + 4} textAnchor="end" fontSize="12" fill="var(--color-muted)">
           {tope} mm
         </text>
-        <text x={IZQ - 4} y={BASE_Y + 4} textAnchor="end" fontSize="12" fill="#7A665E">
+        <text x={IZQ - 4} y={BASE_Y + 4} textAnchor="end" fontSize="12" fill="var(--color-muted)">
           0
         </text>
 
@@ -95,13 +95,13 @@ export default function GraficoTendencia({
             <g key={d.fecha}>
               {d.lluviaMm > 0 && (
                 <>
-                  <rect x={cx(i) - ancho / 2} y={yLluvia(d.lluviaMm)} width={ancho} height={Math.max(h, 1)} rx="3" fill="#1B5564" />
-                  <text x={cx(i)} y={yLluvia(d.lluviaMm) - 4} textAnchor="middle" fontSize="12" fontWeight="700" fill="#2A1A16">
+                  <rect x={cx(i) - ancho / 2} y={yLluvia(d.lluviaMm)} width={ancho} height={Math.max(h, 1)} rx="3" fill="var(--color-rio-profundo)" />
+                  <text x={cx(i)} y={yLluvia(d.lluviaMm) - 4} textAnchor="middle" fontSize="12" fontWeight="700" fill="var(--color-fg)">
                     {mm(d.lluviaMm)}
                   </text>
                 </>
               )}
-              <text x={cx(i)} y={BASE_Y + 20} textAnchor="middle" fontSize="12" fill="#2A1A16">
+              <text x={cx(i)} y={BASE_Y + 20} textAnchor="middle" fontSize="12" fill="var(--color-fg)">
                 {etiquetaDia(d.fecha)}
               </text>
               <rect
@@ -111,7 +111,7 @@ export default function GraficoTendencia({
                 height="20"
                 rx="10"
                 fill={est.fondo}
-                stroke={d.nivel ? 'none' : '#7A665E'}
+                stroke={d.nivel ? 'none' : 'var(--color-muted)'}
                 strokeDasharray={d.nivel ? undefined : '3 2'}
               />
               <text x={cx(i)} y={BASE_Y + 42} textAnchor="middle" fontSize="12" fontWeight="700" fill={est.texto}>
@@ -124,24 +124,24 @@ export default function GraficoTendencia({
 
         {/* Línea de humedad del suelo */}
         {tramos.map((t) => (
-          <path key={t} d={t} fill="none" stroke="#4A98A1" strokeWidth="2.5" strokeLinejoin="round" />
+          <path key={t} d={t} fill="none" stroke="var(--color-rio)" strokeWidth="2.5" strokeLinejoin="round" />
         ))}
         {dias.map(
           (d, i) =>
             d.sueloMedio !== null && (
-              <circle key={d.fecha} cx={cx(i)} cy={ySuelo(d.sueloMedio)} r="3.5" fill="#4A98A1" stroke="#FFFFFF" strokeWidth="1.5" />
+              <circle key={d.fecha} cx={cx(i)} cy={ySuelo(d.sueloMedio)} r="3.5" fill="var(--color-rio)" stroke="var(--color-card)" strokeWidth="1.5" />
             ),
         )}
 
         {/* Leyenda */}
-        <rect x={IZQ} y={H - 18} width="12" height="12" rx="2" fill="#1B5564" />
-        <text x={IZQ + 17} y={H - 8} fontSize="12" fill="#2A1A16">
+        <rect x={IZQ} y={H - 18} width="12" height="12" rx="2" fill="var(--color-rio-profundo)" />
+        <text x={IZQ + 17} y={H - 8} fontSize="12" fill="var(--color-fg)">
           Lluvia (mm)
         </text>
         {hayAlgunSuelo && (
           <>
-            <line x1={IZQ + 100} x2={IZQ + 118} y1={H - 12} y2={H - 12} stroke="#4A98A1" strokeWidth="2.5" />
-            <text x={IZQ + 123} y={H - 8} fontSize="12" fill="#2A1A16">
+            <line x1={IZQ + 100} x2={IZQ + 118} y1={H - 12} y2={H - 12} stroke="var(--color-rio)" strokeWidth="2.5" />
+            <text x={IZQ + 123} y={H - 8} fontSize="12" fill="var(--color-fg)">
               Humedad del suelo
             </text>
           </>
