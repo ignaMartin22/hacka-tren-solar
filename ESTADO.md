@@ -2,7 +2,7 @@
 
 Actualizar este archivo cada vez que se termine algo o cambie el plan. Lo leen las personas que retoman el trabajo.
 
-Última actualización: 22/11/2026 11:37 (hora de Jujuy)
+Última actualización: 22/11/2026 13:38 (hora de Jujuy)
 
 ## Hecho
 - Estructura del repo: workspace pnpm con `backend/`, `frontend/`, `config/` y `data/replay/`. Todo en TypeScript.
@@ -14,17 +14,17 @@ Actualizar este archivo cada vez que se termine algo o cambie el plan. Lo leen l
 - Endpoints: `GET /api/estado`, `GET /api/estado/:zonaId`, `GET /api/zonas`, `GET /api/salud` y `POST /api/jobs/run` (header `x-job-secret`).
 - El backend actualiza al arrancar y cada 3 horas. Si Open-Meteo falla, sigue con las últimas lecturas guardadas.
 - Probado con datos reales de hoy: las 6 zonas de la Quebrada dan verde (casi sin lluvia).
-- Frontend base (`frontend/`): Vite + React + Tailwind. Muestra la lista de zonas con nivel, motivos y hora de actualización leyendo `/api/estado`. Probado en navegador con datos reales; `pnpm build` pasa. Leaflet ya está instalado pero todavía no se usa.
+- Frontend (`frontend/`): Vite + React + Tailwind + Leaflet, todo integrado en `feat/frontend`. Pantalla principal con mapa (marcadores por nivel, selector de capa satelital NASA GIBS), ficha con "por qué" + gráfico de tendencia, lista, leyenda, esqueletos de carga, banner de datos viejos y refresco automático. Hash routing: `#/` (principal), `#/replay`, `#/suscribirse`, `#/institucional`. Las pantallas con datos de ejemplo van tras flags `VITE_MOSTRAR_*` (prendidas en dev, apagadas en producción; ver `frontend/.env.example` y `frontend/src/funciones.ts`). Auditoría en `frontend/AUDITORIA.md`; contratos propuestos al backend en `frontend/contratos/`. `pnpm build` y `pnpm typecheck` en verde; probado a 360/768/1280 px con datos reales.
 
 ## En curso
-- Frontend: lo toma el equipo en la rama `feat/frontend` (mapa, ficha, lista, leyenda). Sistema de diseño basado en el logo en `frontend/DESIGN.md`. No tocar `frontend/` desde el backend.
+- Frontend: integrado en `feat/frontend`; quedan menores anotados en `frontend/AUDITORIA.md`. Lo que falta del lado del backend: los endpoints propuestos en `frontend/contratos/` (tendencia de 7 días, replay, avisos/suscripción, login institucional). Sistema de diseño en `frontend/DESIGN.md`. No tocar `frontend/` desde el backend.
 
 ## Pendiente (en orden de prioridad)
-1. Mapa con Leaflet y ficha de zona (tendencia de 7 días: la serie horaria ya se guarda, falta calcularla y exponerla)
+1. Tendencia de 7 días en el backend: la serie horaria ya se guarda, falta calcularla y exponerla (`GET /api/estado/:zonaId/tendencia`, contrato en `frontend/contratos/tendencia.md`; el frontend ya la muestra con datos de ejemplo marcados)
 2. Base de datos: Postgres (Neon) con Prisma. Hoy las lecturas van a memoria y a `backend/.datos/lecturas.json` (fuera del repo). Falta `DATABASE_URL`.
-3. Bot de Telegram y vista institucional (falta `TELEGRAM_BOT_TOKEN`)
-4. Modo Replay (verificar antes fechas y datos de los eventos)
-5. Sequía y capa satelital de GIBS (verificar el identificador de capa en el GetCapabilities)
+3. Bot de Telegram y vista institucional (falta `TELEGRAM_BOT_TOKEN`; el frontend ya tiene ambas pantallas, contratos en `frontend/contratos/suscripcion.md` e `institucional.md`)
+4. Modo Replay (verificar antes fechas y datos de los eventos; el frontend ya tiene la pantalla con un evento de ejemplo marcado, contrato en `frontend/contratos/replay.md`)
+5. Sequía (la capa satelital GIBS ya está en el mapa, con identificadores verificados: `frontend/contratos/gibs.md`)
 6. Deploy y README final
 
 ## Datos verificados y sin verificar
