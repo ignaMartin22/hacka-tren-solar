@@ -5,6 +5,7 @@ import { ACTUALIZACION } from '../../config/riesgo';
 import { ZONAS } from '../../config/zonas';
 import { crearRouterAdmin } from './admin';
 import { historial } from './avisos/servicio';
+import { crearRouterReplay } from './replay';
 import { almacen, cargarAlmacen } from './servicios/almacen';
 import { actualizar, obtenerEstados, recalcular } from './servicios/estado';
 import { infoBot, iniciarBot } from './telegram/arranque';
@@ -50,6 +51,9 @@ app.get('/api/avisos', (_req, res) => {
 app.get('/api/bot', (_req, res) => {
   res.json(infoBot());
 });
+
+// Modo Replay: eventos pasados precalculados.
+app.use('/api/replay', await crearRouterReplay());
 
 app.use('/api/admin', crearRouterAdmin(process.env.ADMIN_PASSWORD ?? ''));
 

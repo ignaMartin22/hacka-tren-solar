@@ -6,3 +6,6 @@ export const fechaLocal = (segundosUnix: number): string => new Date((segundosUn
 
 // Instante (segundos Unix) de una fecha y hora local de Jujuy.
 export const instanteLocal = (fecha: string, hora = 0): number => Date.parse(`${fecha}T00:00:00Z`) / 1000 - DESFASE_SEGUNDOS + hora * 3600;
+
+// Hora local de Jujuy (HH:MM) para un instante en segundos Unix.
+export const horaLocal = (segundosUnix: number): string => new Date((segundosUnix + DESFASE_SEGUNDOS) * 1000).toISOString().slice(11, 16);
