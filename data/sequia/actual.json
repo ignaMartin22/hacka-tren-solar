@@ -1,0 +1,258 @@
+{
+  "generadoEn": "2026-11-22T14:54:24.559Z",
+  "fuente": "Open-Meteo, reanálisis histórico ERA5 (datos satelitales y de modelos meteorológicos)",
+  "precalculado": true,
+  "umbrales": {
+    "verdeDesde": 0.8,
+    "amarilloDesde": 0.6,
+    "naranjaDesde": 0.4,
+    "diasVentana": 90,
+    "promedioMinimoMm": 20
+  },
+  "notas": [
+    "Umbrales iniciales, sin validar científicamente.",
+    "nivel = null significa \"época seca, sin dato\"."
+  ],
+  "zonas": [
+    {
+      "zonaId": "abra-pampa",
+      "nombre": "Abra Pampa",
+      "celda": {
+        "lat": -22.741652,
+        "lon": -65.74402,
+        "elevacionM": 3483
+      },
+      "nivel": "amarillo",
+      "motivos": [
+        {
+          "codigo": "lluvia_90d",
+          "texto": "Llovieron 34 mm en los últimos 90 días; lo normal para esta época son 56 mm (promedio 1991-2020). Es solo el 60 % de lo normal."
+        }
+      ],
+      "variables": {
+        "lluvia90dMm": 33.6,
+        "promedio90dMm": 55.8,
+        "hasta": "2026-11-22",
+        "cociente": 0.6
+      },
+      "mensual": [
+        {
+          "fecha": "2025-11-30",
+          "nivel": "verde",
+          "lluvia90dMm": 65.3,
+          "promedio90dMm": 66.5,
+          "hasta": "2025-11-30",
+          "cociente": 0.98
+        },
+        {
+          "fecha": "2025-12-31",
+          "nivel": "verde",
+          "lluvia90dMm": 183.4,
+          "promedio90dMm": 133.4,
+          "hasta": "2025-12-31",
+          "cociente": 1.37
+        },
+        {
+          "fecha": "2026-01-31",
+          "nivel": "verde",
+          "lluvia90dMm": 290.7,
+          "promedio90dMm": 228.5,
+          "hasta": "2026-01-31",
+          "cociente": 1.27
+        },
+        {
+          "fecha": "2026-02-28",
+          "nivel": "verde",
+          "lluvia90dMm": 315.8,
+          "promedio90dMm": 286.7,
+          "hasta": "2026-02-28",
+          "cociente": 1.1
+        },
+        {
+          "fecha": "2026-03-31",
+          "nivel": "verde",
+          "lluvia90dMm": 249.1,
+          "promedio90dMm": 269.9,
+          "hasta": "2026-03-31",
+          "cociente": 0.92
+        },
+        {
+          "fecha": "2026-04-30",
+          "nivel": "verde",
+          "lluvia90dMm": 144.2,
+          "promedio90dMm": 172.3,
+          "hasta": "2026-04-30",
+          "cociente": 0.84
+        },
+        {
+          "fecha": "2026-05-31",
+          "nivel": "verde",
+          "lluvia90dMm": 86.8,
+          "promedio90dMm": 72.5,
+          "hasta": "2026-05-31",
+          "cociente": 1.2
+        },
+        {
+          "fecha": "2026-06-30",
+          "nivel": null,
+          "lluvia90dMm": 16.7,
+          "promedio90dMm": 15.6,
+          "hasta": "2026-06-30",
+          "cociente": null
+        },
+        {
+          "fecha": "2026-07-31",
+          "nivel": null,
+          "lluvia90dMm": 0.2,
+          "promedio90dMm": 1.6,
+          "hasta": "2026-07-31",
+          "cociente": null
+        },
+        {
+          "fecha": "2026-08-31",
+          "nivel": null,
+          "lluvia90dMm": 12.5,
+          "promedio90dMm": 2.7,
+          "hasta": "2026-08-31",
+          "cociente": null
+        },
+        {
+          "fecha": "2026-09-30",
+          "nivel": null,
+          "lluvia90dMm": 25.1,
+          "promedio90dMm": 11.1,
+          "hasta": "2026-09-30",
+          "cociente": null
+        },
+        {
+          "fecha": "2026-10-31",
+          "nivel": "verde",
+          "lluvia90dMm": 27.4,
+          "promedio90dMm": 33.6,
+          "hasta": "2026-10-31",
+          "cociente": 0.82
+        }
+      ]
+    },
+    {
+      "zonaId": "susques",
+      "nombre": "Susques",
+      "celda": {
+        "lat": -23.374342,
+        "lon": -66.36554,
+        "elevacionM": 3608
+      },
+      "nivel": null,
+      "motivos": [
+        {
+          "codigo": "epoca_seca",
+          "texto": "Época seca, sin dato: en estos 90 días normalmente llueven solo 19 mm, muy poco para comparar (mínimo: 20 mm)."
+        }
+      ],
+      "variables": {
+        "lluvia90dMm": 16.3,
+        "promedio90dMm": 19.2,
+        "hasta": "2026-11-22",
+        "cociente": null
+      },
+      "mensual": [
+        {
+          "fecha": "2025-11-30",
+          "nivel": "rojo",
+          "lluvia90dMm": 7.9,
+          "promedio90dMm": 23.4,
+          "hasta": "2025-11-30",
+          "cociente": 0.34
+        },
+        {
+          "fecha": "2025-12-31",
+          "nivel": "verde",
+          "lluvia90dMm": 106.7,
+          "promedio90dMm": 75,
+          "hasta": "2025-12-31",
+          "cociente": 1.42
+        },
+        {
+          "fecha": "2026-01-31",
+          "nivel": "verde",
+          "lluvia90dMm": 193,
+          "promedio90dMm": 172.9,
+          "hasta": "2026-01-31",
+          "cociente": 1.12
+        },
+        {
+          "fecha": "2026-02-28",
+          "nivel": "verde",
+          "lluvia90dMm": 224.4,
+          "promedio90dMm": 234.8,
+          "hasta": "2026-02-28",
+          "cociente": 0.96
+        },
+        {
+          "fecha": "2026-03-31",
+          "nivel": "amarillo",
+          "lluvia90dMm": 154.3,
+          "promedio90dMm": 216.8,
+          "hasta": "2026-03-31",
+          "cociente": 0.71
+        },
+        {
+          "fecha": "2026-04-30",
+          "nivel": "naranja",
+          "lluvia90dMm": 73.8,
+          "promedio90dMm": 125.2,
+          "hasta": "2026-04-30",
+          "cociente": 0.59
+        },
+        {
+          "fecha": "2026-05-31",
+          "nivel": "amarillo",
+          "lluvia90dMm": 35.1,
+          "promedio90dMm": 44,
+          "hasta": "2026-05-31",
+          "cociente": 0.8
+        },
+        {
+          "fecha": "2026-06-30",
+          "nivel": null,
+          "lluvia90dMm": 1.1,
+          "promedio90dMm": 6.4,
+          "hasta": "2026-06-30",
+          "cociente": null
+        },
+        {
+          "fecha": "2026-07-31",
+          "nivel": null,
+          "lluvia90dMm": 0.1,
+          "promedio90dMm": 1,
+          "hasta": "2026-07-31",
+          "cociente": null
+        },
+        {
+          "fecha": "2026-08-31",
+          "nivel": null,
+          "lluvia90dMm": 6.4,
+          "promedio90dMm": 1.2,
+          "hasta": "2026-08-31",
+          "cociente": null
+        },
+        {
+          "fecha": "2026-09-30",
+          "nivel": null,
+          "lluvia90dMm": 10.1,
+          "promedio90dMm": 4.3,
+          "hasta": "2026-09-30",
+          "cociente": null
+        },
+        {
+          "fecha": "2026-10-31",
+          "nivel": null,
+          "lluvia90dMm": 11.4,
+          "promedio90dMm": 12,
+          "hasta": "2026-10-31",
+          "cociente": null
+        }
+      ]
+    }
+  ]
+}
