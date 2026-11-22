@@ -27,3 +27,8 @@ export const ACTUALIZACION = {
   diasPasados: 10,
   diasPronostico: 3,
 };
+
+export const AVISOS = {
+  // Máximo un aviso por zona y por nivel dentro de esta cantidad de horas.
+  horasEntreAvisosDelMismoNivel: 6,
+};

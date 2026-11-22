@@ -66,3 +66,35 @@ export interface EstadoZona {
   // Momento en que se calculó el nivel.
   calculadoEn: string | null;
 }
+
+export interface Suscriptor {
+  // Chat de Telegram que recibe los avisos.
+  chatId: number;
+  zonaId: string;
+  creadoEn: string;
+}
+
+// Qué pasó con el aviso a los vecinos suscriptos:
+// - no_corresponde: ese nivel no se envía a vecinos (amarillo) o no había alerta previa que cerrar.
+// - pendiente_confirmacion: rojo a la espera de que una persona responsable lo confirme.
+// - enviado: salió por Telegram a `destinatarios` personas.
+// - vencido: el nivel bajó antes de que alguien confirmara.
+// - sin_canal: correspondía enviarlo pero el bot de Telegram no está configurado.
+export type EnvioVecinos = 'no_corresponde' | 'pendiente_confirmacion' | 'enviado' | 'vencido' | 'sin_canal';
+
+export interface Aviso {
+  id: string;
+  zonaId: string;
+  zonaNombre: string;
+  tipo: 'alerta' | 'fin_alerta';
+  nivel: Nivel;
+  // true si lo generó una persona desde el panel para probar, no el motor de riesgo.
+  simulacro: boolean;
+  texto: string;
+  motivos: Motivo[];
+  creadoEn: string;
+  envioVecinos: EnvioVecinos;
+  enviadoEn: string | null;
+  // Personas a las que se les entregó el mensaje.
+  destinatarios: number;
+}

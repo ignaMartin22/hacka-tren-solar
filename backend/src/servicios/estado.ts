@@ -2,7 +2,8 @@ import { ZONAS, type Zona } from '../../../config/zonas';
 import { calcularAludes } from '../riesgo/aludes';
 import { calcularTendencia } from '../riesgo/tendencia';
 import type { EstadoZona, Lectura } from '../tipos';
-import { guardarLecturas, obtenerLecturas } from './almacen';
+import { procesarAvisos } from '../avisos/servicio';
+import { almacen, persistir } from './almacen';
 import { consultarPronostico } from './openMeteo';
 
 let estados: EstadoZona[] = [];
@@ -38,23 +39,24 @@ function estadoDeZona(zona: Zona, lectura: Lectura | undefined, ahora: Date): Es
 
 // Recalcula el semáforo de todas las zonas con las lecturas que haya en el almacén.
 export function recalcular(ahora = new Date()): EstadoZona[] {
-  const lecturas = new Map(obtenerLecturas().map((l) => [l.zonaId, l]));
+  const lecturas = new Map(almacen.lecturas.map((l) => [l.zonaId, l]));
   estados = ZONAS.map((zona) => estadoDeZona(zona, lecturas.get(zona.id), ahora));
   calculadoEn = ahora.toISOString();
   return estados;
 }
 
-// Baja los datos de Open-Meteo para todas las zonas, los guarda y recalcula.
+// Baja los datos de Open-Meteo para todas las zonas, los guarda, recalcula y genera los avisos que correspondan.
 // Si Open-Meteo falla, se sigue con las últimas lecturas guardadas y queda registrado el error.
 export async function actualizar(): Promise<{ ok: boolean; error: string | null }> {
   try {
-    await guardarLecturas(await consultarPronostico(ZONAS));
+    almacen.lecturas = await consultarPronostico(ZONAS);
+    await persistir('lecturas');
     ultimoError = null;
   } catch (e) {
     ultimoError = e instanceof Error ? e.message : String(e);
     console.error('No se pudo actualizar desde Open-Meteo:', ultimoError);
   }
-  recalcular();
+  await procesarAvisos(recalcular());
   return { ok: ultimoError === null, error: ultimoError };
 }
 
