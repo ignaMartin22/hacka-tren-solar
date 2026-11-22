@@ -14,5 +14,6 @@ Todo el código de este repositorio se escribe durante el hackathon. Dengue Cent
 
 ## Documentación
 
+- `EQUIPO.md`: guía rápida para el equipo (API para el frontend y notas para el pitch).
 - `CONTEXT.md`: descripción completa del sistema y reglas de trabajo.
 - `ESTADO.md`: estado actual del desarrollo.
