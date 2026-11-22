@@ -10,18 +10,21 @@
     "replay": "tsx src/scripts/generarReplay.ts",
     "climatologia": "tsx src/scripts/generarClimatologia.ts",
     "respaldo": "tsx src/scripts/generarRespaldo.ts",
-    "simulacro": "tsx src/scripts/simulacro.ts"
+    "simulacro": "tsx src/scripts/simulacro.ts",
+    "sincronizar": "tsx src/scripts/sincronizar.ts"
   },
   "dependencies": {
     "cors": "^2.8.6",
     "express": "^5.3.0",
     "grammy": "^1.46.0",
+    "pg": "^8.23.1",
     "tsx": "^4.23.15"
   },
   "devDependencies": {
     "@types/cors": "^2.8.19",
     "@types/express": "^5.0.6",
     "@types/node": "^22.20.5",
+    "@types/pg": "^8.23.1",
     "typescript": "^7.0.2"
   }
 }

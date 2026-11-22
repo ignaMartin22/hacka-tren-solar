@@ -75,7 +75,7 @@ app.post('/api/jobs/run', async (req, res) => {
   res.json(await actualizar());
 });
 
-await cargarAlmacen();
+console.log(`Almacén: ${await cargarAlmacen()}.`);
 const respaldo = await cargarRespaldo();
 if (respaldo) console.log(`Lecturas de respaldo del repo cargadas (datos de ${respaldo}).`);
 if (almacen.lecturas.length > 0) recalcular();

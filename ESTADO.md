@@ -2,7 +2,7 @@
 
 Actualizar este archivo cada vez que se termine algo o cambie el plan. Lo leen las personas que retoman el trabajo.
 
-Última actualización: 22/11/2026 14:18 (hora de Jujuy)
+Última actualización: 22/11/2026 16:22 (hora de Jujuy)
 
 Reparto: el asistente hace el backend (`backend/`, `config/`, `data/`); el resto del equipo, frontend, datos y pitch. La API está documentada en `EQUIPO.md`.
 
@@ -21,13 +21,14 @@ Reparto: el asistente hace el backend (`backend/`, `config/`, `data/`); el resto
 - 23 tests del backend (`pnpm test`).
 
 ## En curso
+- Hecho 22/11/2026 16:22: base de datos en Postgres (Neon, región São Paulo) con el conector `pg`. Se eligió `pg` en lugar de Prisma (decisión del equipo durante el hackathon: descarga chica y sin pasos extra en el build). Tablas `suscriptores`, `avisos`, `niveles`, `lecturas` y `sequia`, que se crean solas al arrancar (`backend/src/servicios/base.ts`). Sin `DATABASE_URL` sigue guardando en archivos. Probado contra Neon desde una máquina del equipo; falta verlo andando en Render.
+- `pnpm --filter yaku-backend sincronizar`: baja las lecturas de Open-Meteo desde una máquina del equipo y las sube a la base. El backend de Render las toma en su próxima actualización (cada 3 horas, al reiniciar o con `POST /api/jobs/run`). Reemplaza al respaldo en el repo como forma de renovar datos sin redeploy.
 - Hecho 22/11/2026 14:18: tendencia, Replay y vista institucional del frontend conectadas a la API real (el backend se adaptó a `frontend/contratos/`). Probado en navegador en local. Todas las ramas están unidas en `main`.
 - Frontend: conectar las pantallas a la API real del backend (hoy usan datos de ejemplo y contratos propuestos en `frontend/contratos/`, que no coinciden del todo con lo que expone el backend). Ver pendiente 5.
 
 ## Pendiente (en orden de prioridad)
 1. Desplegar el frontend en Vercel (ya está unido a `main`), con `VITE_API_URL=https://hacka-tren-solar.onrender.com`.
 2. Cambiar el token del bot y la clave del panel: quedaron a la vista en una captura. Decisión del equipo: después de la demo.
-3. Base de datos: Postgres (Neon) con Prisma. Falta `DATABASE_URL`. Hoy todo va a archivos JSON en `backend/.datos/`.
 4. Aviso por mail a Defensa Civil, Vialidad y el Tren: no hay proveedor de correo. Hoy el canal institucional es el panel.
 5. Conectar el frontend a la API real: tendencia (ya viene en `EstadoZona.tendencia` de `/api/estado`, no en un endpoint aparte), Replay (`/api/replay`), avisos (`/api/avisos`), vista institucional (`/api/admin/...`), suscripción (enlace del bot) y sequía (`EstadoZona.sequia`). La capa satelital ya está en el mapa (`frontend/src/mapa/capaSatelital.ts`, mismos identificadores que `config/capasSatelitales.ts`).
 6. README final.

@@ -3,7 +3,7 @@ import { calcularAludes } from '../riesgo/aludes';
 import { calcularTendencia } from '../riesgo/tendencia';
 import type { EstadoZona, Lectura } from '../tipos';
 import { procesarAvisos } from '../avisos/servicio';
-import { almacen, persistir } from './almacen';
+import { almacen, persistir, recargarLecturasDeLaBase } from './almacen';
 import { consultarPronostico } from './openMeteo';
 
 let estados: EstadoZona[] = [];
@@ -60,6 +60,9 @@ export async function actualizar(): Promise<{ ok: boolean; error: string | null 
   } catch (e) {
     ultimoError = e instanceof Error ? e.message : String(e);
     console.error('No se pudo actualizar desde Open-Meteo:', ultimoError);
+    // Otra máquina puede haber subido lecturas más nuevas a la base.
+    const fecha = await recargarLecturasDeLaBase();
+    if (fecha) console.log(`Lecturas más nuevas tomadas de la base (datos de ${fecha}).`);
   }
   await procesarAvisos(recalcular());
   return { ok: ultimoError === null, error: ultimoError };
