@@ -2,7 +2,7 @@
 
 Actualizar este archivo cada vez que se termine algo o cambie el plan. Lo leen las personas que retoman el trabajo.
 
-Última actualización: 22/11/2026 11:28 (hora de Jujuy)
+Última actualización: 22/11/2026 11:37 (hora de Jujuy)
 
 ## Hecho
 - Estructura del repo: workspace pnpm con `backend/`, `frontend/`, `config/` y `data/replay/`. Todo en TypeScript.
@@ -14,9 +14,10 @@ Actualizar este archivo cada vez que se termine algo o cambie el plan. Lo leen l
 - Endpoints: `GET /api/estado`, `GET /api/estado/:zonaId`, `GET /api/zonas`, `GET /api/salud` y `POST /api/jobs/run` (header `x-job-secret`).
 - El backend actualiza al arrancar y cada 3 horas. Si Open-Meteo falla, sigue con las últimas lecturas guardadas.
 - Probado con datos reales de hoy: las 6 zonas de la Quebrada dan verde (casi sin lluvia).
+- Frontend base (`frontend/`): Vite + React + Tailwind. Muestra la lista de zonas con nivel, motivos y hora de actualización leyendo `/api/estado`. Probado en navegador con datos reales; `pnpm build` pasa. Leaflet ya está instalado pero todavía no se usa.
 
 ## En curso
-- Frontend base (`frontend/`): Vite + React + Tailwind con una lista de zonas que lee `/api/estado`. El código está escrito; falta terminar de instalar dependencias (la red del tren se corta) y probarlo.
+- (nada: el equipo sigue con el frontend y el pitch; ver EQUIPO.md)
 
 ## Pendiente (en orden de prioridad)
 1. Mapa con Leaflet y ficha de zona (tendencia de 7 días: la serie horaria ya se guarda, falta calcularla y exponerla)

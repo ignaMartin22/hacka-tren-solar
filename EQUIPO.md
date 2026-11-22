@@ -1,6 +1,6 @@
 # Yaku: guía rápida para el equipo
 
-Para quienes siguen con el **frontend** y el **pitch**. Estado al 22/11/2026, 11:35. El detalle de lo hecho y lo pendiente está en `ESTADO.md`; las reglas del proyecto, en `CONTEXT.md`.
+Para quienes siguen con el **frontend** y el **pitch**. Estado al 22/11/2026 11:37. El detalle de lo hecho y lo pendiente está en `ESTADO.md`; las reglas del proyecto, en `CONTEXT.md`.
 
 ## Qué funciona hoy
 
@@ -32,7 +32,7 @@ No hace falta ningún `.env` para desarrollar.
 
 Stack decidido: React + Vite + TypeScript + Tailwind + Leaflet. No agregar otras librerías sin una razón fuerte.
 
-**Atención:** la base de `frontend/` (una lista de zonas que lee la API) está escrita pero todavía no se pudo probar ni subir, porque la instalación de dependencias sigue en curso. Cuando aparezca el commit "Frontend base", partan de ahí.
+La base de `frontend/` ya está subida y probada: `src/App.tsx` muestra la lista de zonas con nivel, motivos y hora de actualización, y `src/api.ts` tiene la llamada a `/api/estado` con sus tipos. Leaflet ya está instalado (todavía sin usar). Partan de ahí para el mapa y la ficha.
 
 ### API disponible
 
