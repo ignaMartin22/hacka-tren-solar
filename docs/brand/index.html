@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Yaku · Brand Kit</title>
+<meta name="description" content="Sistema de identidad de Yaku: logo, isotipo, paleta, favicons e imágenes sociales.">
+<link rel="icon" href="favicon/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="favicon/favicon.ico" sizes="48x48">
+<link rel="apple-touch-icon" href="favicon/apple-touch-icon.png">
+<meta name="theme-color" content="#FFF7EE" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#140D0C" media="(prefers-color-scheme: dark)">
+<meta property="og:title" content="Yaku · Brand Kit">
+<meta property="og:image" content="social/yaku-og-light-1200x630.png">
+<style>
+  :root{
+    --terracota:#6E180A; --arena:#F9D4AD; --cumbre:#B32814; --naranja:#EC7120; --ambar:#FB8C23;
+    --salvia:#6D8053; --musgo:#3C5833; --arcilla:#A6372B; --rio:#4A98A1; --rio-profundo:#1B5564;
+    --ciruela:#4F2134; --ciruela-profunda:#3B1425; --papel:#FFF7EE; --noche:#140D0C;
+    --radius:20px; --ease:cubic-bezier(.2,.7,.2,1);
+    --display: ui-rounded, "SF Pro Rounded", "Nunito", "Varela Round", system-ui, -apple-system, "Segoe UI", sans-serif;
+    --text: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    --mono: ui-monospace, "SF Mono", "JetBrains Mono", Menlo, Consolas, monospace;
+  }
+  [data-theme="light"]{
+    --bg:#FFF7EE; --bg-2:#FBEEDF; --card:#FFFFFF; --line:#EADBCB; --fg:#2A1A16; --muted:#7A665E;
+    --accent:var(--terracota); --accent-ink:#FFF7EE; --chip:#F6E6D5; --chip-hover:#F0D7BD; --shadow:0 1px 0 #0000000a, 0 12px 32px -18px #6E180A40;
+  }
+  [data-theme="dark"]{
+    --bg:#140D0C; --bg-2:#1C1311; --card:#1F1513; --line:#33231F; --fg:#F3E6DA; --muted:#A8968C;
+    --accent:var(--arena); --accent-ink:#140D0C; --chip:#2B1D1A; --chip-hover:#3A2723; --shadow:0 1px 0 #ffffff08, 0 16px 40px -20px #000000c0;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.6 var(--text);-webkit-font-smoothing:antialiased;transition:background .35s var(--ease),color .35s var(--ease)}
+  img{display:block;max-width:100%}
+  a{color:inherit}
+  .wrap{width:min(1180px,100% - 40px);margin-inline:auto}
+
+  /* Tema: mostrar/ocultar assets según modo */
+  [data-theme="light"] .only-dark,[data-theme="dark"] .only-light{display:none!important}
+
+  /* Navegación */
+  header.nav{position:sticky;top:0;z-index:20;backdrop-filter:saturate(1.4) blur(14px);-webkit-backdrop-filter:saturate(1.4) blur(14px);background:color-mix(in srgb,var(--bg) 82%,transparent);border-bottom:1px solid var(--line)}
+  .nav .wrap{display:flex;align-items:center;gap:20px;height:64px}
+  .brand{display:flex;align-items:center;gap:10px;text-decoration:none;font:700 17px var(--display);letter-spacing:-.01em}
+  .brand img{height:28px;width:auto}
+  .nav nav{display:flex;gap:4px;margin-left:auto;overflow-x:auto;scrollbar-width:none}
+  .nav nav a{padding:8px 12px;border-radius:999px;text-decoration:none;color:var(--muted);font-size:14px;white-space:nowrap;transition:.2s}
+  .nav nav a:hover{color:var(--fg);background:var(--chip)}
+  .toggle{flex:none;width:44px;height:44px;border-radius:999px;border:1px solid var(--line);background:var(--card);color:var(--fg);display:grid;place-items:center;cursor:pointer;transition:.2s}
+  .toggle:hover{background:var(--chip)}
+  .toggle svg{width:20px;height:20px}
+  @media (max-width:820px){.nav nav{display:none}.toggle{margin-left:auto}}
+
+  /* Hero */
+  .hero{position:relative;overflow:hidden;padding:96px 0 0}
+  .hero .wrap{position:relative;z-index:2;text-align:center}
+  .eyebrow{display:inline-flex;align-items:center;gap:8px;padding:6px 14px;border-radius:999px;background:var(--chip);color:var(--muted);font-size:13px;font-weight:600;letter-spacing:.04em;text-transform:uppercase}
+  .eyebrow i{width:8px;height:8px;border-radius:50%;background:var(--rio);box-shadow:0 0 0 4px color-mix(in srgb,var(--rio) 25%,transparent)}
+  .hero-logo{width:min(620px,86%);margin:36px auto 28px;filter:drop-shadow(0 30px 40px color-mix(in srgb,var(--terracota) 18%,transparent))}
+  .hero p.lead{max-width:620px;margin:0 auto;color:var(--muted);font-size:18px}
+  .cta{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin:32px 0 72px}
+  .btn{display:inline-flex;align-items:center;gap:8px;padding:12px 20px;border-radius:999px;font-weight:600;font-size:15px;text-decoration:none;border:1px solid var(--line);background:var(--card);color:var(--fg);transition:transform .2s var(--ease),background .2s}
+  .btn:hover{transform:translateY(-1px);background:var(--chip)}
+  .btn.primary{background:var(--accent);color:var(--accent-ink);border-color:transparent}
+  .btn.primary:hover{background:color-mix(in srgb,var(--accent) 88%,#000)}
+  .hills{position:relative;height:150px;margin-top:-40px}
+  .hills svg{position:absolute;inset:auto 0 0 0;width:100%;height:100%}
+  .strata{display:grid;grid-template-columns:repeat(8,1fr);height:10px}
+  .strata span:nth-child(1){background:var(--cumbre)}.strata span:nth-child(2){background:var(--naranja)}
+  .strata span:nth-child(3){background:var(--ambar)}.strata span:nth-child(4){background:var(--arena)}
+  .strata span:nth-child(5){background:var(--salvia)}.strata span:nth-child(6){background:var(--arcilla)}
+  .strata span:nth-child(7){background:var(--rio)}.strata span:nth-child(8){background:var(--ciruela)}
+
+  /* Secciones */
+  section.block{padding:88px 0;border-bottom:1px solid var(--line)}
+  .head{display:flex;align-items:end;justify-content:space-between;gap:24px;margin-bottom:36px;flex-wrap:wrap}
+  .head h2{margin:0;font:800 clamp(28px,4vw,40px)/1.1 var(--display);letter-spacing:-.02em}
+  .head p{margin:8px 0 0;color:var(--muted);max-width:560px}
+  .num{font:600 13px var(--mono);color:var(--muted);letter-spacing:.08em}
+
+  .grid{display:grid;gap:20px}
+  .g2{grid-template-columns:repeat(auto-fill,minmax(min(100%,520px),1fr))}
+  .g3{grid-template-columns:repeat(auto-fill,minmax(min(100%,340px),1fr))}
+  .g4{grid-template-columns:repeat(auto-fill,minmax(min(100%,250px),1fr))}
+
+  .card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow);display:flex;flex-direction:column;transition:transform .3s var(--ease)}
+  .card:hover{transform:translateY(-2px)}
+  .stage{position:relative;display:grid;place-items:center;padding:44px 36px;min-height:240px}
+  .stage.light{background:#FFF7EE;background-image:radial-gradient(#6E180A10 1px,transparent 1px);background-size:16px 16px}
+  .stage.dark{background:#140D0C;background-image:radial-gradient(#F9D4AD12 1px,transparent 1px);background-size:16px 16px}
+  .stage.check{background-color:#fff;background-image:linear-gradient(45deg,#eee 25%,transparent 25%),linear-gradient(-45deg,#eee 25%,transparent 25%),linear-gradient(45deg,transparent 75%,#eee 75%),linear-gradient(-45deg,transparent 75%,#eee 75%);background-size:20px 20px;background-position:0 0,0 10px,10px -10px,-10px 0}
+  .stage.photo{background:linear-gradient(135deg,#4A98A1,#1B5564 55%,#3B1425)}
+  .stage img{max-height:150px;width:auto}
+  .stage .tag{position:absolute;top:14px;left:14px;padding:4px 10px;border-radius:999px;font:600 11px var(--text);letter-spacing:.06em;text-transform:uppercase;background:#0000000f;color:#6E180A}
+  .stage.dark .tag,.stage.photo .tag{background:#ffffff14;color:#F9D4AD}
+  .meta{padding:20px 22px 22px;display:flex;flex-direction:column;gap:12px;flex:1}
+  .meta h3{margin:0;font:700 18px var(--display)}
+  .meta p{margin:0;color:var(--muted);font-size:14px}
+  .dl{display:flex;flex-wrap:wrap;gap:6px;margin-top:auto}
+  .dl a{padding:6px 11px;border-radius:999px;background:var(--chip);font:600 12px var(--mono);text-decoration:none;transition:.15s}
+  .dl a:hover{background:var(--chip-hover)}
+  .dl a.svg{background:var(--accent);color:var(--accent-ink)}
+
+  /* Escalera de tamaños */
+  .ladder{display:flex;align-items:flex-end;gap:clamp(14px,3vw,36px);flex-wrap:wrap;padding:40px;border-radius:var(--radius);border:1px solid var(--line);background:var(--card);box-shadow:var(--shadow)}
+  .ladder figure{margin:0;display:flex;flex-direction:column;align-items:center;gap:12px}
+  .ladder figcaption{font:600 12px var(--mono);color:var(--muted)}
+  .ladder img{image-rendering:auto}
+  .note{display:flex;gap:12px;align-items:flex-start;margin-top:18px;padding:16px 18px;border-radius:14px;background:var(--bg-2);color:var(--muted);font-size:14px}
+  .note b{color:var(--fg)}
+
+  /* Paleta */
+  .swatch{border:0;padding:0;text-align:left;cursor:pointer;background:var(--card);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;color:inherit;font:inherit;box-shadow:var(--shadow);transition:transform .25s var(--ease)}
+  .swatch:hover{transform:translateY(-3px)}
+  .swatch:focus-visible{outline:3px solid var(--rio);outline-offset:3px}
+  .swatch .chip{height:120px;position:relative}
+  .swatch .chip em{position:absolute;right:12px;bottom:10px;font:600 11px var(--mono);font-style:normal;opacity:0;transform:translateY(4px);transition:.2s}
+  .swatch:hover .chip em{opacity:.9;transform:none}
+  .swatch .info{padding:14px 16px 16px}
+  .swatch strong{display:block;font:700 16px var(--display)}
+  .swatch code{font:13px var(--mono);color:var(--muted)}
+  .swatch small{display:block;color:var(--muted);font-size:12px;margin-top:4px}
+
+  /* Código */
+  .code{position:relative;border-radius:var(--radius);background:#140D0C;color:#F3E6DA;border:1px solid #33231F;overflow:hidden}
+  .code pre{margin:0;padding:24px;overflow:auto;font:13.5px/1.7 var(--mono)}
+  .code .bar{display:flex;align-items:center;justify-content:space-between;padding:10px 14px 10px 18px;border-bottom:1px solid #33231F;font:600 12px var(--mono);color:#A8968C}
+  .code button{border:1px solid #3A2723;background:#2B1D1A;color:#F9D4AD;border-radius:999px;padding:6px 12px;font:600 12px var(--mono);cursor:pointer}
+  .code button:hover{background:#3A2723}
+  .tk-t{color:#EC7120}.tk-a{color:#4A98A1}.tk-s{color:#F9D4AD}.tk-c{color:#7A665E}
+
+  /* Pestaña del navegador (mock) */
+  .tabs{display:grid;gap:14px}
+  .tab{display:flex;align-items:center;gap:10px;padding:10px 14px;border-radius:12px 12px 0 0;width:min(320px,100%);font-size:13px}
+  .tab.l{background:#fff;color:#222;border:1px solid #e5e5e5}
+  .tab.d{background:#202124;color:#e8eaed;border:1px solid #333}
+  .tab img{width:16px;height:16px}
+  .tab span{flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+
+  /* Correcto / incorrecto */
+  .dont .stage{min-height:180px}
+  .dont .stage::after{content:"";position:absolute;inset:12px;border-radius:14px;border:2px dashed #C23B12aa}
+  .x{position:absolute;top:12px;right:12px;width:28px;height:28px;border-radius:50%;background:#C23B12;color:#fff;display:grid;place-items:center;font:800 15px var(--text);z-index:2}
+
+  /* Mejoras */
+  .list{counter-reset:n;display:grid;gap:14px;grid-template-columns:repeat(auto-fill,minmax(min(100%,340px),1fr))}
+  .list li{list-style:none;counter-increment:n;padding:20px 22px;border-radius:var(--radius);background:var(--card);border:1px solid var(--line);box-shadow:var(--shadow)}
+  .list li::before{content:counter(n,decimal-leading-zero);display:block;font:700 12px var(--mono);color:var(--naranja);margin-bottom:6px}
+  .list b{display:block;font:700 16px var(--display);margin-bottom:4px}
+  .list span{color:var(--muted);font-size:14px}
+
+  footer{padding:48px 0 64px;color:var(--muted);font-size:14px}
+  footer .wrap{display:flex;gap:16px;align-items:center;justify-content:space-between;flex-wrap:wrap}
+
+  .toast{position:fixed;left:50%;bottom:28px;transform:translate(-50%,20px);opacity:0;pointer-events:none;padding:12px 18px;border-radius:999px;background:var(--fg);color:var(--bg);font:600 14px var(--text);box-shadow:0 12px 30px -10px #0008;transition:.3s var(--ease);z-index:50;display:flex;gap:10px;align-items:center}
+  .toast.show{opacity:1;transform:translate(-50%,0)}
+  .toast i{width:14px;height:14px;border-radius:4px}
+
+  @media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="wrap">
+    <a class="brand" href="#top">
+      <img src="svg/isotipo/yaku-isotipo.svg" alt="" class="only-light">
+      <img src="svg/isotipo/yaku-isotipo-dark.svg" alt="" class="only-dark">
+      Brand Kit
+    </a>
+    <nav aria-label="Secciones">
+      <a href="#logo">Logo</a><a href="#isotipo">Isotipo</a><a href="#mono">Monocromo</a>
+      <a href="#paleta">Paleta</a><a href="#favicon">Favicons</a><a href="#social">Social</a><a href="#uso">Uso</a>
+    </nav>
+    <button class="toggle" id="toggle" type="button" aria-label="Cambiar modo claro u oscuro">
+      <svg class="only-light" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+      <svg class="only-dark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+    </button>
+  </div>
+</header>
+
+<main id="top">
+  <section class="hero">
+    <div class="wrap">
+      <span class="eyebrow"><i></i>Identidad visual · v1.0</span>
+      <img class="hero-logo only-light" src="svg/logo/yaku-horizontal.svg" alt="Yaku">
+      <img class="hero-logo only-dark" src="svg/logo/yaku-horizontal-dark.svg" alt="Yaku">
+      <p class="lead">Una gota que contiene un paisaje: cerros en capas, la quebrada y un río que la recorre. Todo el sistema nace de esa imagen.</p>
+      <div class="cta">
+        <a class="btn primary" href="#logo">Ver versiones</a>
+        <a class="btn" href="README.md">Guía de uso</a>
+      </div>
+    </div>
+    <div class="hills" aria-hidden="true">
+      <svg viewBox="0 0 1440 150" preserveAspectRatio="none">
+        <path fill="var(--naranja)" opacity=".18" d="M0 70C220 20 380 0 560 40S900 110 1100 60 1360 20 1440 40V150H0Z"/>
+        <path fill="var(--arena)" opacity=".55" d="M0 100C240 60 420 50 640 80S980 130 1200 90 1380 70 1440 80V150H0Z"/>
+        <path fill="var(--salvia)" opacity=".25" d="M0 125C260 100 480 95 720 112S1080 140 1280 118 1400 110 1440 112V150H0Z"/>
+      </svg>
+    </div>
+    <div class="strata" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
+  </section>
+
+  <!-- LOGO -->
+  <section class="block" id="logo">
+    <div class="wrap">
+      <div class="head">
+        <div><span class="num">01</span><h2>Logo</h2><p>Dos composiciones, cada una con su versión para fondo claro y fondo oscuro. Preferí siempre el SVG.</p></div>
+      </div>
+      <div class="grid g2">
+        <article class="card">
+          <div class="stage light"><span class="tag">Fondo claro</span><img src="svg/logo/yaku-horizontal.svg" alt="Logo horizontal" style="width:min(380px,100%);height:auto"></div>
+          <div class="meta"><h3>Horizontal · principal</h3><p>Headers, README, web y documentos.</p>
+            <div class="dl"><a class="svg" href="svg/logo/yaku-horizontal.svg" download>SVG</a><a href="pdf/yaku-horizontal.pdf" download>PDF</a><a href="png/horizontal/light/yaku-horizontal-light-512w.png" download>512</a><a href="png/horizontal/light/yaku-horizontal-light-1024w.png" download>1024</a><a href="png/horizontal/light/yaku-horizontal-light-2048w.png" download>2048</a><a href="png/horizontal/light/yaku-horizontal-light-4096w.png" download>4096</a><a href="webp/yaku-horizontal-light-1024w.webp" download>WebP</a></div></div>
+        </article>
+        <article class="card">
+          <div class="stage dark"><span class="tag">Fondo oscuro</span><img src="svg/logo/yaku-horizontal-dark.svg" alt="Logo horizontal modo oscuro" style="width:min(380px,100%);height:auto"></div>
+          <div class="meta"><h3>Horizontal · modo oscuro</h3><p>Logotipo en arena y sombras de la gota elevadas.</p>
+            <div class="dl"><a class="svg" href="svg/logo/yaku-horizontal-dark.svg" download>SVG</a><a href="pdf/yaku-horizontal-dark.pdf" download>PDF</a><a href="png/horizontal/dark/yaku-horizontal-dark-512w.png" download>512</a><a href="png/horizontal/dark/yaku-horizontal-dark-1024w.png" download>1024</a><a href="png/horizontal/dark/yaku-horizontal-dark-2048w.png" download>2048</a><a href="png/horizontal/dark/yaku-horizontal-dark-4096w.png" download>4096</a><a href="webp/yaku-horizontal-dark-1024w.webp" download>WebP</a></div></div>
+        </article>
+        <article class="card">
+          <div class="stage light"><span class="tag">Fondo claro</span><img src="svg/logo/yaku-stacked.svg" alt="Logo apilado" style="height:170px"></div>
+          <div class="meta"><h3>Apilado</h3><p>Espacios cuadrados, portadas, merch y presentaciones.</p>
+            <div class="dl"><a class="svg" href="svg/logo/yaku-stacked.svg" download>SVG</a><a href="pdf/yaku-stacked.pdf" download>PDF</a><a href="png/stacked/light/yaku-stacked-light-256w.png" download>256</a><a href="png/stacked/light/yaku-stacked-light-512w.png" download>512</a><a href="png/stacked/light/yaku-stacked-light-1024w.png" download>1024</a><a href="png/stacked/light/yaku-stacked-light-2048w.png" download>2048</a></div></div>
+        </article>
+        <article class="card">
+          <div class="stage dark"><span class="tag">Fondo oscuro</span><img src="svg/logo/yaku-stacked-dark.svg" alt="Logo apilado modo oscuro" style="height:170px"></div>
+          <div class="meta"><h3>Apilado · modo oscuro</h3><p>Misma composición, lista para fondos oscuros.</p>
+            <div class="dl"><a class="svg" href="svg/logo/yaku-stacked-dark.svg" download>SVG</a><a href="pdf/yaku-stacked-dark.pdf" download>PDF</a><a href="png/stacked/dark/yaku-stacked-dark-256w.png" download>256</a><a href="png/stacked/dark/yaku-stacked-dark-512w.png" download>512</a><a href="png/stacked/dark/yaku-stacked-dark-1024w.png" download>1024</a><a href="png/stacked/dark/yaku-stacked-dark-2048w.png" download>2048</a></div></div>
+        </article>
+        <article class="card">
+          <div class="stage light"><span class="tag">Logotipo</span><img src="svg/wordmark/yaku-wordmark.svg" alt="Logotipo Yaku" style="width:min(300px,100%);height:auto"></div>
+          <div class="meta"><h3>Logotipo solo</h3><p>Cuando la gota ya aparece cerca o el espacio es muy horizontal.</p>
+            <div class="dl"><a class="svg" href="svg/wordmark/yaku-wordmark.svg" download>SVG</a><a href="pdf/yaku-wordmark.pdf" download>PDF</a><a href="png/wordmark/light/yaku-wordmark-light-512w.png" download>512</a><a href="png/wordmark/light/yaku-wordmark-light-1024w.png" download>1024</a><a href="png/wordmark/light/yaku-wordmark-light-2048w.png" download>2048</a></div></div>
+        </article>
+        <article class="card">
+          <div class="stage dark"><span class="tag">Logotipo</span><img src="svg/wordmark/yaku-wordmark-dark.svg" alt="Logotipo Yaku modo oscuro" style="width:min(300px,100%);height:auto"></div>
+          <div class="meta"><h3>Logotipo · modo oscuro</h3><p>En arena, para fondos oscuros.</p>
+            <div class="dl"><a class="svg" href="svg/wordmark/yaku-wordmark-dark.svg" download>SVG</a><a href="png/wordmark/dark/yaku-wordmark-dark-512w.png" download>512</a><a href="png/wordmark/dark/yaku-wordmark-dark-1024w.png" download>1024</a><a href="png/wordmark/dark/yaku-wordmark-dark-2048w.png" download>2048</a></div></div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ISOTIPO -->
+  <section class="block" id="isotipo">
+    <div class="wrap">
+      <div class="head">
+        <div><span class="num">02</span><h2>Isotipo en todos los tamaños</h2><p>Mostrado a tamaño real. Hasta 32 px se usa la versión simplificada: menos estratos y un río más ancho para que siga leyéndose.</p></div>
+      </div>
+      <div class="ladder" id="ladder"></div>
+      <div class="note"><span>💧</span><div>Tamaños disponibles en PNG transparente (cuadrado): <b>16 · 24 · 32 · 48 · 64 · 96 · 128 · 192 · 256 · 512 · 1024 · 2048</b>, en <code>png/isotipo/light/</code> y <code>png/isotipo/dark/</code>.</div></div>
+
+      <div class="grid g4" style="margin-top:28px">
+        <article class="card"><div class="stage check"><span class="tag">Transparente</span><img src="svg/isotipo/yaku-isotipo.svg" alt="Isotipo" style="height:130px"></div>
+          <div class="meta"><h3>Isotipo</h3><div class="dl"><a class="svg" href="svg/isotipo/yaku-isotipo.svg" download>SVG</a><a href="svg/isotipo/yaku-isotipo-square.svg" download>SVG □</a><a href="pdf/yaku-isotipo.pdf" download>PDF</a><a href="png/isotipo/light/yaku-isotipo-light-512.png" download>512</a><a href="png/isotipo/light/yaku-isotipo-light-1024.png" download>1024</a></div></div></article>
+        <article class="card"><div class="stage dark"><span class="tag">Modo oscuro</span><img src="svg/isotipo/yaku-isotipo-dark.svg" alt="Isotipo modo oscuro" style="height:130px"></div>
+          <div class="meta"><h3>Isotipo · oscuro</h3><div class="dl"><a class="svg" href="svg/isotipo/yaku-isotipo-dark.svg" download>SVG</a><a href="svg/isotipo/yaku-isotipo-square-dark.svg" download>SVG □</a><a href="png/isotipo/dark/yaku-isotipo-dark-512.png" download>512</a><a href="png/isotipo/dark/yaku-isotipo-dark-1024.png" download>1024</a></div></div></article>
+        <article class="card"><div class="stage light"><span class="tag">App · claro</span><img src="svg/app-icon/yaku-icon-light.svg" alt="Ícono de app claro" style="height:130px;filter:drop-shadow(0 8px 16px #6E180A30)"></div>
+          <div class="meta"><h3>Ícono de app</h3><div class="dl"><a class="svg" href="svg/app-icon/yaku-icon-light.svg" download>SVG</a><a href="png/app-icon/light/yaku-icon-light-512.png" download>512</a><a href="png/app-icon/light/yaku-icon-light-1024.png" download>1024</a><a href="svg/app-icon/yaku-icon-maskable-light.svg" download>Maskable</a></div></div></article>
+        <article class="card"><div class="stage dark"><span class="tag">App · oscuro</span><img src="svg/app-icon/yaku-icon-dark.svg" alt="Ícono de app oscuro" style="height:130px;filter:drop-shadow(0 8px 16px #0008)"></div>
+          <div class="meta"><h3>Ícono · oscuro</h3><div class="dl"><a class="svg" href="svg/app-icon/yaku-icon-dark.svg" download>SVG</a><a href="png/app-icon/dark/yaku-icon-dark-512.png" download>512</a><a href="png/app-icon/dark/yaku-icon-dark-1024.png" download>1024</a><a href="svg/app-icon/yaku-icon-maskable-dark.svg" download>Maskable</a></div></div></article>
+      </div>
+    </div>
+  </section>
+
+  <!-- MONO -->
+  <section class="block" id="mono">
+    <div class="wrap">
+      <div class="head"><div><span class="num">03</span><h2>Monocromos</h2><p>Para una sola tinta: sellos, grabado láser, bordado, serigrafía o fotos. El río y los estratos quedan calados.</p></div></div>
+      <div class="grid g4">
+        <article class="card"><div class="stage light"><span class="tag">Negro</span><img src="svg/mono/yaku-stacked-mono-black.svg" alt="Monocromo negro" style="height:140px"></div>
+          <div class="meta"><h3>Negro</h3><div class="dl"><a class="svg" href="svg/mono/yaku-horizontal-mono-black.svg" download>Horiz.</a><a class="svg" href="svg/mono/yaku-stacked-mono-black.svg" download>Apilado</a><a class="svg" href="svg/mono/yaku-isotipo-mono-black.svg" download>Gota</a><a href="pdf/yaku-horizontal-mono-black.pdf" download>PDF</a></div></div></article>
+        <article class="card"><div class="stage dark"><span class="tag">Blanco</span><img src="svg/mono/yaku-stacked-mono-white.svg" alt="Monocromo blanco" style="height:140px"></div>
+          <div class="meta"><h3>Blanco</h3><div class="dl"><a class="svg" href="svg/mono/yaku-horizontal-mono-white.svg" download>Horiz.</a><a class="svg" href="svg/mono/yaku-stacked-mono-white.svg" download>Apilado</a><a class="svg" href="svg/mono/yaku-isotipo-mono-white.svg" download>Gota</a></div></div></article>
+        <article class="card"><div class="stage light"><span class="tag">Terracota</span><img src="svg/mono/yaku-stacked-mono-brand.svg" alt="Monocromo terracota" style="height:140px"></div>
+          <div class="meta"><h3>Terracota</h3><div class="dl"><a class="svg" href="svg/mono/yaku-horizontal-mono-brand.svg" download>Horiz.</a><a class="svg" href="svg/mono/yaku-stacked-mono-brand.svg" download>Apilado</a><a class="svg" href="svg/mono/yaku-isotipo-mono-brand.svg" download>Gota</a></div></div></article>
+        <article class="card"><div class="stage photo"><span class="tag">Arena</span><img src="svg/mono/yaku-stacked-mono-sand.svg" alt="Monocromo arena" style="height:140px"></div>
+          <div class="meta"><h3>Arena</h3><div class="dl"><a class="svg" href="svg/mono/yaku-horizontal-mono-sand.svg" download>Horiz.</a><a class="svg" href="svg/mono/yaku-stacked-mono-sand.svg" download>Apilado</a><a class="svg" href="svg/mono/yaku-isotipo-mono-sand.svg" download>Gota</a></div></div></article>
+      </div>
+    </div>
+  </section>
+
+  <!-- PALETA -->
+  <section class="block" id="paleta">
+    <div class="wrap">
+      <div class="head"><div><span class="num">04</span><h2>Paleta</h2><p>Tocá un color para copiar su HEX. Terracota y Arena son los colores de interfaz; el resto vive dentro de la gota.</p></div></div>
+      <div class="grid g4" id="palette"></div>
+      <div class="code" style="margin-top:28px">
+        <div class="bar"><span>tokens.css</span><button type="button" data-copy="tokens">Copiar</button></div>
+        <pre id="tokens"></pre>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAVICON -->
+  <section class="block" id="favicon">
+    <div class="wrap">
+      <div class="head"><div><span class="num">05</span><h2>Favicons y PWA</h2><p>Copiá <code>favicon/</code> a la raíz pública del sitio y pegá esto en el <code>&lt;head&gt;</code>. El <code>favicon.svg</code> se adapta solo al modo oscuro.</p></div></div>
+      <div class="grid g2" style="align-items:start">
+        <div class="code">
+          <div class="bar"><span>index.html · &lt;head&gt;</span><button type="button" data-copy="head">Copiar</button></div>
+<pre id="head"><span class="tk-t">&lt;link</span> <span class="tk-a">rel</span>=<span class="tk-s">"icon"</span> <span class="tk-a">href</span>=<span class="tk-s">"/favicon.ico"</span> <span class="tk-a">sizes</span>=<span class="tk-s">"48x48"</span><span class="tk-t">&gt;</span>
+<span class="tk-t">&lt;link</span> <span class="tk-a">rel</span>=<span class="tk-s">"icon"</span> <span class="tk-a">href</span>=<span class="tk-s">"/favicon.svg"</span> <span class="tk-a">type</span>=<span class="tk-s">"image/svg+xml"</span><span class="tk-t">&gt;</span>
+<span class="tk-t">&lt;link</span> <span class="tk-a">rel</span>=<span class="tk-s">"apple-touch-icon"</span> <span class="tk-a">href</span>=<span class="tk-s">"/apple-touch-icon.png"</span><span class="tk-t">&gt;</span>
+<span class="tk-t">&lt;link</span> <span class="tk-a">rel</span>=<span class="tk-s">"manifest"</span> <span class="tk-a">href</span>=<span class="tk-s">"/site.webmanifest"</span><span class="tk-t">&gt;</span>
+<span class="tk-t">&lt;link</span> <span class="tk-a">rel</span>=<span class="tk-s">"mask-icon"</span> <span class="tk-a">href</span>=<span class="tk-s">"/safari-pinned-tab.svg"</span> <span class="tk-a">color</span>=<span class="tk-s">"#6E180A"</span><span class="tk-t">&gt;</span>
+<span class="tk-t">&lt;meta</span> <span class="tk-a">name</span>=<span class="tk-s">"theme-color"</span> <span class="tk-a">content</span>=<span class="tk-s">"#FFF7EE"</span> <span class="tk-a">media</span>=<span class="tk-s">"(prefers-color-scheme: light)"</span><span class="tk-t">&gt;</span>
+<span class="tk-t">&lt;meta</span> <span class="tk-a">name</span>=<span class="tk-s">"theme-color"</span> <span class="tk-a">content</span>=<span class="tk-s">"#140D0C"</span> <span class="tk-a">media</span>=<span class="tk-s">"(prefers-color-scheme: dark)"</span><span class="tk-t">&gt;</span>
+<span class="tk-t">&lt;meta</span> <span class="tk-a">property</span>=<span class="tk-s">"og:image"</span> <span class="tk-a">content</span>=<span class="tk-s">"https://TU-DOMINIO/social/yaku-og-light-1200x630.png"</span><span class="tk-t">&gt;</span></pre>
+        </div>
+        <div class="card">
+          <div class="stage light" style="min-height:0;padding:28px;place-items:stretch">
+            <div class="tabs">
+              <div class="tab l"><img src="favicon/favicon-32x32.png" alt=""><span>Yaku — Inicio</span>✕</div>
+              <div class="tab d"><img src="favicon/favicon-32x32.png" alt=""><span>Yaku — Inicio</span>✕</div>
+            </div>
+          </div>
+          <div class="meta"><h3>Archivos incluidos</h3>
+            <p><code>favicon.ico</code> (16·32·48), <code>favicon.svg</code>, <code>apple-touch-icon.png</code> (180), <code>android-chrome</code> 192/512, <code>maskable</code> 192/512, <code>safari-pinned-tab.svg</code>, <code>site.webmanifest</code>, <code>browserconfig.xml</code>.</p>
+            <div class="dl"><a class="svg" href="favicon/favicon.svg" download>favicon.svg</a><a href="favicon/favicon.ico" download>favicon.ico</a><a href="favicon/site.webmanifest" download>manifest</a></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SOCIAL -->
+  <section class="block" id="social">
+    <div class="wrap">
+      <div class="head"><div><span class="num">06</span><h2>Imágenes sociales</h2><p>Open Graph, vista previa del repositorio en GitHub, banners para README y avatares.</p></div></div>
+      <div class="grid g2">
+        <article class="card"><img src="social/yaku-og-light-1200x630.png" alt="Open Graph claro">
+          <div class="meta"><h3>Open Graph · 1200×630</h3><div class="dl"><a href="social/yaku-og-light-1200x630.png" download>PNG claro</a><a href="social/yaku-og-light-1200x630.jpg" download>JPG claro</a><a href="social/yaku-og-dark-1200x630.png" download>PNG oscuro</a><a href="social/yaku-og-dark-1200x630.jpg" download>JPG oscuro</a></div></div></article>
+        <article class="card"><img src="social/yaku-github-social-dark-1280x640.png" alt="GitHub social preview oscuro">
+          <div class="meta"><h3>GitHub social preview · 1280×640</h3><div class="dl"><a href="social/yaku-github-social-light-1280x640.png" download>PNG claro</a><a href="social/yaku-github-social-dark-1280x640.png" download>PNG oscuro</a><a href="social/yaku-github-social-light-1280x640.jpg" download>JPG claro</a><a href="social/yaku-github-social-dark-1280x640.jpg" download>JPG oscuro</a></div></div></article>
+        <article class="card"><img src="social/yaku-banner-light-1280x320.png" alt="Banner claro"><img src="social/yaku-banner-dark-1280x320.png" alt="Banner oscuro">
+          <div class="meta"><h3>Banner README · 4:1</h3><div class="dl"><a href="social/yaku-banner-light-2560x640.png" download>2560 claro</a><a href="social/yaku-banner-dark-2560x640.png" download>2560 oscuro</a><a href="social/yaku-banner-light-1280x320.png" download>1280 claro</a><a href="social/yaku-banner-dark-1280x320.png" download>1280 oscuro</a></div></div></article>
+        <article class="card"><div class="stage" style="background:var(--bg-2);gap:20px;display:flex;justify-content:center">
+            <img src="social/yaku-avatar-light-500x500.png" alt="Avatar claro" style="height:130px;border-radius:50%;box-shadow:var(--shadow)">
+            <img src="social/yaku-avatar-dark-500x500.png" alt="Avatar oscuro" style="height:130px;border-radius:50%;box-shadow:var(--shadow)"></div>
+          <div class="meta"><h3>Avatares</h3><p>Pensados para recorte circular (GitHub, Discord, X, LinkedIn).</p><div class="dl"><a href="social/yaku-avatar-light-1024x1024.png" download>1024 claro</a><a href="social/yaku-avatar-dark-1024x1024.png" download>1024 oscuro</a><a href="social/yaku-avatar-light-500x500.png" download>500 claro</a><a href="social/yaku-avatar-dark-500x500.png" download>500 oscuro</a></div></div></article>
+      </div>
+    </div>
+  </section>
+
+  <!-- USO -->
+  <section class="block" id="uso">
+    <div class="wrap">
+      <div class="head"><div><span class="num">07</span><h2>Reglas de uso</h2><p>La unidad <b>X</b> es ¼ del alto de la gota. Respetá ese aire alrededor del logo y los tamaños mínimos.</p></div></div>
+      <div class="card" style="margin-bottom:20px"><img src="guide/yaku-clearspace.svg" alt="Área de resguardo del logo"></div>
+      <div class="grid g4" style="margin-bottom:40px">
+        <div class="card"><div class="meta"><h3>120 px</h3><p>Ancho mínimo del logo horizontal (30 mm impreso).</p></div></div>
+        <div class="card"><div class="meta"><h3>72 px</h3><p>Ancho mínimo del logo apilado (18 mm impreso).</p></div></div>
+        <div class="card"><div class="meta"><h3>40 px</h3><p>Alto mínimo del isotipo completo (10 mm impreso).</p></div></div>
+        <div class="card"><div class="meta"><h3>16 px</h3><p>Mínimo del isotipo simplificado, solo en pantalla.</p></div></div>
+      </div>
+      <div class="grid g4 dont">
+        <article class="card"><div class="stage light"><span class="x">✕</span><img src="svg/logo/yaku-horizontal.svg" alt="" style="width:62%;height:auto;transform:scale(1.35,.6)"></div><div class="meta"><h3>No deformar</h3><p>Escalar siempre en proporción.</p></div></article>
+        <article class="card"><div class="stage dark"><span class="x">✕</span><img src="svg/logo/yaku-horizontal.svg" alt="" style="width:80%;height:auto"></div><div class="meta"><h3>No terracota sobre oscuro</h3><p>Usar la versión arena.</p></div></article>
+        <article class="card"><div class="stage light"><span class="x">✕</span><img src="svg/logo/yaku-horizontal.svg" alt="" style="width:80%;height:auto;filter:hue-rotate(140deg)"></div><div class="meta"><h3>No recolorear</h3><p>Los estratos tienen valores fijos.</p></div></article>
+        <article class="card"><div class="stage light"><span class="x">✕</span><img src="svg/logo/yaku-horizontal.svg" alt="" style="width:80%;height:auto;transform:rotate(-12deg);filter:drop-shadow(6px 8px 0 #0006)"></div><div class="meta"><h3>Sin efectos ni rotación</h3><p>Nada de sombras, biseles ni giros.</p></div></article>
+      </div>
+    </div>
+  </section>
+
+  <!-- MEJORAS -->
+  <section class="block">
+    <div class="wrap">
+      <div class="head"><div><span class="num">08</span><h2>Qué cambió respecto del original</h2><p>Mejoras de oficio que no alteran la identidad, pero la hacen más sólida.</p></div></div>
+      <ol class="list" style="padding:0;margin:0">
+        <li><b>Redibujo vectorial</b><span>SVG limpio en lugar de un raster con bordes irregulares: escala sin pérdida.</span></li>
+        <li><b>Gota exacta</b><span>Círculo perfecto con tangentes reales al vértice; la silueta quedó simétrica.</span></li>
+        <li><b>Más aire</b><span>Separación gota–logotipo de 38 a 72 unidades: mejor lectura en tamaños chicos.</span></li>
+        <li><b>Paleta con nombre</b><span>14 colores fijos en lugar de tonos que variaban por el antialiasing.</span></li>
+        <li><b>Modo oscuro real</b><span>Logotipo en arena y sombras elevadas para no fundirse con el fondo.</span></li>
+        <li><b>Favicon simplificado</b><span>Menos estratos y río más ancho: a 16 px se lee gota + río.</span></li>
+        <li><b>Monocromo con calados</b><span>A una tinta conserva río y estratos en negativo.</span></li>
+        <li><b>Centrado óptico</b><span>En íconos la gota sube levemente: su masa visual está abajo.</span></li>
+      </ol>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>Yaku · Brand Kit v1.0</span>
+    <span>Generado desde <code>source/</code> — un único origen de verdad.</span>
+  </div>
+</footer>
+
+<div class="toast" id="toast" role="status" aria-live="polite"><i></i><span></span></div>
+
+<script>
+(function () {
+  "use strict";
+  var root = document.documentElement;
+  var KEY = "yaku-brand-theme";
+
+  function stored() { try { return localStorage.getItem(KEY); } catch (e) { return null; } }
+  function store(v) { try { localStorage.setItem(KEY, v); } catch (e) { /* almacenamiento no disponible */ } }
+  var mq = window.matchMedia ? window.matchMedia("(prefers-color-scheme: dark)") : null;
+  root.setAttribute("data-theme", stored() || (mq && mq.matches ? "dark" : "light"));
+  if (mq && mq.addEventListener) mq.addEventListener("change", function (e) {
+    if (!stored()) root.setAttribute("data-theme", e.matches ? "dark" : "light");
+  });
+  document.getElementById("toggle").addEventListener("click", function () {
+    var next = root.getAttribute("data-theme") === "dark" ? "light" : "dark";
+    root.setAttribute("data-theme", next); store(next);
+  });
+
+  // Escalera de tamaños (tamaño real)
+  var sizes = [16, 24, 32, 48, 64, 96, 128];
+  var ladder = document.getElementById("ladder");
+  sizes.forEach(function (s) {
+    var f = document.createElement("figure");
+    ["light", "dark"].forEach(function (t) {
+      var img = new Image();
+      img.src = "png/isotipo/" + t + "/yaku-isotipo-" + t + "-" + s + ".png";
+      img.width = s; img.height = s; img.alt = "Isotipo " + s + " px";
+      img.className = "only-" + t;
+      f.appendChild(img);
+    });
+    var c = document.createElement("figcaption");
+    c.textContent = s + " px" + (s <= 32 ? " · simple" : "");
+    f.appendChild(c);
+    ladder.appendChild(f);
+  });
+
+  // Paleta
+  var PALETTE = [
+    ["Terracota Yaku", "#6E180A", "terracota", "Logotipo sobre claro · UI"],
+    ["Arena", "#F9D4AD", "arena", "Logotipo sobre oscuro · UI"],
+    ["Cumbre", "#B32814", "cumbre", "Gota"],
+    ["Naranja quebrada", "#EC7120", "naranja", "Gota · acento cálido"],
+    ["Ámbar", "#FB8C23", "ambar", "Gota"],
+    ["Salvia", "#6D8053", "salvia", "Gota"],
+    ["Musgo", "#3C5833", "musgo", "Gota"],
+    ["Arcilla", "#A6372B", "arcilla", "Gota"],
+    ["Río", "#4A98A1", "rio", "Gota · acento frío"],
+    ["Río profundo", "#1B5564", "rio-profundo", "Gota"],
+    ["Ciruela", "#4F2134", "ciruela", "Gota"],
+    ["Ciruela profunda", "#3B1425", "ciruela-profunda", "Gota"],
+    ["Blanco cálido", "#FFF7EE", "papel", "Fondo claro"],
+    ["Noche", "#140D0C", "noche", "Fondo oscuro"]
+  ];
+  function rgb(h) { return [1, 3, 5].map(function (i) { return parseInt(h.substr(i, 2), 16); }); }
+  function light(h) { var c = rgb(h); return (0.299 * c[0] + 0.587 * c[1] + 0.114 * c[2]) > 160; }
+  var pal = document.getElementById("palette");
+  PALETTE.forEach(function (p) {
+    var b = document.createElement("button");
+    b.type = "button"; b.className = "swatch"; b.setAttribute("aria-label", "Copiar " + p[0] + " " + p[1]);
+    var c = rgb(p[1]);
+    b.innerHTML = '<div class="chip" style="background:' + p[1] + ';box-shadow:inset 0 0 0 1px #00000010"><em style="color:' + (light(p[1]) ? "#2A1A16" : "#FFF7EE") + '">copiar</em></div>' +
+      '<div class="info"><strong>' + p[0] + '</strong><code>' + p[1] + ' · ' + c.join(" ") + '</code><small>' + p[3] + '</small></div>';
+    b.addEventListener("click", function () { copy(p[1], p[1] + " copiado", p[1]); });
+    pal.appendChild(b);
+  });
+  document.getElementById("tokens").textContent = ":root {\n" + PALETTE.map(function (p) {
+    return "  --yaku-" + p[2] + ": " + p[1] + ";";
+  }).join("\n") + "\n}";
+
+  // Copiar
+  var toast = document.getElementById("toast"), tt;
+  function show(msg, color) {
+    toast.querySelector("span").textContent = msg;
+    toast.querySelector("i").style.background = color || "var(--rio)";
+    toast.classList.add("show"); clearTimeout(tt);
+    tt = setTimeout(function () { toast.classList.remove("show"); }, 1800);
+  }
+  function copy(text, msg, color) {
+    function fallback() {
+      var ta = document.createElement("textarea"); ta.value = text; ta.style.position = "fixed"; ta.style.opacity = "0";
+      document.body.appendChild(ta); ta.select();
+      try { document.execCommand("copy"); show(msg, color); } catch (e) { show("No se pudo copiar"); }
+      document.body.removeChild(ta);
+    }
+    if (navigator.clipboard && window.isSecureContext) {
+      navigator.clipboard.writeText(text).then(function () { show(msg, color); }, fallback);
+    } else { fallback(); }
+  }
+  document.querySelectorAll("[data-copy]").forEach(function (btn) {
+    btn.addEventListener("click", function () {
+      copy(document.getElementById(btn.getAttribute("data-copy")).textContent, "Código copiado");
+    });
+  });
+})();
+</script>
+</body>
+</html>
