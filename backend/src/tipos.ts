@@ -38,6 +38,14 @@ export interface ResultadoRiesgo {
   variables: VariablesAludes;
 }
 
+export interface TendenciaDia {
+  // Fecha local de Jujuy, AAAA-MM-DD.
+  fecha: string;
+  // Nivel más alto que alcanzó ese día.
+  nivel: Nivel;
+  lluviaMm: number;
+}
+
 export interface EstadoZona {
   zonaId: string;
   nombre: string;
@@ -50,6 +58,8 @@ export interface EstadoZona {
   motivos: Motivo[];
   variables: VariablesAludes | null;
   aviso: string | null;
+  // Últimos 7 días (el último es hoy). Vacío si no hay nivel.
+  tendencia: TendenciaDia[];
   celda: Lectura['celda'] | null;
   // Momento en que se bajaron los datos de Open-Meteo.
   datosDe: string | null;

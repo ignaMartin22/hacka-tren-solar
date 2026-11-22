@@ -23,6 +23,7 @@ export const UMBRALES_SEQUIA = {
 
 export const ACTUALIZACION = {
   aludesCadaHoras: 3,
-  diasPasados: 7,
+  // 7 días de tendencia más 3 para que el primero tenga sus 72 horas previas.
+  diasPasados: 10,
   diasPronostico: 3,
 };

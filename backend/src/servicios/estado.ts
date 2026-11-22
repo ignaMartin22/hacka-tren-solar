@@ -1,5 +1,6 @@
 import { ZONAS, type Zona } from '../../../config/zonas';
 import { calcularAludes } from '../riesgo/aludes';
+import { calcularTendencia } from '../riesgo/tendencia';
 import type { EstadoZona, Lectura } from '../tipos';
 import { guardarLecturas, obtenerLecturas } from './almacen';
 import { consultarPronostico } from './openMeteo';
@@ -20,6 +21,7 @@ function estadoDeZona(zona: Zona, lectura: Lectura | undefined, ahora: Date): Es
     motivos: [],
     variables: null,
     aviso: null,
+    tendencia: [],
     celda: lectura?.celda ?? null,
     datosDe: lectura?.obtenidaEn ?? null,
     calculadoEn: ahora.toISOString(),
@@ -28,7 +30,7 @@ function estadoDeZona(zona: Zona, lectura: Lectura | undefined, ahora: Date): Es
   if (!lectura) return { ...estado, aviso: 'Todavía no hay datos para esta zona.' };
   try {
     const { nivel, motivos, variables } = calcularAludes(lectura.serie, ahora, zona.pendiente);
-    return { ...estado, nivel, motivos, variables };
+    return { ...estado, nivel, motivos, variables, tendencia: calcularTendencia(lectura.serie, ahora, zona.pendiente) };
   } catch {
     return { ...estado, aviso: 'Los datos guardados están desactualizados y no alcanzan para calcular el nivel.' };
   }

@@ -1,0 +1,23 @@
+import { NIVELES } from '../../../config/riesgo';
+import type { Pendiente } from '../../../config/zonas';
+import { fechaLocal } from '../hora';
+import type { SerieHoraria, TendenciaDia } from '../tipos';
+import { evaluarAludes, indiceDe, variablesEnIndice } from './aludes';
+
+// Nivel más alto de cada uno de los últimos días (el último es hoy, hasta la hora actual) y lluvia del día.
+// Para los días pasados el motor se vuelve a correr hora por hora con los datos que hay ahora:
+// lo que en su momento era pronóstico se reemplaza por lo que el modelo registró después.
+export function calcularTendencia(serie: SerieHoraria, ahora: Date, pendiente: Pendiente, dias = 7): TendenciaDia[] {
+  const iAhora = indiceDe(serie, ahora);
+  const porDia = new Map<string, TendenciaDia>();
+  for (let i = 0; i <= iAhora && serie.tiempos.length - 1 - i >= 24; i++) {
+    // La hora que termina en la marca i pertenece al día en que empezó.
+    const fecha = fechaLocal(serie.tiempos[i]! - 3600);
+    const dia = porDia.get(fecha) ?? { fecha, nivel: 'verde', lluviaMm: 0 };
+    const nivel = evaluarAludes(variablesEnIndice(serie, i, pendiente)).nivel;
+    if (NIVELES.indexOf(nivel) > NIVELES.indexOf(dia.nivel)) dia.nivel = nivel;
+    dia.lluviaMm += serie.lluviaMm[i] ?? 0;
+    porDia.set(fecha, dia);
+  }
+  return [...porDia.values()].slice(-dias).map((d) => ({ ...d, lluviaMm: Number(d.lluviaMm.toFixed(1)) }));
+}
