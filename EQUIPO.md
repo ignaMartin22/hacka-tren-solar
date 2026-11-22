@@ -1,10 +1,11 @@
 # Yaku: guía rápida para el equipo
 
-Para quienes siguen con el **frontend**, los **datos** y el **pitch**. Estado al 22/11/2026 12:15. El detalle está en `ESTADO.md`; las reglas, en `CONTEXT.md`.
+Para quienes siguen con el **frontend**, los **datos** y el **pitch**. Estado al 22/11/2026 12:20. El detalle está en `ESTADO.md`; las reglas, en `CONTEXT.md`.
 
 ## Qué funciona hoy (backend)
 
 - Semáforo de aludes de las 6 zonas de la Quebrada con datos reales de Open-Meteo, motivos y tendencia de 7 días.
+- Sequía de las 2 zonas de la Puna: lluvia de 90 días contra el promedio 1991-2020.
 - Modo Replay del alud de Volcán del 10/01/2017, precalculado.
 - Avisos: reglas de envío, historial, rojo con confirmación y simulacros desde el panel.
 - Bot de Telegram escrito (`/start`, elegir zona, `/zonas`, `/baja`). **Todavía no se probó en vivo: falta el token.**
@@ -12,7 +13,7 @@ Para quienes siguen con el **frontend**, los **datos** y el **pitch**. Estado al
 
 ## Qué NO existe todavía
 
-Sequía (las 2 zonas de la Puna salen con `nivel: null`), suscripción por mail, base de datos (hoy se guarda en archivos locales) y deploy. No hay link público.
+Suscripción por mail, avisos de sequía (solo se muestra el nivel), base de datos (hoy se guarda en archivos locales) y deploy. No hay link público.
 
 ## Cómo levantarlo
 
@@ -71,7 +72,8 @@ Ids de zona: `volcan`, `tumbaya`, `purmamarca`, `maimara`, `tilcara`, `humahuaca
 - `motivos[].texto`: el "por qué", listo para mostrar. `codigo`: `lluvia_24h`, `lluvia_72h`, `suelo`, `pendiente`, `pronostico_24h`, `sin_alerta`.
 - `tendencia`: 7 días, el último es hoy. Cada día trae el nivel más alto que alcanzó y la lluvia del día.
 - `datosDe`: la "última actualización" que hay que mostrar siempre. Viene en UTC.
-- `variables`: los números detrás del nivel, para la vista institucional. `suelo` puede ser `null`.
+- `variables`: los números detrás del nivel en zonas de aludes (`null` en las de sequía). `suelo` puede ser `null`.
+- `sequia`: solo en zonas de la Puna: `{ desde, hasta, lluvia90dMm, promedio90dMm, cociente }`. En época seca `nivel` y `cociente` son `null` y `aviso` dice "Época seca, sin dato: ...". Hoy Abra Pampa está en verde (131 % de lo normal) y Susques sin dato por época seca. Las zonas de sequía no tienen `tendencia`.
 
 ### Suscripción por Telegram
 
@@ -120,7 +122,7 @@ Hoy todo está en verde, así que para mostrar el circuito del rojo en la demo h
 - Mobile first. El color nunca va solo: siempre con el nivel escrito.
 - Pocas palabras y cero jerga. Mostrar siempre la última actualización.
 - Pie con crédito a Open-Meteo y la frase "datos satelitales y de modelos meteorológicos".
-- No mostrar botones de cosas que no funcionan (sequía, mail).
+- No mostrar botones de cosas que no funcionan (suscripción por mail, avisos de sequía).
 
 ### Para no pisarnos
 
