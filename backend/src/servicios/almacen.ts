@@ -1,7 +1,7 @@
 import { mkdir, readFile, writeFile } from 'node:fs/promises';
 import { fileURLToPath } from 'node:url';
 import type { Nivel } from '../../../config/riesgo';
-import type { Aviso, Lectura, Suscriptor } from '../tipos';
+import type { Aviso, Lectura, ResultadoSequia, Suscriptor } from '../tipos';
 
 // Almacén provisorio: memoria + un JSON por colección en backend/.datos/ (fuera del repo).
 // Pendiente: reemplazar por Postgres (Neon) con Prisma. En Render el disco se borra en cada reinicio.
@@ -14,9 +14,11 @@ interface Datos {
   avisos: Aviso[];
   // Último nivel procesado por zona, para avisar solo cuando sube.
   nivelesPrevios: Record<string, Nivel>;
+  // Último indicador de sequía por zona.
+  sequia: Record<string, ResultadoSequia>;
 }
 
-export const almacen: Datos = { lecturas: [], suscriptores: [], avisos: [], nivelesPrevios: {} };
+export const almacen: Datos = { lecturas: [], suscriptores: [], avisos: [], nivelesPrevios: {}, sequia: {} };
 
 // Guarda en disco la colección indicada tal como está en memoria.
 export async function persistir(clave: keyof Datos): Promise<void> {

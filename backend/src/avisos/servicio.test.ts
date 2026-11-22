@@ -12,7 +12,7 @@ const { almacen } = await import('../servicios/almacen');
 const { configurarEnvio, confirmarAviso, crearSimulacro, pendientes, procesarAvisos } = await import('./servicio');
 
 const estado = (zonaId: string, nivel: Nivel): EstadoZona[] => [
-  { zonaId, nombre: zonaId, region: 'Quebrada', amenaza: 'aludes', lat: 0, lon: 0, nivel, motivos: [], variables: null, aviso: null, tendencia: [], celda: null, datosDe: null, calculadoEn: null },
+  { zonaId, nombre: zonaId, region: 'Quebrada', amenaza: 'aludes', lat: 0, lon: 0, nivel, motivos: [], variables: null, sequia: null, aviso: null, tendencia: [], celda: null, datosDe: null, calculadoEn: null },
 ];
 const enviados: { chatId: number; texto: string }[] = [];
 let hora = Date.parse('2026-01-10T00:00:00Z');

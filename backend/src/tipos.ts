@@ -56,7 +56,10 @@ export interface EstadoZona {
   // null = todavía no hay nivel calculado para esta zona (ver `aviso`).
   nivel: Nivel | null;
   motivos: Motivo[];
+  // Números detrás del nivel en zonas de aludes; null en las de sequía.
   variables: VariablesAludes | null;
+  // Números detrás del nivel en zonas de sequía; null en las de aludes.
+  sequia: VariablesSequia | null;
   aviso: string | null;
   // Últimos 7 días (el último es hoy). Vacío si no hay nivel.
   tendencia: TendenciaDia[];
@@ -97,4 +100,23 @@ export interface Aviso {
   enviadoEn: string | null;
   // Personas a las que se les entregó el mensaje.
   destinatarios: number;
+}
+
+export interface VariablesSequia {
+  // Ventana de 90 días evaluada (fechas locales). Termina en el último día publicado por el reanálisis.
+  desde: string;
+  hasta: string;
+  lluvia90dMm: number;
+  // Promedio 1991-2020 de la lluvia en esos mismos 90 días del año.
+  promedio90dMm: number;
+  // lluvia90dMm / promedio90dMm. null en época seca, cuando el promedio es demasiado bajo para comparar.
+  cociente: number | null;
+}
+
+export interface ResultadoSequia {
+  nivel: Nivel | null;
+  motivos: Motivo[];
+  aviso: string | null;
+  variables: VariablesSequia;
+  obtenidaEn: string;
 }

@@ -8,6 +8,7 @@ import { historial } from './avisos/servicio';
 import { crearRouterReplay } from './replay';
 import { almacen, cargarAlmacen } from './servicios/almacen';
 import { actualizar, obtenerEstados, recalcular } from './servicios/estado';
+import { actualizarSequia, actualizarSequiaSiHaceFalta } from './servicios/sequia';
 import { infoBot, iniciarBot } from './telegram/arranque';
 
 const PORT = Number(process.env.PORT) || 3001;
@@ -71,5 +72,11 @@ if (almacen.lecturas.length > 0) recalcular();
 app.listen(PORT, () => console.log(`Yaku backend escuchando en http://localhost:${PORT}`));
 if (TELEGRAM_BOT_TOKEN) void iniciarBot(app, TELEGRAM_BOT_TOKEN, URL_PUBLICA);
 else console.log('Bot de Telegram desactivado: falta TELEGRAM_BOT_TOKEN.');
+await actualizarSequiaSiHaceFalta();
 await actualizar();
 setInterval(actualizar, ACTUALIZACION.aludesCadaHoras * 3600 * 1000);
+// La sequía se recalcula una vez por semana.
+setInterval(async () => {
+  await actualizarSequia();
+  recalcular();
+}, 7 * 24 * 3600 * 1000);

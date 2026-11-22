@@ -53,7 +53,8 @@ export async function procesarAvisos(estados: EstadoZona[], ahora = new Date()):
   const nuevos: Aviso[] = [];
   for (const estado of estados) {
     const zona = ZONAS.find((z) => z.id === estado.zonaId);
-    if (!zona || estado.nivel === null) continue;
+    // Por ahora solo hay avisos de aludes.
+    if (!zona || zona.amenaza !== 'aludes' || estado.nivel === null) continue;
     if (estado.nivel !== 'rojo')
       for (const a of almacen.avisos)
         if (a.zonaId === zona.id && !a.simulacro && a.envioVecinos === 'pendiente_confirmacion') a.envioVecinos = 'vencido';

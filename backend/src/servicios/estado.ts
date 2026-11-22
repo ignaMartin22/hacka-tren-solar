@@ -21,13 +21,18 @@ function estadoDeZona(zona: Zona, lectura: Lectura | undefined, ahora: Date): Es
     nivel: null,
     motivos: [],
     variables: null,
+    sequia: null,
     aviso: null,
     tendencia: [],
     celda: lectura?.celda ?? null,
     datosDe: lectura?.obtenidaEn ?? null,
     calculadoEn: ahora.toISOString(),
   };
-  if (zona.amenaza === 'sequia') return { ...estado, aviso: 'El indicador de sequía todavía no está disponible.' };
+  if (zona.amenaza === 'sequia') {
+    const s = almacen.sequia[zona.id];
+    if (!s) return { ...estado, celda: null, datosDe: null, aviso: 'Todavía no hay datos de sequía para esta zona.' };
+    return { ...estado, celda: null, nivel: s.nivel, motivos: s.motivos, aviso: s.aviso, sequia: s.variables, datosDe: s.obtenidaEn };
+  }
   if (!lectura) return { ...estado, aviso: 'Todavía no hay datos para esta zona.' };
   try {
     const { nivel, motivos, variables } = calcularAludes(lectura.serie, ahora, zona.pendiente);
@@ -62,7 +67,7 @@ export async function actualizar(): Promise<{ ok: boolean; error: string | null 
 
 export const obtenerEstados = () => ({
   calculadoEn,
-  datosDe: estados.find((e) => e.datosDe)?.datosDe ?? null,
+  datosDe: almacen.lecturas[0]?.obtenidaEn ?? null,
   fuente: 'Open-Meteo (datos satelitales y de modelos meteorológicos)',
   errorUltimaActualizacion: ultimoError,
   zonas: estados,
