@@ -2,48 +2,57 @@
 
 Actualizar este archivo cada vez que se termine algo o cambie el plan. Lo leen las personas que retoman el trabajo.
 
-Última actualización: 22/11/2026 11:37 (hora de Jujuy)
+Última actualización: 22/11/2026 12:16 (hora de Jujuy)
+
+Reparto: el asistente hace el backend (`backend/`, `config/`, `data/`); el resto del equipo, frontend, datos y pitch. La API está documentada en `EQUIPO.md`.
 
 ## Hecho
 - Estructura del repo: workspace pnpm con `backend/`, `frontend/`, `config/` y `data/replay/`. Todo en TypeScript.
-- `config/zonas.ts`: 6 zonas de la Quebrada (aludes) y 2 de la Puna (sequía). Agregar una zona es agregar una entrada.
-- `config/riesgo.ts`: todos los umbrales del motor (valores iniciales de CONTEXT.md, sin validar).
-- `backend/src/servicios/openMeteo.ts`: una sola llamada a Open-Meteo para todas las zonas (7 días pasados + 3 de pronóstico, por hora). También está la función para el histórico (para el Replay), probada a mano pero todavía sin uso.
-- `EQUIPO.md`: guía rápida para el equipo (API para el frontend y notas para el pitch).
-- `backend/src/riesgo/aludes.ts`: motor de riesgo de aludes con la lista de motivos (el "por qué"). 9 tests en `aludes.test.ts`.
-- Endpoints: `GET /api/estado`, `GET /api/estado/:zonaId`, `GET /api/zonas`, `GET /api/salud` y `POST /api/jobs/run` (header `x-job-secret`).
-- El backend actualiza al arrancar y cada 3 horas. Si Open-Meteo falla, sigue con las últimas lecturas guardadas.
-- Probado con datos reales de hoy: las 6 zonas de la Quebrada dan verde (casi sin lluvia).
-- Frontend base (`frontend/`): Vite + React + Tailwind. Muestra la lista de zonas con nivel, motivos y hora de actualización leyendo `/api/estado`. Probado en navegador con datos reales; `pnpm build` pasa. Leaflet ya está instalado pero todavía no se usa.
+- `config/zonas.ts` (8 zonas), `config/riesgo.ts` (umbrales y tope de avisos) y `config/eventos.ts` (eventos del Replay con fuentes).
+- Open-Meteo: una sola llamada para todas las zonas (10 días pasados + 3 de pronóstico, por hora). Actualiza al arrancar y cada 3 horas; si falla, sigue con lo guardado.
+- Motor de aludes con motivos, y tendencia de 7 días por zona (`GET /api/estado`, `GET /api/estado/:zonaId`).
+- Avisos: solo cuando el nivel sube y al volver a verde; naranja sale solo a vecinos; rojo espera confirmación; tope de un aviso por zona y nivel cada 6 horas. Historial en `GET /api/avisos`.
+- Vista institucional: login con clave compartida, rojos pendientes, confirmar y enviar, simulacros y conteo de suscriptores (`/api/admin/...`).
+- Bot de Telegram con grammY: `/start`, elegir zona, `/zonas`, `/baja`, enlace directo por zona. Webhook si hay URL pública, polling si no.
+- Modo Replay: alud de Volcán del 10/01/2017 (fecha confirmada con IFRC y La Nación), en `data/replay/` y `GET /api/replay`.
+- `POST /api/jobs/run` (header `x-job-secret`) para el cron externo.
+- Frontend base: lista de zonas con nivel, motivos y hora de actualización.
+- 19 tests del backend (`pnpm test`).
 
 ## En curso
-- (nada: el equipo sigue con el frontend y el pitch; ver EQUIPO.md)
+- Motor de sequía para las 2 zonas de la Puna.
 
 ## Pendiente (en orden de prioridad)
-1. Mapa con Leaflet y ficha de zona (tendencia de 7 días: la serie horaria ya se guarda, falta calcularla y exponerla)
-2. Base de datos: Postgres (Neon) con Prisma. Hoy las lecturas van a memoria y a `backend/.datos/lecturas.json` (fuera del repo). Falta `DATABASE_URL`.
-3. Bot de Telegram y vista institucional (falta `TELEGRAM_BOT_TOKEN`)
-4. Modo Replay (verificar antes fechas y datos de los eventos)
-5. Sequía y capa satelital de GIBS (verificar el identificador de capa en el GetCapabilities)
-6. Deploy y README final
+1. **Probar el bot en vivo.** Falta `TELEGRAM_BOT_TOKEN` (se pide a @BotFather). El código pasa los tests de envío con un canal simulado, pero nunca habló con Telegram.
+2. Deploy: backend en Render y frontend en Vercel. Ver "Deploy" más abajo.
+3. Base de datos: Postgres (Neon) con Prisma. Falta `DATABASE_URL`. Hoy todo va a archivos JSON en `backend/.datos/`.
+4. Aviso por mail a Defensa Civil, Vialidad y el Tren: no hay proveedor de correo. Hoy el canal institucional es el panel.
+5. Capa satelital de GIBS (verificar el identificador de capa en el GetCapabilities).
+6. README final.
 
 ## Datos verificados y sin verificar
-- Verificado contra la API de Open-Meteo (22/11/2026): variables `precipitation`, `soil_moisture_0_to_1cm`, `soil_moisture_1_to_3cm`, `soil_moisture_3_to_9cm`, `soil_moisture_9_to_27cm` (pronóstico) y `soil_moisture_0_to_7cm`, `soil_moisture_7_to_28cm` (histórico). Todas responden en m³/m³ y sin valores nulos para nuestras zonas.
-- Verificado con el geocodificador de Open-Meteo: coordenadas de Tumbaya, Purmamarca, Maimará, Tilcara, Humahuaca, Abra Pampa y Susques.
-- SIN verificar: coordenadas de Volcán (el geocodificador no respondió; queda el valor aproximado de CONTEXT.md, marcado con `coordenadasVerificadas: false`).
-- SIN verificar: la pendiente (alta/media/baja) de cada zona. Es una estimación cargada a mano.
-- SIN verificar: fechas y datos de los eventos del Replay, e identificadores de capas de GIBS. No se cargó nada de eso todavía.
+- Verificado contra la API de Open-Meteo: `precipitation`, `soil_moisture_0_to_1cm`, `_1_to_3cm`, `_3_to_9cm`, `_9_to_27cm` (pronóstico) y `soil_moisture_0_to_7cm`, `_7_to_28cm` (histórico).
+- Verificado: coordenadas de todas las zonas menos Volcán; fecha y cifras del alud de Volcán de 2017.
+- SIN verificar: coordenadas de Volcán, la pendiente de cada zona, las crecidas de marzo de 2025 (no se cargaron) y los identificadores de capas de GIBS.
+- SIN verificar en el deploy: que Render defina `RENDER_EXTERNAL_URL`. Si no, hay que cargar `PUBLIC_URL` a mano.
 
 ## Problemas abiertos
-- Volcán y Tumbaya caen en la misma celda de la grilla de Open-Meteo (unos 9 km), así que hoy reciben exactamente los mismos datos. El endpoint devuelve en `celda` la coordenada que respondió el modelo.
-- La humedad del suelo se promedia de 0 a 27 cm en el pronóstico y de 0 a 28 cm en el histórico (ponderada por espesor de capa). Es una decisión nuestra para que el Replay y el semáforo en vivo sean comparables; los umbrales no están calibrados contra ese promedio.
-- `npm` no funciona desde Git Bash en esta máquina (error de WSL). `pnpm` 11 sí. La red del tren es lenta: las instalaciones tardan varios minutos.
-- Para el deploy en Render: `tsx` está en devDependencies y el backend arranca con `tsx`. Hay que moverlo a dependencies o instalar también las de desarrollo.
+- **En Render el disco se borra en cada reinicio**: sin base de datos se pierden suscriptores, historial y el último nivel de cada zona. Para la demo alcanza si el servicio no se reinicia; para algo real hace falta Postgres.
+- Los umbrales no se ajustaron. En el Replay de 2017 dieron rojo, pero es un solo evento y no se midieron falsas alarmas. La humedad del suelo del histórico de ese verano (0,48 a 0,51) queda muy por encima del umbral de 0,35: es posible que en época de lluvias el semáforo suba seguido.
+- El Replay no usa pronósticos reales de 2017 (no existen archivados): ver la explicación en `EQUIPO.md`.
+- Volcán y Tumbaya caen en la misma celda de Open-Meteo y reciben los mismos datos.
+- Si el backend arranca con una zona ya en naranja, el aviso puede salir antes de que el bot termine de conectarse y queda como `sin_canal`.
+- La tendencia de días pasados se recalcula con lo que el modelo registró después, no con el pronóstico que había en ese momento.
+- `npm` no funciona desde Git Bash en esta máquina; `pnpm` sí. La red es lenta.
+
+## Deploy (todavía no hecho)
+- Backend en Render: raíz del repo, instalar con `pnpm install`, arrancar con `pnpm --filter yaku-backend start`. Variables: `JOB_SECRET`, `ADMIN_PASSWORD`, `TELEGRAM_BOT_TOKEN`, `FRONTEND_ORIGIN`.
+- Cron externo (cron-job.org o GitHub Actions): `POST /api/jobs/run` con el header `x-job-secret`, cada 3 horas.
+- Frontend en Vercel: carpeta `frontend/`, variable `VITE_API_URL` con la URL del backend.
 
 ## Cómo correrlo
-- Requisitos: Node 20.12 o superior y pnpm.
-- `pnpm install` en la raíz.
-- Backend: `pnpm dev:backend` (queda en http://localhost:3001). Opcional: copiar `.env.example` a `backend/.env`.
+- Requisitos: Node 20.12 o superior y pnpm. `pnpm install` en la raíz.
+- Backend: `pnpm dev:backend` (http://localhost:3001). Para el panel y el bot, copiar `.env.example` a `backend/.env` y completar.
 - Frontend: `pnpm dev:frontend` (Vite redirige `/api` al backend local).
 - Tests: `pnpm test`. Tipos: `pnpm typecheck`.
-- Probar: `curl http://localhost:3001/api/estado` o `curl http://localhost:3001/api/estado/volcan`.
+- Regenerar un Replay: `pnpm --filter yaku-backend replay volcan-2017-01-10`.
