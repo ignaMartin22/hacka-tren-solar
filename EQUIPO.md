@@ -10,7 +10,7 @@ Para quienes siguen con el **frontend** y el **pitch**. Estado al 22/11/2026 11:
 
 ## Qué NO existe todavía
 
-Mapa, ficha de zona con tendencia de 7 días, bot de Telegram, vista institucional, Modo Replay, sequía, capa satelital, base de datos y deploy. No hay link público. Las 2 zonas de la Puna figuran en la API pero sin nivel (`nivel: null`).
+Mapa, ficha de zona con tendencia de 7 días, bot de Telegram, vista institucional, base de datos y deploy. No hay link público. Del Modo Replay, la sequía y la capa satelital están los datos listos (ver "Datos listos para usar"), pero falta la pantalla y el endpoint. Las 2 zonas de la Puna figuran en la API pero sin nivel (`nivel: null`).
 
 ## Cómo levantarlo
 
@@ -95,6 +95,12 @@ Los tipos ya están escritos: `EstadoZona` en `backend/src/tipos.ts` y `Nivel` e
 - Pie de página con crédito a Open-Meteo y la frase "datos satelitales y de modelos meteorológicos".
 - No mostrar botones ni pantallas de cosas que todavía no funcionan.
 
+### Datos listos para usar
+
+- **Replay:** `data/replay/volcan-2017-01-10.json` (el que conviene mostrar) y `data/replay/huichaira-2025-03-06.json`. Cada uno trae, por zona, el color de cada día (`dias`) y de cada 3 horas (`pasos`) con sus motivos. El formato y lo que se puede decir están en `data/replay/README.md`.
+- **Sequía:** `data/sequia/actual.json` trae el nivel de Abra Pampa y Susques con su motivo y el cierre de los últimos 12 meses (`mensual`). `nivel: null` se muestra como "época seca, sin dato", en gris.
+- **Capa satelital:** `config/capasSatelitales.ts`. En Leaflet: `L.tileLayer(urlDeCapa(capa), { maxNativeZoom: capa.zoomMaximo, opacity: capa.opacidad, attribution: capa.credito })`. Para el Replay, `urlDeCapa(capa, '2017-01-10')` muestra la lluvia satelital de ese día.
+
 ### Para no pisarnos
 
 El asistente sigue en `backend/`, `config/` y `data/`. Si el equipo toma `frontend/`, avisen y no se toca desde acá. Commits chicos y `git pull` antes de cada push. Los endpoints que falten (tendencia de 7 días, Replay, suscripción) se anotan en este archivo cuando existan.
@@ -125,9 +131,16 @@ Yaku ("agua" en quechua) vigila el agua del norte jujeño con datos satelitales 
 
 ### Datos sin verificar: no ponerlos en diapositivas todavía
 
-- Fechas y detalles de los eventos del Replay (el alud de Volcán de enero de 2017 y las crecidas de marzo de 2025). Hay que confirmarlos con una fuente antes de mostrarlos.
 - La pendiente de cada cuenca: es una estimación cargada a mano.
-- Cualquier cifra de daños, afectados o tiempos de anticipación. No tenemos ninguna.
+- Cualquier cifra de daños o afectados que no esté en las fuentes de `config/eventos.ts`.
+- Tiempos de anticipación: el Replay de Volcán 2017 da rojo 20 horas antes solo con "pronóstico perfecto" (usa la lluvia que realmente cayó). Decirlo así o no decir el número.
+
+### Eventos del Replay ya verificados
+
+- Alud del 10/01/2017 en Volcán, Tumbaya y Bárcena, cerca de las 8 de la mañana.
+- Crecida del arroyo Huichaira del 6/03/2025 con corte de la Ruta 9. El reanálisis casi no la registra: no usarla como demo principal.
+
+Las fuentes están en `config/eventos.ts`.
 
 ### Dato real de hoy, por si sirve
 
