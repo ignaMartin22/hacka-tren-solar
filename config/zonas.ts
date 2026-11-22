@@ -1,7 +1,7 @@
 // Zonas vigiladas por Yaku. Agregar una zona = agregar una entrada acá; no hay que tocar la lógica.
 //
-// Coordenadas: contrastadas el 22/11/2026 con el geocodificador de Open-Meteo (GeoNames),
-// salvo Volcán, que no se pudo verificar y queda con el valor aproximado de CONTEXT.md.
+// Coordenadas: contrastadas el 22/11/2026 con el geocodificador de Open-Meteo (GeoNames).
+// Volcán no figura ahí: se verificó con Nominatim (OpenStreetMap), "Municipio de Volcán, Departamento Tumbaya".
 // Pendiente (alta/media/baja): estimación inicial cargada a mano, SIN validar con un modelo de elevación.
 
 export type Amenaza = 'aludes' | 'sequia';
@@ -19,7 +19,7 @@ export interface Zona {
 }
 
 export const ZONAS: Zona[] = [
-  { id: 'volcan', nombre: 'Volcán', region: 'Quebrada', amenaza: 'aludes', lat: -23.92, lon: -65.47, pendiente: 'alta', coordenadasVerificadas: false },
+  { id: 'volcan', nombre: 'Volcán', region: 'Quebrada', amenaza: 'aludes', lat: -23.917, lon: -65.464, pendiente: 'alta', coordenadasVerificadas: true },
   { id: 'tumbaya', nombre: 'Tumbaya', region: 'Quebrada', amenaza: 'aludes', lat: -23.858, lon: -65.467, pendiente: 'alta', coordenadasVerificadas: true },
   { id: 'purmamarca', nombre: 'Purmamarca', region: 'Quebrada', amenaza: 'aludes', lat: -23.746, lon: -65.5, pendiente: 'alta', coordenadasVerificadas: true },
   { id: 'maimara', nombre: 'Maimará', region: 'Quebrada', amenaza: 'aludes', lat: -23.625, lon: -65.409, pendiente: 'media', coordenadasVerificadas: true },
