@@ -1,103 +1,141 @@
 # Yaku: guía rápida para el equipo
 
-Para quienes siguen con el **frontend** y el **pitch**. Estado al 22/11/2026 11:37. El detalle de lo hecho y lo pendiente está en `ESTADO.md`; las reglas del proyecto, en `CONTEXT.md`.
+Para quienes siguen con el **frontend**, los **datos** y el **pitch**. Estado al 22/11/2026 12:20. El detalle está en `ESTADO.md`; las reglas, en `CONTEXT.md`.
 
-## Qué funciona hoy
+## Qué funciona hoy (backend)
 
-- Backend en TypeScript (Express) que baja lluvia y humedad del suelo de Open-Meteo para las 8 zonas en una sola llamada, al arrancar y cada 3 horas.
-- Motor de riesgo de aludes con reglas simples. Cada nivel sale con sus motivos (el "por qué") ya redactados.
-- API de estado por zona, probada con datos reales de hoy.
+- Semáforo de aludes de las 6 zonas de la Quebrada con datos reales de Open-Meteo, motivos y tendencia de 7 días.
+- Sequía de las 2 zonas de la Puna: lluvia de 90 días contra el promedio 1991-2020.
+- Modo Replay del alud de Volcán del 10/01/2017, precalculado.
+- Avisos: reglas de envío, historial, rojo con confirmación y simulacros desde el panel.
+- Bot de Telegram escrito (`/start`, elegir zona, `/zonas`, `/baja`). **Todavía no se probó en vivo: falta el token.**
+- Login de la vista institucional.
 
 ## Qué NO existe todavía
 
-Mapa, ficha de zona con tendencia de 7 días, bot de Telegram, vista institucional, Modo Replay, sequía, capa satelital, base de datos y deploy. No hay link público. Las 2 zonas de la Puna figuran en la API pero sin nivel (`nivel: null`).
+Suscripción por mail, avisos de sequía (solo se muestra el nivel), base de datos (hoy se guarda en archivos locales) y deploy. No hay link público.
 
 ## Cómo levantarlo
 
-Hace falta Node 20.12 o superior y pnpm. La red del tren es lenta: `pnpm install` puede tardar varios minutos.
+Node 20.12 o superior y pnpm. La red es lenta: `pnpm install` puede tardar varios minutos.
 
 ```
 git pull
 pnpm install
 pnpm dev:backend     # API en http://localhost:3001
 pnpm dev:frontend    # Vite; redirige /api al backend local
-pnpm test            # tests del motor de riesgo
+pnpm test            # tests del backend
 ```
 
-No hace falta ningún `.env` para desarrollar.
+Sin `.env` anda el semáforo y el Replay. Para el panel y el bot hay que crear `backend/.env` (ver `.env.example`) con `ADMIN_PASSWORD` y `TELEGRAM_BOT_TOKEN`.
 
 ---
 
 ## Para el frontend
 
-Stack decidido: React + Vite + TypeScript + Tailwind + Leaflet. No agregar otras librerías sin una razón fuerte.
+Stack: React + Vite + TypeScript + Tailwind + Leaflet. La base está en `frontend/` (`src/App.tsx` lista las zonas; `src/api.ts` llama a `/api/estado`). Leaflet ya está instalado.
 
-La base de `frontend/` ya está subida y probada: `src/App.tsx` muestra la lista de zonas con nivel, motivos y hora de actualización, y `src/api.ts` tiene la llamada a `/api/estado` con sus tipos. Leaflet ya está instalado (todavía sin usar). Partan de ahí para el mapa y la ficha.
+Los tipos están en `backend/src/tipos.ts` (`EstadoZona`, `TendenciaDia`, `Aviso`) y `config/riesgo.ts` (`Nivel`). Importarlos con `import type`, no copiarlos.
 
-### API disponible
+### Endpoints públicos
 
 | Método y ruta | Devuelve |
 |---|---|
-| `GET /api/estado` | Todas las zonas con su nivel y motivos |
-| `GET /api/estado/:zonaId` | Una zona (mismos datos, en el campo `zona`). 404 si no existe |
-| `GET /api/zonas` | Lista de zonas de `config/zonas.ts` (id, nombre, lat, lon, amenaza, pendiente) |
-| `GET /api/salud` | `{ ok, calculadoEn }` |
+| `GET /api/estado` | `{ calculadoEn, datosDe, fuente, errorUltimaActualizacion, zonas: EstadoZona[] }` |
+| `GET /api/estado/:zonaId` | Lo mismo con una sola zona en el campo `zona`. 404 si no existe |
+| `GET /api/zonas` | Zonas de `config/zonas.ts` |
+| `GET /api/avisos` | Historial: `Aviso[]`, del más nuevo al más viejo |
+| `GET /api/bot` | `{ activo, usuario, enlace }`. Con `activo: false` no mostrar la suscripción |
+| `GET /api/replay` | Lista de eventos: `{ id, titulo, fechaEvento, zonaPrincipal, descripcion }[]` |
+| `GET /api/replay/:id` | El replay completo (ver abajo) |
 
 Ids de zona: `volcan`, `tumbaya`, `purmamarca`, `maimara`, `tilcara`, `humahuaca`, `abra-pampa`, `susques`.
 
-Respuesta real de `GET /api/estado` (recortada a una zona):
+### EstadoZona
 
 ```json
 {
-  "calculadoEn": "2026-11-22T14:21:38.666Z",
+  "zonaId": "volcan", "nombre": "Volcán", "region": "Quebrada", "amenaza": "aludes",
+  "lat": -23.92, "lon": -65.47,
+  "nivel": "verde",
+  "motivos": [{ "codigo": "sin_alerta", "texto": "Sin lluvias fuertes ni suelo saturado: hasta 9 mm en 24 horas y humedad del suelo de 0,28." }],
+  "variables": { "lluvia24hMm": 8.9, "lluvia72hMm": 3.5, "pronostico24hMm": 8, "suelo": 0.284, "pendiente": "alta" },
+  "aviso": null,
+  "tendencia": [{ "fecha": "2026-11-16", "nivel": "verde", "lluviaMm": 0.3 }],
+  "celda": { "lat": -23.936731, "lon": -65.40253, "elevacionM": 2121 },
   "datosDe": "2026-11-22T14:21:38.648Z",
-  "fuente": "Open-Meteo (datos satelitales y de modelos meteorológicos)",
-  "errorUltimaActualizacion": null,
-  "zonas": [
-    {
-      "zonaId": "volcan",
-      "nombre": "Volcán",
-      "region": "Quebrada",
-      "amenaza": "aludes",
-      "lat": -23.92,
-      "lon": -65.47,
-      "nivel": "verde",
-      "motivos": [
-        { "codigo": "sin_alerta", "texto": "Sin lluvias fuertes ni suelo saturado: hasta 9 mm en 24 horas y humedad del suelo de 0,28." }
-      ],
-      "variables": { "lluvia24hMm": 8.9, "lluvia72hMm": 3.5, "pronostico24hMm": 8, "suelo": 0.284, "pendiente": "alta" },
-      "aviso": null,
-      "celda": { "lat": -23.936731, "lon": -65.40253, "elevacionM": 2121 },
-      "datosDe": "2026-11-22T14:21:38.648Z",
-      "calculadoEn": "2026-11-22T14:21:38.666Z"
-    }
-  ]
+  "calculadoEn": "2026-11-22T14:21:38.666Z"
 }
 ```
 
-### Qué significa cada campo
+- `nivel`: `"verde"`, `"amarillo"`, `"naranja"`, `"rojo"` o `null`. Con `null`, mostrar "Sin dato" y el texto de `aviso`.
+- `motivos[].texto`: el "por qué", listo para mostrar. `codigo`: `lluvia_24h`, `lluvia_72h`, `suelo`, `pendiente`, `pronostico_24h`, `sin_alerta`.
+- `tendencia`: 7 días, el último es hoy. Cada día trae el nivel más alto que alcanzó y la lluvia del día.
+- `datosDe`: la "última actualización" que hay que mostrar siempre. Viene en UTC.
+- `variables`: los números detrás del nivel en zonas de aludes (`null` en las de sequía). `suelo` puede ser `null`.
+- `sequia`: solo en zonas de la Puna: `{ desde, hasta, lluvia90dMm, promedio90dMm, cociente }`. En época seca `nivel` y `cociente` son `null` y `aviso` dice "Época seca, sin dato: ...". Hoy Abra Pampa está en verde (131 % de lo normal) y Susques sin dato por época seca. Las zonas de sequía no tienen `tendencia`.
 
-- `nivel`: `"verde"`, `"amarillo"`, `"naranja"`, `"rojo"` o `null`. Con `null` no hay nivel: mostrar "Sin dato" y el texto de `aviso`.
-- `motivos[].texto`: el "por qué", listo para mostrar tal cual. `codigo` sirve como `key` o para elegir un ícono (`lluvia_24h`, `lluvia_72h`, `suelo`, `pendiente`, `pronostico_24h`, `sin_alerta`).
-- `variables`: los números detrás del nivel, para la vista institucional. Lluvias en mm, `suelo` en m³/m³ (puede ser `null`).
-- `datosDe`: cuándo se bajaron los datos. Es la "última actualización" que hay que mostrar siempre. Viene en UTC: convertir a hora local.
-- `amenaza`: `"aludes"` (Quebrada) o `"sequia"` (Puna).
-- `lat` / `lon`: dónde dibujar la zona en el mapa. `celda` es el punto del modelo que respondió; no hace falta mostrarlo.
-- `errorUltimaActualizacion`: si no es `null`, Open-Meteo falló y se muestran los últimos datos guardados.
+### Suscripción por Telegram
 
-Los tipos ya están escritos: `EstadoZona` en `backend/src/tipos.ts` y `Nivel` en `config/riesgo.ts`. Importarlos con `import type`, no copiarlos.
+`GET /api/bot` devuelve `enlace` (`https://t.me/<usuario>`). Para suscribir directo a una zona, usar `<enlace>?start=<zonaId>` (sirve para un QR por zona). Solo hay avisos de las 6 zonas de la Quebrada.
+
+### Aviso (historial y panel)
+
+Campos: `id`, `zonaId`, `zonaNombre`, `tipo` (`alerta` o `fin_alerta`), `nivel`, `simulacro`, `texto`, `motivos`, `creadoEn`, `envioVecinos`, `enviadoEn`, `destinatarios`.
+
+`envioVecinos`: `no_corresponde` (amarillo no va a vecinos), `pendiente_confirmacion` (rojo esperando), `enviado`, `vencido` (el nivel bajó antes de confirmar), `sin_canal` (bot apagado). Si `simulacro` es `true`, mostrarlo siempre como SIMULACRO.
+
+### Vista institucional (requiere login)
+
+| Método y ruta | Uso |
+|---|---|
+| `POST /api/admin/login` con `{ "clave": "..." }` | Devuelve `{ token, venceEn }`. 401 si la clave está mal, 503 si falta configurarla |
+| `GET /api/admin/avisos/pendientes` | Rojos que esperan confirmación |
+| `POST /api/admin/avisos/:id/confirmar` | Envía el rojo a los vecinos y devuelve el aviso. 503 si el bot está apagado |
+| `POST /api/admin/simulacros` con `{ "zonaId", "nivel" }` | Crea un aviso de prueba. Naranja sale al instante; rojo queda pendiente |
+| `GET /api/admin/suscriptores` | `{ total, porZona }` |
+
+Todas menos el login llevan el header `Authorization: Bearer <token>`. El token dura 12 horas.
+
+Hoy todo está en verde, así que para mostrar el circuito del rojo en la demo hay que usar un simulacro. El mensaje que llega dice "SIMULACRO: esto es una prueba, no una alerta real".
+
+### Replay
+
+`GET /api/replay/volcan-2017-01-10` devuelve `titulo`, `fechaEvento`, `descripcion`, `fuentes`, `nota` y `zonas`. Cada zona trae 8 `dias` (7 previos y el del evento):
+
+```json
+{
+  "fecha": "2017-01-09", "esDiaDelEvento": false, "lluviaMm": 13.9,
+  "nivel": "rojo", "desdeHora": "11:00",
+  "motivos": [{ "codigo": "lluvia_24h", "texto": "Hasta 96 mm de lluvia en 24 horas, ..." }],
+  "variables": { "lluvia24hMm": 95.7, "lluvia72hMm": 13.6, "pronostico24hMm": 95.7, "suelo": 0.485, "pendiente": "alta" },
+  "nivelSoloObservado": "verde", "desdeHoraSoloObservado": "01:00", "motivosSoloObservado": []
+}
+```
+
+- `nivel`: el más alto del día. `desdeHora`: hora local en que llegó a ese nivel.
+- `nivelSoloObservado`: el nivel usando únicamente lo que ya había llovido, sin mirar hacia adelante.
+- Mostrar el texto de `nota` en la pantalla del Replay: explica qué es precalculado.
 
 ### Reglas de interfaz (de CONTEXT.md)
 
-- Mobile first. En celular, mapa arriba y ficha abajo; en escritorio, mapa a la izquierda y ficha a la derecha.
-- El color nunca va solo: siempre con el nivel escrito (VERDE, AMARILLO, NARANJA, ROJO).
-- Pocas palabras y cero jerga.
-- Pie de página con crédito a Open-Meteo y la frase "datos satelitales y de modelos meteorológicos".
-- No mostrar botones ni pantallas de cosas que todavía no funcionan.
+- Mobile first. El color nunca va solo: siempre con el nivel escrito.
+- Pocas palabras y cero jerga. Mostrar siempre la última actualización.
+- Pie con crédito a Open-Meteo y la frase "datos satelitales y de modelos meteorológicos".
+- No mostrar botones de cosas que no funcionan (suscripción por mail, avisos de sequía).
 
 ### Para no pisarnos
 
-El asistente sigue en `backend/`, `config/` y `data/`. **`frontend/` lo tomó el equipo (desde el 22/11/2026) en la rama `feat/frontend`: no se toca desde acá.** El sistema de diseño está en `frontend/DESIGN.md`. Commits chicos y `git pull` antes de cada push. Los endpoints que falten (tendencia de 7 días, Replay, suscripción) se anotan en este archivo cuando existan.
+El asistente trabaja en `backend/`, `config/`, `data/` y los `.md`. No toca `frontend/`: lo lleva el equipo (sistema de diseño en `frontend/DESIGN.md`, auditoría en `frontend/AUDITORIA.md`). Hagan `git pull` antes de cada push.
+
+---
+
+## Para los datos
+
+- `config/zonas.ts`: coordenadas y pendiente de cada zona. Las coordenadas están verificadas; las pendientes no.
+- `config/riesgo.ts`: umbrales. Son los iniciales de CONTEXT.md, sin validar ni ajustar.
+- `config/eventos.ts`: eventos del Replay. Para sumar uno hace falta la fecha exacta y una fuente; después se genera con `pnpm --filter yaku-backend replay <id>`. La crecida de Huichaira de marzo de 2025 está verificada pero no se cargó: el histórico casi no la registra (ver `data/replay/README.md`).
+- `config/capasSatelitales.ts`: 2 capas de NASA GIBS verificadas, lluvia satelital (IMERG) y vegetación (MODIS). En Leaflet: `L.tileLayer(urlDeCapa(capa), { maxNativeZoom: capa.zoomMaximo, opacity: capa.opacidad, attribution: capa.credito })`. En el Replay, `urlDeCapa(capa, '2017-01-10')` muestra la lluvia satelital de ese día.
 
 ---
 
@@ -105,14 +143,7 @@ El asistente sigue en `backend/`, `config/` y `data/`. **`frontend/` lo tomó el
 
 ### En una frase
 
-Yaku ("agua" en quechua) vigila el agua del norte jujeño con datos satelitales y de modelos meteorológicos, y la traduce a un semáforo de riesgo por zona con un aviso a tiempo: cuando sobra y amenaza con aludes, y cuando falta y seca la Puna.
-
-### Lo que se puede afirmar hoy
-
-- Usa datos reales y abiertos de Open-Meteo: lluvia de los últimos días, lluvia pronosticada y humedad del suelo, por hora y por zona.
-- El riesgo se calcula con reglas simples y visibles, sin IA. Cada color viene con su explicación.
-- Agregar una zona es agregar una línea en un archivo.
-- Todo el código se escribió hoy, durante el hackathon.
+Yaku ("agua" en quechua) vigila el agua del norte jujeño con datos satelitales y de modelos meteorológicos, y la traduce a un semáforo de riesgo por zona con un aviso a tiempo.
 
 ### Cómo decirlo
 
@@ -120,24 +151,36 @@ Yaku ("agua" en quechua) vigila el agua del norte jujeño con datos satelitales 
 |---|---|
 | "Alerta de riesgo" | "Predecimos aludes", "detectamos aludes" |
 | "Datos satelitales y de modelos meteorológicos" | "Imágenes satelitales en vivo" |
-| "Umbrales iniciales, todavía sin validar" | "Modelo validado", "calibrado científicamente" |
+| "Umbrales iniciales, todavía sin validar" | "Modelo validado", "calibrado" |
 | "El aviso rojo lo confirma una persona responsable" | "Avisa solo" |
 
-### Datos sin verificar: no ponerlos en diapositivas todavía
+### El Replay de Volcán: qué muestra y qué no
 
-- Fechas y detalles de los eventos del Replay (el alud de Volcán de enero de 2017 y las crecidas de marzo de 2025). Hay que confirmarlos con una fuente antes de mostrarlos.
-- La pendiente de cada cuenca: es una estimación cargada a mano.
-- Cualquier cifra de daños, afectados o tiempos de anticipación. No tenemos ninguna.
+Evento confirmado: alud del 10 de enero de 2017 en Volcán, Tumbaya y Bárcena. Según el informe de la Cruz Roja (IFRC, en ReliefWeb): 2 personas fallecidas, 2.666 afectadas y 446 evacuadas. Las fuentes están en `config/eventos.ts`.
 
-### Dato real de hoy, por si sirve
+Lo que dio el motor para Volcán, con los umbrales iniciales sin tocar:
 
-A las 11:21, las 6 zonas de la Quebrada estaban en verde. En Volcán: hasta 8,9 mm de lluvia en 24 horas y humedad del suelo de 0,28 (el amarillo empieza en 15 mm). Estos valores cambian con cada actualización: revisar `/api/estado` antes de presentar.
+| Día | 03/01 | 04/01 | 05/01 | 06/01 | 07/01 | 08/01 | 09/01 | 10/01 (evento) |
+|---|---|---|---|---|---|---|---|---|
+| Nivel | verde | naranja | naranja | naranja | verde | amarillo | rojo | rojo |
+| Solo con lo ya llovido | verde | verde | naranja | naranja | verde | verde | verde | rojo |
+| Lluvia del día | 3,5 mm | 1,2 mm | 35 mm | 11,4 mm | 2,8 mm | 2,1 mm | 13,9 mm | 88,8 mm |
+
+**Cuidado con cómo se cuenta:**
+
+- El rojo del 09/01 aparece a las 11:00, pero usa la lluvia de las 24 horas siguientes tomada del registro histórico, como si el pronóstico hubiera acertado. No tenemos el pronóstico real de esa fecha.
+- Usando solo lo que ya había llovido, el rojo recién aparece el 10/01 a las 11:00. El informe del Comité Operativo de Emergencias de Jujuy ubica la llegada del alud a Tumbaya alrededor de las 8:30, así que en ese caso el rojo llega después del alud: no hay anticipación.
+- Frase honesta: "con un pronóstico que hubiera anticipado esa lluvia, Yaku habría marcado rojo el día anterior; y ya había marcado naranja cinco días antes". No decir "Yaku lo habría avisado 24 horas antes" a secas.
+- Es un solo evento. No sabemos cuántas veces el semáforo se habría puesto rojo sin que pasara nada.
+- Volcán y Tumbaya comparten el mismo punto del modelo, por eso dan idéntico.
+
+### Dato real de hoy
+
+Las 6 zonas de la Quebrada están en verde. Los valores cambian con cada actualización: revisar `/api/estado` antes de presentar.
 
 ### Guion sugerido para 3 minutos
 
-1. Problema (30 s): en la Quebrada el agua que sobra baja como alud en horas; en la Puna el agua que falta seca las vegas en meses. El aviso suele llegar tarde o no llegar.
+1. Problema (30 s): en la Quebrada el agua que sobra baja como alud en horas; en la Puna el agua que falta seca las vegas en meses.
 2. Qué es Yaku (30 s): un semáforo por zona que explica su porqué, y un aviso al celular.
-3. Demo (90 s): mapa con el semáforo de hoy, ficha de una zona con el porqué, Replay de un evento pasado, y suscripción por Telegram con un aviso de prueba en vivo.
-4. Cierre (30 s): para quién es (vecinos, municipios, Defensa Civil, Vialidad, Tren Solar), qué es real y qué falta, y el siguiente paso.
-
-De la demo, hoy solo existe el semáforo por API. El mapa, el Replay y Telegram están pendientes: confirmar en `ESTADO.md` qué llegó antes de armar el guion final.
+3. Demo (90 s): mapa de hoy, ficha de una zona con el porqué, Replay de Volcán 2017, y suscripción por Telegram con un simulacro en vivo.
+4. Cierre (30 s): para quién es, qué es real y qué falta, y el siguiente paso.

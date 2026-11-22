@@ -1,0 +1,1644 @@
+{
+  "id": "volcan-2017-01-10",
+  "titulo": "Alud de Volcán, 10 de enero de 2017",
+  "fechaEvento": "2017-01-10",
+  "zonaPrincipal": "volcan",
+  "descripcion": "El 10 de enero de 2017 un alud de barro y piedras afectó a Volcán, Tumbaya y Bárcena. Según el informe del Comité Operativo de Emergencias de Jujuy, llegó al primer barrio de Tumbaya alrededor de las 8:30. Según el informe de la Cruz Roja (IFRC), hubo 2 personas fallecidas, 2.666 afectadas y 446 evacuadas.",
+  "fuentes": [
+    "https://reliefweb.int/report/argentina/argentina-landslide-dref-final-report-mdrar012",
+    "https://prensa.jujuy.gob.ar/alud/informe-del-comite-operativo-emergencias-n10994",
+    "https://eltribunodejujuy.com/nota/2017-1-10-12-19-0-temporal-causo-un-alud-de-barro-que-dejo-evacuados-y-cortes-de-energia-electrica-alud-de-barro",
+    "https://www.lanacion.com.ar/sociedad/alud-en-jujuy-dos-muertos-en-la-localidad-de-volcan-nid1974677/"
+  ],
+  "generadoEn": "2026-11-22T15:51:49.760Z",
+  "fuenteDatos": "Open-Meteo Historical Weather API (reanálisis y modelos meteorológicos)",
+  "nota": "Precalculado con el mismo motor y los mismos umbrales que el semáforo en vivo. No hay pronósticos archivados de esa fecha: en `nivel`, la lluvia de las 24 horas siguientes sale del reanálisis y ocupa el lugar del pronóstico. `nivelSoloObservado` usa únicamente lo que ya había llovido hasta ese momento. Cada día muestra el nivel más alto que alcanzó y la hora local en que llegó a ese nivel (`desdeHora`).",
+  "zonas": [
+    {
+      "zonaId": "volcan",
+      "nombre": "Volcán",
+      "celda": {
+        "lat": -23.936731,
+        "lon": -65.40253,
+        "elevacionM": 2079
+      },
+      "dias": [
+        {
+          "fecha": "2017-01-03",
+          "esDiaDelEvento": false,
+          "lluviaMm": 3.5,
+          "nivel": "verde",
+          "desdeHora": "01:00",
+          "motivos": [
+            {
+              "codigo": "sin_alerta",
+              "texto": "Sin lluvias fuertes ni suelo saturado: hasta 5 mm en 24 horas y humedad del suelo de 0,40."
+            }
+          ],
+          "variables": {
+            "lluvia24hMm": 5,
+            "lluvia72hMm": 6,
+            "pronostico24hMm": 3.5,
+            "suelo": 0.402,
+            "pendiente": "alta"
+          },
+          "nivelSoloObservado": "verde",
+          "desdeHoraSoloObservado": "01:00",
+          "motivosSoloObservado": [
+            {
+              "codigo": "sin_alerta",
+              "texto": "Sin lluvias fuertes ni suelo saturado: hasta 5 mm en 24 horas y humedad del suelo de 0,40."
+            }
+          ]
+        },
+        {
+          "fecha": "2017-01-04",
+          "esDiaDelEvento": false,
+          "lluviaMm": 1.2,
+          "nivel": "naranja",
+          "desdeHora": "23:00",
+          "motivos": [
+            {
+              "codigo": "lluvia_24h",
+              "texto": "Hasta 35 mm de lluvia en 24 horas, entre lo que ya llovió y lo que se espera (umbral: 25 mm)."
+            },
+            {
+              "codigo": "suelo",
+              "texto": "El suelo está muy húmedo: 0,40 m³ de agua por m³ de suelo (umbral: 0,30)."
+            },
+            {
+              "codigo": "pendiente",
+              "texto": "La pendiente de la cuenca es alta."
+            }
+          ],
+          "variables": {
+            "lluvia24hMm": 35,
+            "lluvia72hMm": 9.7,
+            "pronostico24hMm": 35,
+            "suelo": 0.4,
+            "pendiente": "alta"
+          },
+          "nivelSoloObservado": "verde",
+          "desdeHoraSoloObservado": "01:00",
+          "motivosSoloObservado": [
+            {
+              "codigo": "sin_alerta",
+              "texto": "Sin lluvias fuertes ni suelo saturado: hasta 4 mm en 24 horas y humedad del suelo de 0,39."
+            }
+          ]
+        },
+        {
+          "fecha": "2017-01-05",
+          "esDiaDelEvento": false,
+          "lluviaMm": 35,
+          "nivel": "naranja",
+          "desdeHora": "01:00",
+          "motivos": [
+            {
+              "codigo": "lluvia_24h",
+              "texto": "Hasta 40 mm de lluvia en 24 horas, entre lo que ya llovió y lo que se espera (umbral: 25 mm)."
+            },
+            {
+              "codigo": "suelo",
+              "texto": "El suelo está muy húmedo: 0,40 m³ de agua por m³ de suelo (umbral: 0,30)."
+            },
+            {
+              "codigo": "pendiente",
+              "texto": "La pendiente de la cuenca es alta."
+            }
+          ],
+          "variables": {
+            "lluvia24hMm": 40.1,
+            "lluvia72hMm": 10,
+            "pronostico24hMm": 40.1,
+            "suelo": 0.404,
+            "pendiente": "alta"
+          },
+          "nivelSoloObservado": "naranja",
+          "desdeHoraSoloObservado": "23:00",
+          "motivosSoloObservado": [
+            {
+              "codigo": "lluvia_24h",
+              "texto": "Hasta 35 mm de lluvia en 24 horas, entre lo que ya llovió y lo que se espera (umbral: 25 mm)."
+            },
+            {
+              "codigo": "suelo",
+              "texto": "El suelo está muy húmedo: 0,52 m³ de agua por m³ de suelo (umbral: 0,30)."
+            },
+            {
+              "codigo": "pendiente",
+              "texto": "La pendiente de la cuenca es alta."
+            }
+          ]
+        },
+        {
+          "fecha": "2017-01-06",
+          "esDiaDelEvento": false,
+          "lluviaMm": 11.4,
+          "nivel": "naranja",
+          "desdeHora": "01:00",
+          "motivos": [
+            {
+              "codigo": "lluvia_24h",
+              "texto": "Hasta 40 mm de lluvia en 24 horas, entre lo que ya llovió y lo que se espera (umbral: 25 mm)."
+            },
+            {
+              "codigo": "suelo",
+              "texto": "El suelo está muy húmedo: 0,52 m³ de agua por m³ de suelo (umbral: 0,30)."
+            },
+            {
+              "codigo": "pendiente",
+              "texto": "La pendiente de la cuenca es alta."
+            }
+          ],
+          "variables": {
+            "lluvia24hMm": 40.1,
+            "lluvia72hMm": 44.3,
+            "pronostico24hMm": 7.1,
+            "suelo": 0.515,
+            "pendiente": "alta"
+          },
+          "nivelSoloObservado": "naranja",
+          "desdeHoraSoloObservado": "01:00",
+          "motivosSoloObservado": [
+            {
+              "codigo": "lluvia_24h",
+              "texto": "Hasta 40 mm de lluvia en 24 horas, entre lo que ya llovió y lo que se espera (umbral: 25 mm)."
+            },
+            {
+              "codigo": "suelo",
+              "texto": "El suelo está muy húmedo: 0,51 m³ de agua por m³ de suelo (umbral: 0,30)."
+            },
+            {
+              "codigo": "pendiente",
+              "texto": "La pendiente de la cuenca es alta."
+            }
+          ]
+        },
+        {
+          "fecha": "2017-01-07",
+          "esDiaDelEvento": false,
+          "lluviaMm": 2.8,
+          "nivel": "verde",
+          "desdeHora": "01:00",
+          "motivos": [
+            {
+              "codigo": "sin_alerta",
+              "texto": "Sin lluvias fuertes ni suelo saturado: hasta 7 mm en 24 horas y humedad del suelo de 0,50."
+            }
+          ],
+          "variables": {
+            "lluvia24hMm": 7.1,
+            "lluvia72hMm": 47.9,
+            "pronostico24hMm": 2.5,
+            "suelo": 0.496,
+            "pendiente": "alta"
+          },
+          "nivelSoloObservado": "verde",
+          "desdeHoraSoloObservado": "01:00",
+          "motivosSoloObservado": [
+            {
+              "codigo": "sin_alerta",
+              "texto": "Sin lluvias fuertes ni suelo saturado: hasta 7 mm en 24 horas y humedad del suelo de 0,50."
+            }
+          ]
+        },
+        {
+          "fecha": "2017-01-08",
+          "esDiaDelEvento": false,
+          "lluviaMm": 2.1,
+          "nivel": "amarillo",
+          "desdeHora": "05:00",
+          "motivos": [
+            {
+              "codigo": "suelo",
+              "texto": "El suelo está muy húmedo: 0,47 m³ de agua por m³ de suelo (umbral: 0,30)."
+            },
+            {
+              "codigo": "pronostico_24h",
+              "texto": "Se esperan 14 mm de lluvia en las próximas 24 horas (umbral: 5 mm)."
+            }
+          ],
+          "variables": {
+            "lluvia24hMm": 13.9,
+            "lluvia72hMm": 16.3,
+            "pronostico24hMm": 13.9,
+            "suelo": 0.469,
+            "pendiente": "alta"
+          },
+          "nivelSoloObservado": "verde",
+          "desdeHoraSoloObservado": "01:00",
+          "motivosSoloObservado": [
+            {
+              "codigo": "sin_alerta",
+              "texto": "Sin lluvias fuertes ni suelo saturado: hasta 3 mm en 24 horas y humedad del suelo de 0,48."
+            }
+          ]
+        },
+        {
+          "fecha": "2017-01-09",
+          "esDiaDelEvento": false,
+          "lluviaMm": 13.9,
+          "nivel": "rojo",
+          "desdeHora": "11:00",
+          "motivos": [
+            {
+              "codigo": "lluvia_24h",
+              "texto": "Hasta 96 mm de lluvia en 24 horas, entre lo que ya llovió y lo que se espera (umbral: 45 mm)."
+            },
+            {
+              "codigo": "suelo",
+              "texto": "El suelo ya está saturado: 0,48 m³ de agua por m³ de suelo (umbral: 0,35)."
+            }
+          ],
+          "variables": {
+            "lluvia24hMm": 95.7,
+            "lluvia72hMm": 13.6,
+            "pronostico24hMm": 95.7,
+            "suelo": 0.485,
+            "pendiente": "alta"
+          },
+          "nivelSoloObservado": "verde",
+          "desdeHoraSoloObservado": "01:00",
+          "motivosSoloObservado": [
+            {
+              "codigo": "sin_alerta",
+              "texto": "Sin lluvias fuertes ni suelo saturado: hasta 14 mm en 24 horas y humedad del suelo de 0,49."
+            }
+          ]
+        },
+        {
+          "fecha": "2017-01-10",
+          "esDiaDelEvento": true,
+          "lluviaMm": 88.8,
+          "nivel": "rojo",
+          "desdeHora": "01:00",
+          "motivos": [
+            {
+              "codigo": "lluvia_24h",
+              "texto": "Hasta 96 mm de lluvia en 24 horas, entre lo que ya llovió y lo que se espera (umbral: 45 mm)."
+            },
+            {
+              "codigo": "suelo",
+              "texto": "El suelo ya está saturado: 0,49 m³ de agua por m³ de suelo (umbral: 0,35)."
+            }
+          ],
+          "variables": {
+            "lluvia24hMm": 95.7,
+            "lluvia72hMm": 18.5,
+            "pronostico24hMm": 88.8,
+            "suelo": 0.491,
+            "pendiente": "alta"
+          },
+          "nivelSoloObservado": "rojo",
+          "desdeHoraSoloObservado": "11:00",
+          "motivosSoloObservado": [
+            {
+              "codigo": "lluvia_24h",
+              "texto": "Hasta 96 mm de lluvia en 24 horas, entre lo que ya llovió y lo que se espera (umbral: 45 mm)."
+            },
+            {
+              "codigo": "suelo",
+              "texto": "El suelo ya está saturado: 0,51 m³ de agua por m³ de suelo (umbral: 0,35)."
+            },
+            {
+              "codigo": "lluvia_72h",
+              "texto": "Llovieron 104 mm en los últimos 3 días (umbral: 90 mm)."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "zonaId": "tumbaya",
+      "nombre": "Tumbaya",
+      "celda": {
+        "lat": -23.936731,
+        "lon": -65.40253,
+        "elevacionM": 2095
+      },
+      "dias": [
+        {
+          "fecha": "2017-01-03",
+          "esDiaDelEvento": false,
+          "lluviaMm": 3.5,
+          "nivel": "verde",
+          "desdeHora": "01:00",
+          "motivos": [
+            {
+              "codigo": "sin_alerta",
+              "texto": "Sin lluvias fuertes ni suelo saturado: hasta 5 mm en 24 horas y humedad del suelo de 0,40."
+            }
+          ],
+          "variables": {
+            "lluvia24hMm": 5,
+            "lluvia72hMm": 5.3,
+            "pronostico24hMm": 3.5,
+            "suelo": 0.402,
+            "pendiente": "alta"
+          },
+          "nivelSoloObservado": "verde",
+          "desdeHoraSoloObservado": "01:00",
+          "motivosSoloObservado": [
+            {
+              "codigo": "sin_alerta",
+              "texto": "Sin lluvias fuertes ni suelo saturado: hasta 5 mm en 24 horas y humedad del suelo de 0,40."
+            }
+          ]
+        },
+        {
+          "fecha": "2017-01-04",
+          "esDiaDelEvento": false,
+          "lluviaMm": 1.2,
+          "nivel": "naranja",
+          "desdeHora": "23:00",
+          "motivos": [
+            {
+              "codigo": "lluvia_24h",
+              "texto": "Hasta 35 mm de lluvia en 24 horas, entre lo que ya llovió y lo que se espera (umbral: 25 mm)."
+            },
+            {
+              "codigo": "suelo",
+              "texto": "El suelo está muy húmedo: 0,40 m³ de agua por m³ de suelo (umbral: 0,30)."
+            },
+            {
+              "codigo": "pendiente",
+              "texto": "La pendiente de la cuenca es alta."
+            }
+          ],
+          "variables": {
+            "lluvia24hMm": 35,
+            "lluvia72hMm": 9.7,
+            "pronostico24hMm": 35,
+            "suelo": 0.4,
+            "pendiente": "alta"
+          },
+          "nivelSoloObservado": "verde",
+          "desdeHoraSoloObservado": "01:00",
+          "motivosSoloObservado": [
+            {
+              "codigo": "sin_alerta",
+              "texto": "Sin lluvias fuertes ni suelo saturado: hasta 4 mm en 24 horas y humedad del suelo de 0,39."
+            }
+          ]
+        },
+        {
+          "fecha": "2017-01-05",
+          "esDiaDelEvento": false,
+          "lluviaMm": 35,
+          "nivel": "naranja",
+          "desdeHora": "01:00",
+          "motivos": [
+            {
+              "codigo": "lluvia_24h",
+              "texto": "Hasta 40 mm de lluvia en 24 horas, entre lo que ya llovió y lo que se espera (umbral: 25 mm)."
+            },
+            {
+              "codigo": "suelo",
+              "texto": "El suelo está muy húmedo: 0,40 m³ de agua por m³ de suelo (umbral: 0,30)."
+            },
+            {
+              "codigo": "pendiente",
+              "texto": "La pendiente de la cuenca es alta."
+            }
+          ],
+          "variables": {
+            "lluvia24hMm": 40.1,
+            "lluvia72hMm": 10,
+            "pronostico24hMm": 40.1,
+            "suelo": 0.404,
+            "pendiente": "alta"
+          },
+          "nivelSoloObservado": "naranja",
+          "desdeHoraSoloObservado": "23:00",
+          "motivosSoloObservado": [
+            {
+              "codigo": "lluvia_24h",
+              "texto": "Hasta 35 mm de lluvia en 24 horas, entre lo que ya llovió y lo que se espera (umbral: 25 mm)."
+            },
+            {
+              "codigo": "suelo",
+              "texto": "El suelo está muy húmedo: 0,52 m³ de agua por m³ de suelo (umbral: 0,30)."
+            },
+            {
+              "codigo": "pendiente",
+              "texto": "La pendiente de la cuenca es alta."
+            }
+          ]
+        },
+        {
+          "fecha": "2017-01-06",
+          "esDiaDelEvento": false,
+          "lluviaMm": 11.4,
+          "nivel": "naranja",
+          "desdeHora": "01:00",
+          "motivos": [
+            {
+              "codigo": "lluvia_24h",
+              "texto": "Hasta 40 mm de lluvia en 24 horas, entre lo que ya llovió y lo que se espera (umbral: 25 mm)."
+            },
+            {
+              "codigo": "suelo",
+              "texto": "El suelo está muy húmedo: 0,52 m³ de agua por m³ de suelo (umbral: 0,30)."
+            },
+            {
+              "codigo": "pendiente",
+              "texto": "La pendiente de la cuenca es alta."
+            }
+          ],
+          "variables": {
+            "lluvia24hMm": 40.1,
+            "lluvia72hMm": 44.3,
+            "pronostico24hMm": 7.1,
+            "suelo": 0.515,
+            "pendiente": "alta"
+          },
+          "nivelSoloObservado": "naranja",
+          "desdeHoraSoloObservado": "01:00",
+          "motivosSoloObservado": [
+            {
+              "codigo": "lluvia_24h",
+              "texto": "Hasta 40 mm de lluvia en 24 horas, entre lo que ya llovió y lo que se espera (umbral: 25 mm)."
+            },
+            {
+              "codigo": "suelo",
+              "texto": "El suelo está muy húmedo: 0,51 m³ de agua por m³ de suelo (umbral: 0,30)."
+            },
+            {
+              "codigo": "pendiente",
+              "texto": "La pendiente de la cuenca es alta."
+            }
+          ]
+        },
+        {
+          "fecha": "2017-01-07",
+          "esDiaDelEvento": false,
+          "lluviaMm": 2.8,
+          "nivel": "verde",
+          "desdeHora": "01:00",
+          "motivos": [
+            {
+              "codigo": "sin_alerta",
+              "texto": "Sin lluvias fuertes ni suelo saturado: hasta 7 mm en 24 horas y humedad del suelo de 0,50."
+            }
+          ],
+          "variables": {
+            "lluvia24hMm": 7.1,
+            "lluvia72hMm": 47.9,
+            "pronostico24hMm": 2.5,
+            "suelo": 0.496,
+            "pendiente": "alta"
+          },
+          "nivelSoloObservado": "verde",
+          "desdeHoraSoloObservado": "01:00",
+          "motivosSoloObservado": [
+            {
+              "codigo": "sin_alerta",
+              "texto": "Sin lluvias fuertes ni suelo saturado: hasta 7 mm en 24 horas y humedad del suelo de 0,50."
+            }
+          ]
+        },
+        {
+          "fecha": "2017-01-08",
+          "esDiaDelEvento": false,
+          "lluviaMm": 2.1,
+          "nivel": "amarillo",
+          "desdeHora": "05:00",
+          "motivos": [
+            {
+              "codigo": "suelo",
+              "texto": "El suelo está muy húmedo: 0,47 m³ de agua por m³ de suelo (umbral: 0,30)."
+            },
+            {
+              "codigo": "pronostico_24h",
+              "texto": "Se esperan 14 mm de lluvia en las próximas 24 horas (umbral: 5 mm)."
+            }
+          ],
+          "variables": {
+            "lluvia24hMm": 13.9,
+            "lluvia72hMm": 16.3,
+            "pronostico24hMm": 13.9,
+            "suelo": 0.469,
+            "pendiente": "alta"
+          },
+          "nivelSoloObservado": "verde",
+          "desdeHoraSoloObservado": "01:00",
+          "motivosSoloObservado": [
+            {
+              "codigo": "sin_alerta",
+              "texto": "Sin lluvias fuertes ni suelo saturado: hasta 3 mm en 24 horas y humedad del suelo de 0,48."
+            }
+          ]
+        },
+        {
+          "fecha": "2017-01-09",
+          "esDiaDelEvento": false,
+          "lluviaMm": 13.9,
+          "nivel": "rojo",
+          "desdeHora": "11:00",
+          "motivos": [
+            {
+              "codigo": "lluvia_24h",
+              "texto": "Hasta 96 mm de lluvia en 24 horas, entre lo que ya llovió y lo que se espera (umbral: 45 mm)."
+            },
+            {
+              "codigo": "suelo",
+              "texto": "El suelo ya está saturado: 0,48 m³ de agua por m³ de suelo (umbral: 0,35)."
+            }
+          ],
+          "variables": {
+            "lluvia24hMm": 95.7,
+            "lluvia72hMm": 13.6,
+            "pronostico24hMm": 95.7,
+            "suelo": 0.485,
+            "pendiente": "alta"
+          },
+          "nivelSoloObservado": "verde",
+          "desdeHoraSoloObservado": "01:00",
+          "motivosSoloObservado": [
+            {
+              "codigo": "sin_alerta",
+              "texto": "Sin lluvias fuertes ni suelo saturado: hasta 14 mm en 24 horas y humedad del suelo de 0,49."
+            }
+          ]
+        },
+        {
+          "fecha": "2017-01-10",
+          "esDiaDelEvento": true,
+          "lluviaMm": 88.8,
+          "nivel": "rojo",
+          "desdeHora": "01:00",
+          "motivos": [
+            {
+              "codigo": "lluvia_24h",
+              "texto": "Hasta 96 mm de lluvia en 24 horas, entre lo que ya llovió y lo que se espera (umbral: 45 mm)."
+            },
+            {
+              "codigo": "suelo",
+              "texto": "El suelo ya está saturado: 0,49 m³ de agua por m³ de suelo (umbral: 0,35)."
+            }
+          ],
+          "variables": {
+            "lluvia24hMm": 95.7,
+            "lluvia72hMm": 18.5,
+            "pronostico24hMm": 88.8,
+            "suelo": 0.491,
+            "pendiente": "alta"
+          },
+          "nivelSoloObservado": "rojo",
+          "desdeHoraSoloObservado": "11:00",
+          "motivosSoloObservado": [
+            {
+              "codigo": "lluvia_24h",
+              "texto": "Hasta 96 mm de lluvia en 24 horas, entre lo que ya llovió y lo que se espera (umbral: 45 mm)."
+            },
+            {
+              "codigo": "suelo",
+              "texto": "El suelo ya está saturado: 0,51 m³ de agua por m³ de suelo (umbral: 0,35)."
+            },
+            {
+              "codigo": "lluvia_72h",
+              "texto": "Llovieron 104 mm en los últimos 3 días (umbral: 90 mm)."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "zonaId": "purmamarca",
+      "nombre": "Purmamarca",
+      "celda": {
+        "lat": -23.796133,
+        "lon": -65.45456,
+        "elevacionM": 2322
+      },
+      "dias": [
+        {
+          "fecha": "2017-01-03",
+          "esDiaDelEvento": false,
+          "lluviaMm": 1.5,
+          "nivel": "verde",
+          "desdeHora": "01:00",
+          "motivos": [
+            {
+              "codigo": "sin_alerta",
+              "texto": "Sin lluvias fuertes ni suelo saturado: hasta 4 mm en 24 horas y humedad del suelo de 0,33."
+            }
+          ],
+          "variables": {
+            "lluvia24hMm": 4.4,
+            "lluvia72hMm": 5,
+            "pronostico24hMm": 1.5,
+            "suelo": 0.326,
+            "pendiente": "alta"
+          },
+          "nivelSoloObservado": "verde",
+          "desdeHoraSoloObservado": "01:00",
+          "motivosSoloObservado": [
+            {
+              "codigo": "sin_alerta",
+              "texto": "Sin lluvias fuertes ni suelo saturado: hasta 4 mm en 24 horas y humedad del suelo de 0,33."
+            }
+          ]
+        },
+        {
+          "fecha": "2017-01-04",
+          "esDiaDelEvento": false,
+          "lluviaMm": 2.9,
+          "nivel": "amarillo",
+          "desdeHora": "11:00",
+          "motivos": [
+            {
+              "codigo": "lluvia_24h",
+              "texto": "Hasta 18 mm de lluvia en 24 horas, entre lo que ya llovió y lo que se espera (umbral: 15 mm)."
+            },
+            {
+              "codigo": "suelo",
+              "texto": "El suelo está muy húmedo: 0,33 m³ de agua por m³ de suelo (umbral: 0,30)."
+            },
+            {
+              "codigo": "pronostico_24h",
+              "texto": "Se esperan 18 mm de lluvia en las próximas 24 horas (umbral: 5 mm)."
+            }
+          ],
+          "variables": {
+            "lluvia24hMm": 18.3,
+            "lluvia72hMm": 8.8,
+            "pronostico24hMm": 18.3,
+            "suelo": 0.33,
+            "pendiente": "alta"
+          },
+          "nivelSoloObservado": "verde",
+          "desdeHoraSoloObservado": "01:00",
+          "motivosSoloObservado": [
+            {
+              "codigo": "sin_alerta",
+              "texto": "Sin lluvias fuertes ni suelo saturado: hasta 3 mm en 24 horas y humedad del suelo de 0,33."
+            }
+          ]
+        },
+        {
+          "fecha": "2017-01-05",
+          "esDiaDelEvento": false,
+          "lluviaMm": 18.3,
+          "nivel": "amarillo",
+          "desdeHora": "01:00",
+          "motivos": [
+            {
+              "codigo": "lluvia_24h",
+              "texto": "Hasta 19 mm de lluvia en 24 horas, entre lo que ya llovió y lo que se espera (umbral: 15 mm)."
+            },
+            {
+              "codigo": "suelo",
+              "texto": "El suelo está muy húmedo: 0,34 m³ de agua por m³ de suelo (umbral: 0,30)."
+            },
+            {
+              "codigo": "pronostico_24h",
+              "texto": "Se esperan 19 mm de lluvia en las próximas 24 horas (umbral: 5 mm)."
+            }
+          ],
+          "variables": {
+            "lluvia24hMm": 19.1,
+            "lluvia72hMm": 7.2,
+            "pronostico24hMm": 19.1,
+            "suelo": 0.338,
+            "pendiente": "alta"
+          },
+          "nivelSoloObservado": "amarillo",
+          "desdeHoraSoloObservado": "22:00",
+          "motivosSoloObservado": [
+            {
+              "codigo": "lluvia_24h",
+              "texto": "Hasta 18 mm de lluvia en 24 horas, entre lo que ya llovió y lo que se espera (umbral: 15 mm)."
+            }
+          ]
+        },
+        {
+          "fecha": "2017-01-06",
+          "esDiaDelEvento": false,
+          "lluviaMm": 5.5,
+          "nivel": "amarillo",
+          "desdeHora": "01:00",
+          "motivos": [
+            {
+              "codigo": "lluvia_24h",
+              "texto": "Hasta 19 mm de lluvia en 24 horas, entre lo que ya llovió y lo que se espera (umbral: 15 mm)."
+            },
+            {
+              "codigo": "suelo",
+              "texto": "El suelo está muy húmedo: 0,39 m³ de agua por m³ de suelo (umbral: 0,30)."
+            },
+            {
+              "codigo": "pronostico_24h",
+              "texto": "Se esperan 5 mm de lluvia en las próximas 24 horas (umbral: 5 mm)."
+            }
+          ],
+          "variables": {
+            "lluvia24hMm": 19.1,
+            "lluvia72hMm": 23.2,
+            "pronostico24hMm": 5.2,
+            "suelo": 0.391,
+            "pendiente": "alta"
+          },
+          "nivelSoloObservado": "amarillo",
+          "desdeHoraSoloObservado": "01:00",
+          "motivosSoloObservado": [
+            {
+              "codigo": "lluvia_24h",
+              "texto": "Hasta 19 mm de lluvia en 24 horas, entre lo que ya llovió y lo que se espera (umbral: 15 mm)."
+            }
+          ]
+        },
+        {
+          "fecha": "2017-01-07",
+          "esDiaDelEvento": false,
+          "lluviaMm": 0.9,
+          "nivel": "amarillo",
+          "desdeHora": "24:00",
+          "motivos": [
+            {
+              "codigo": "suelo",
+              "texto": "El suelo está muy húmedo: 0,46 m³ de agua por m³ de suelo (umbral: 0,30)."
+            },
+            {
+              "codigo": "pronostico_24h",
+              "texto": "Se esperan 7 mm de lluvia en las próximas 24 horas (umbral: 5 mm)."
+            }
+          ],
+          "variables": {
+            "lluvia24hMm": 7,
+            "lluvia72hMm": 24.7,
+            "pronostico24hMm": 7,
+            "suelo": 0.457,
+            "pendiente": "alta"
+          },
+          "nivelSoloObservado": "verde",
+          "desdeHoraSoloObservado": "01:00",
+          "motivosSoloObservado": [
+            {
+              "codigo": "sin_alerta",
+              "texto": "Sin lluvias fuertes ni suelo saturado: hasta 5 mm en 24 horas y humedad del suelo de 0,47."
+            }
+          ]
+        },
+        {
+          "fecha": "2017-01-08",
+          "esDiaDelEvento": false,
+          "lluviaMm": 7,
+          "nivel": "amarillo",
+          "desdeHora": "01:00",
+          "motivos": [
+            {
+              "codigo": "suelo",
+              "texto": "El suelo está muy húmedo: 0,45 m³ de agua por m³ de suelo (umbral: 0,30)."
+            },
+            {
+              "codigo": "pronostico_24h",
+              "texto": "Se esperan 14 mm de lluvia en las próximas 24 horas (umbral: 5 mm)."
+            }
+          ],
+          "variables": {
+            "lluvia24hMm": 13.6,
+            "lluvia72hMm": 8.1,
+            "pronostico24hMm": 13.6,
+            "suelo": 0.445,
+            "pendiente": "alta"
+          },
+          "nivelSoloObservado": "verde",
+          "desdeHoraSoloObservado": "01:00",
+          "motivosSoloObservado": [
+            {
+              "codigo": "sin_alerta",
+              "texto": "Sin lluvias fuertes ni suelo saturado: hasta 7 mm en 24 horas y humedad del suelo de 0,46."
+            }
+          ]
+        },
+        {
+          "fecha": "2017-01-09",
+          "esDiaDelEvento": false,
+          "lluviaMm": 9.8,
+          "nivel": "rojo",
+          "desdeHora": "12:00",
+          "motivos": [
+            {
+              "codigo": "lluvia_24h",
+              "texto": "Hasta 69 mm de lluvia en 24 horas, entre lo que ya llovió y lo que se espera (umbral: 45 mm)."
+            },
+            {
+              "codigo": "suelo",
+              "texto": "El suelo ya está saturado: 0,45 m³ de agua por m³ de suelo (umbral: 0,35)."
+            }
+          ],
+          "variables": {
+            "lluvia24hMm": 69.2,
+            "lluvia72hMm": 12.8,
+            "pronostico24hMm": 69.2,
+            "suelo": 0.445,
+            "pendiente": "alta"
+          },
+          "nivelSoloObservado": "verde",
+          "desdeHoraSoloObservado": "01:00",
+          "motivosSoloObservado": [
+            {
+              "codigo": "sin_alerta",
+              "texto": "Sin lluvias fuertes ni suelo saturado: hasta 14 mm en 24 horas y humedad del suelo de 0,46."
+            }
+          ]
+        },
+        {
+          "fecha": "2017-01-10",
+          "esDiaDelEvento": true,
+          "lluviaMm": 63.1,
+          "nivel": "rojo",
+          "desdeHora": "01:00",
+          "motivos": [
+            {
+              "codigo": "lluvia_24h",
+              "texto": "Hasta 69 mm de lluvia en 24 horas, entre lo que ya llovió y lo que se espera (umbral: 45 mm)."
+            },
+            {
+              "codigo": "suelo",
+              "texto": "El suelo ya está saturado: 0,46 m³ de agua por m³ de suelo (umbral: 0,35)."
+            }
+          ],
+          "variables": {
+            "lluvia24hMm": 69.2,
+            "lluvia72hMm": 17.5,
+            "pronostico24hMm": 63.1,
+            "suelo": 0.464,
+            "pendiente": "alta"
+          },
+          "nivelSoloObservado": "rojo",
+          "desdeHoraSoloObservado": "12:00",
+          "motivosSoloObservado": [
+            {
+              "codigo": "lluvia_24h",
+              "texto": "Hasta 69 mm de lluvia en 24 horas, entre lo que ya llovió y lo que se espera (umbral: 45 mm)."
+            },
+            {
+              "codigo": "suelo",
+              "texto": "El suelo ya está saturado: 0,52 m³ de agua por m³ de suelo (umbral: 0,35)."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "zonaId": "maimara",
+      "nombre": "Maimará",
+      "celda": {
+        "lat": -23.655537,
+        "lon": -65.41141,
+        "elevacionM": 2395
+      },
+      "dias": [
+        {
+          "fecha": "2017-01-03",
+          "esDiaDelEvento": false,
+          "lluviaMm": 2,
+          "nivel": "verde",
+          "desdeHora": "01:00",
+          "motivos": [
+            {
+              "codigo": "sin_alerta",
+              "texto": "Sin lluvias fuertes ni suelo saturado: hasta 8 mm en 24 horas y humedad del suelo de 0,30."
+            }
+          ],
+          "variables": {
+            "lluvia24hMm": 7.9,
+            "lluvia72hMm": 8,
+            "pronostico24hMm": 1.8,
+            "suelo": 0.298,
+            "pendiente": "media"
+          },
+          "nivelSoloObservado": "verde",
+          "desdeHoraSoloObservado": "01:00",
+          "motivosSoloObservado": [
+            {
+              "codigo": "sin_alerta",
+              "texto": "Sin lluvias fuertes ni suelo saturado: hasta 8 mm en 24 horas y humedad del suelo de 0,30."
+            }
+          ]
+        },
+        {
+          "fecha": "2017-01-04",
+          "esDiaDelEvento": false,
+          "lluviaMm": 3.4,
+          "nivel": "amarillo",
+          "desdeHora": "22:00",
+          "motivos": [
+            {
+              "codigo": "lluvia_24h",
+              "texto": "Hasta 18 mm de lluvia en 24 horas, entre lo que ya llovió y lo que se espera (umbral: 15 mm)."
+            }
+          ],
+          "variables": {
+            "lluvia24hMm": 18.4,
+            "lluvia72hMm": 12.9,
+            "pronostico24hMm": 18.4,
+            "suelo": 0.289,
+            "pendiente": "media"
+          },
+          "nivelSoloObservado": "verde",
+          "desdeHoraSoloObservado": "01:00",
+          "motivosSoloObservado": [
+            {
+              "codigo": "sin_alerta",
+              "texto": "Sin lluvias fuertes ni suelo saturado: hasta 3 mm en 24 horas y humedad del suelo de 0,29."
+            }
+          ]
+        },
+        {
+          "fecha": "2017-01-05",
+          "esDiaDelEvento": false,
+          "lluviaMm": 18.4,
+          "nivel": "amarillo",
+          "desdeHora": "01:00",
+          "motivos": [
+            {
+              "codigo": "lluvia_24h",
+              "texto": "Hasta 19 mm de lluvia en 24 horas, entre lo que ya llovió y lo que se espera (umbral: 15 mm)."
+            }
+          ],
+          "variables": {
+            "lluvia24hMm": 18.7,
+            "lluvia72hMm": 13.4,
+            "pronostico24hMm": 18.7,
+            "suelo": 0.291,
+            "pendiente": "media"
+          },
+          "nivelSoloObservado": "amarillo",
+          "desdeHoraSoloObservado": "22:00",
+          "motivosSoloObservado": [
+            {
+              "codigo": "lluvia_24h",
+              "texto": "Hasta 18 mm de lluvia en 24 horas, entre lo que ya llovió y lo que se espera (umbral: 15 mm)."
+            }
+          ]
+        },
+        {
+          "fecha": "2017-01-06",
+          "esDiaDelEvento": false,
+          "lluviaMm": 7.7,
+          "nivel": "amarillo",
+          "desdeHora": "01:00",
+          "motivos": [
+            {
+              "codigo": "lluvia_24h",
+              "texto": "Hasta 19 mm de lluvia en 24 horas, entre lo que ya llovió y lo que se espera (umbral: 15 mm)."
+            },
+            {
+              "codigo": "suelo",
+              "texto": "El suelo está muy húmedo: 0,34 m³ de agua por m³ de suelo (umbral: 0,30)."
+            },
+            {
+              "codigo": "pronostico_24h",
+              "texto": "Se esperan 7 mm de lluvia en las próximas 24 horas (umbral: 5 mm)."
+            }
+          ],
+          "variables": {
+            "lluvia24hMm": 18.7,
+            "lluvia72hMm": 24.5,
+            "pronostico24hMm": 6.9,
+            "suelo": 0.338,
+            "pendiente": "media"
+          },
+          "nivelSoloObservado": "amarillo",
+          "desdeHoraSoloObservado": "01:00",
+          "motivosSoloObservado": [
+            {
+              "codigo": "lluvia_24h",
+              "texto": "Hasta 19 mm de lluvia en 24 horas, entre lo que ya llovió y lo que se espera (umbral: 15 mm)."
+            }
+          ]
+        },
+        {
+          "fecha": "2017-01-07",
+          "esDiaDelEvento": false,
+          "lluviaMm": 0.7,
+          "nivel": "verde",
+          "desdeHora": "01:00",
+          "motivos": [
+            {
+              "codigo": "sin_alerta",
+              "texto": "Sin lluvias fuertes ni suelo saturado: hasta 7 mm en 24 horas y humedad del suelo de 0,40."
+            }
+          ],
+          "variables": {
+            "lluvia24hMm": 6.9,
+            "lluvia72hMm": 29.6,
+            "pronostico24hMm": 0.6,
+            "suelo": 0.402,
+            "pendiente": "media"
+          },
+          "nivelSoloObservado": "verde",
+          "desdeHoraSoloObservado": "01:00",
+          "motivosSoloObservado": [
+            {
+              "codigo": "sin_alerta",
+              "texto": "Sin lluvias fuertes ni suelo saturado: hasta 7 mm en 24 horas y humedad del suelo de 0,40."
+            }
+          ]
+        },
+        {
+          "fecha": "2017-01-08",
+          "esDiaDelEvento": false,
+          "lluviaMm": 1.6,
+          "nivel": "verde",
+          "desdeHora": "01:00",
+          "motivos": [
+            {
+              "codigo": "sin_alerta",
+              "texto": "Sin lluvias fuertes ni suelo saturado: hasta 3 mm en 24 horas y humedad del suelo de 0,39."
+            }
+          ],
+          "variables": {
+            "lluvia24hMm": 3.1,
+            "lluvia72hMm": 10,
+            "pronostico24hMm": 3.1,
+            "suelo": 0.388,
+            "pendiente": "media"
+          },
+          "nivelSoloObservado": "verde",
+          "desdeHoraSoloObservado": "01:00",
+          "motivosSoloObservado": [
+            {
+              "codigo": "sin_alerta",
+              "texto": "Sin lluvias fuertes ni suelo saturado: hasta 2 mm en 24 horas y humedad del suelo de 0,39."
+            }
+          ]
+        },
+        {
+          "fecha": "2017-01-09",
+          "esDiaDelEvento": false,
+          "lluviaMm": 3.1,
+          "nivel": "rojo",
+          "desdeHora": "13:00",
+          "motivos": [
+            {
+              "codigo": "lluvia_24h",
+              "texto": "Hasta 59 mm de lluvia en 24 horas, entre lo que ya llovió y lo que se espera (umbral: 45 mm)."
+            },
+            {
+              "codigo": "suelo",
+              "texto": "El suelo ya está saturado: 0,38 m³ de agua por m³ de suelo (umbral: 0,35)."
+            }
+          ],
+          "variables": {
+            "lluvia24hMm": 58.6,
+            "lluvia72hMm": 5.4,
+            "pronostico24hMm": 58.6,
+            "suelo": 0.382,
+            "pendiente": "media"
+          },
+          "nivelSoloObservado": "verde",
+          "desdeHoraSoloObservado": "01:00",
+          "motivosSoloObservado": [
+            {
+              "codigo": "sin_alerta",
+              "texto": "Sin lluvias fuertes ni suelo saturado: hasta 3 mm en 24 horas y humedad del suelo de 0,38."
+            }
+          ]
+        },
+        {
+          "fecha": "2017-01-10",
+          "esDiaDelEvento": true,
+          "lluviaMm": 56.8,
+          "nivel": "rojo",
+          "desdeHora": "01:00",
+          "motivos": [
+            {
+              "codigo": "lluvia_24h",
+              "texto": "Hasta 59 mm de lluvia en 24 horas, entre lo que ya llovió y lo que se espera (umbral: 45 mm)."
+            },
+            {
+              "codigo": "suelo",
+              "texto": "El suelo ya está saturado: 0,38 m³ de agua por m³ de suelo (umbral: 0,35)."
+            }
+          ],
+          "variables": {
+            "lluvia24hMm": 58.6,
+            "lluvia72hMm": 5.4,
+            "pronostico24hMm": 56.7,
+            "suelo": 0.383,
+            "pendiente": "media"
+          },
+          "nivelSoloObservado": "rojo",
+          "desdeHoraSoloObservado": "13:00",
+          "motivosSoloObservado": [
+            {
+              "codigo": "lluvia_24h",
+              "texto": "Hasta 59 mm de lluvia en 24 horas, entre lo que ya llovió y lo que se espera (umbral: 45 mm)."
+            },
+            {
+              "codigo": "suelo",
+              "texto": "El suelo ya está saturado: 0,51 m³ de agua por m³ de suelo (umbral: 0,35)."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "zonaId": "tilcara",
+      "nombre": "Tilcara",
+      "celda": {
+        "lat": -23.585238,
+        "lon": -65.43732,
+        "elevacionM": 2477
+      },
+      "dias": [
+        {
+          "fecha": "2017-01-03",
+          "esDiaDelEvento": false,
+          "lluviaMm": 1.1,
+          "nivel": "verde",
+          "desdeHora": "01:00",
+          "motivos": [
+            {
+              "codigo": "sin_alerta",
+              "texto": "Sin lluvias fuertes ni suelo saturado: hasta 9 mm en 24 horas y humedad del suelo de 0,17."
+            }
+          ],
+          "variables": {
+            "lluvia24hMm": 9,
+            "lluvia72hMm": 9.1,
+            "pronostico24hMm": 0.7,
+            "suelo": 0.171,
+            "pendiente": "media"
+          },
+          "nivelSoloObservado": "verde",
+          "desdeHoraSoloObservado": "01:00",
+          "motivosSoloObservado": [
+            {
+              "codigo": "sin_alerta",
+              "texto": "Sin lluvias fuertes ni suelo saturado: hasta 9 mm en 24 horas y humedad del suelo de 0,17."
+            }
+          ]
+        },
+        {
+          "fecha": "2017-01-04",
+          "esDiaDelEvento": false,
+          "lluviaMm": 2.4,
+          "nivel": "amarillo",
+          "desdeHora": "24:00",
+          "motivos": [
+            {
+              "codigo": "lluvia_24h",
+              "texto": "Hasta 16 mm de lluvia en 24 horas, entre lo que ya llovió y lo que se espera (umbral: 15 mm)."
+            }
+          ],
+          "variables": {
+            "lluvia24hMm": 16.2,
+            "lluvia72hMm": 11.9,
+            "pronostico24hMm": 16.2,
+            "suelo": 0.162,
+            "pendiente": "media"
+          },
+          "nivelSoloObservado": "verde",
+          "desdeHoraSoloObservado": "01:00",
+          "motivosSoloObservado": [
+            {
+              "codigo": "sin_alerta",
+              "texto": "Sin lluvias fuertes ni suelo saturado: hasta 2 mm en 24 horas y humedad del suelo de 0,16."
+            }
+          ]
+        },
+        {
+          "fecha": "2017-01-05",
+          "esDiaDelEvento": false,
+          "lluviaMm": 16.2,
+          "nivel": "amarillo",
+          "desdeHora": "01:00",
+          "motivos": [
+            {
+              "codigo": "lluvia_24h",
+              "texto": "Hasta 17 mm de lluvia en 24 horas, entre lo que ya llovió y lo que se espera (umbral: 15 mm)."
+            }
+          ],
+          "variables": {
+            "lluvia24hMm": 16.7,
+            "lluvia72hMm": 12.4,
+            "pronostico24hMm": 16.7,
+            "suelo": 0.163,
+            "pendiente": "media"
+          },
+          "nivelSoloObservado": "amarillo",
+          "desdeHoraSoloObservado": "24:00",
+          "motivosSoloObservado": [
+            {
+              "codigo": "lluvia_24h",
+              "texto": "Hasta 16 mm de lluvia en 24 horas, entre lo que ya llovió y lo que se espera (umbral: 15 mm)."
+            }
+          ]
+        },
+        {
+          "fecha": "2017-01-06",
+          "esDiaDelEvento": false,
+          "lluviaMm": 4.9,
+          "nivel": "amarillo",
+          "desdeHora": "01:00",
+          "motivos": [
+            {
+              "codigo": "lluvia_24h",
+              "texto": "Hasta 17 mm de lluvia en 24 horas, entre lo que ya llovió y lo que se espera (umbral: 15 mm)."
+            }
+          ],
+          "variables": {
+            "lluvia24hMm": 16.7,
+            "lluvia72hMm": 20.4,
+            "pronostico24hMm": 3.8,
+            "suelo": 0.208,
+            "pendiente": "media"
+          },
+          "nivelSoloObservado": "amarillo",
+          "desdeHoraSoloObservado": "01:00",
+          "motivosSoloObservado": [
+            {
+              "codigo": "lluvia_24h",
+              "texto": "Hasta 17 mm de lluvia en 24 horas, entre lo que ya llovió y lo que se espera (umbral: 15 mm)."
+            }
+          ]
+        },
+        {
+          "fecha": "2017-01-07",
+          "esDiaDelEvento": false,
+          "lluviaMm": 0.9,
+          "nivel": "verde",
+          "desdeHora": "01:00",
+          "motivos": [
+            {
+              "codigo": "sin_alerta",
+              "texto": "Sin lluvias fuertes ni suelo saturado: hasta 4 mm en 24 horas y humedad del suelo de 0,28."
+            }
+          ],
+          "variables": {
+            "lluvia24hMm": 3.8,
+            "lluvia72hMm": 23.5,
+            "pronostico24hMm": 0.9,
+            "suelo": 0.278,
+            "pendiente": "media"
+          },
+          "nivelSoloObservado": "verde",
+          "desdeHoraSoloObservado": "01:00",
+          "motivosSoloObservado": [
+            {
+              "codigo": "sin_alerta",
+              "texto": "Sin lluvias fuertes ni suelo saturado: hasta 4 mm en 24 horas y humedad del suelo de 0,28."
+            }
+          ]
+        },
+        {
+          "fecha": "2017-01-08",
+          "esDiaDelEvento": false,
+          "lluviaMm": 0.9,
+          "nivel": "verde",
+          "desdeHora": "01:00",
+          "motivos": [
+            {
+              "codigo": "sin_alerta",
+              "texto": "Sin lluvias fuertes ni suelo saturado: hasta 4 mm en 24 horas y humedad del suelo de 0,27."
+            }
+          ],
+          "variables": {
+            "lluvia24hMm": 3.5,
+            "lluvia72hMm": 16.4,
+            "pronostico24hMm": 3.5,
+            "suelo": 0.27,
+            "pendiente": "media"
+          },
+          "nivelSoloObservado": "verde",
+          "desdeHoraSoloObservado": "01:00",
+          "motivosSoloObservado": [
+            {
+              "codigo": "sin_alerta",
+              "texto": "Sin lluvias fuertes ni suelo saturado: hasta 1 mm en 24 horas y humedad del suelo de 0,27."
+            }
+          ]
+        },
+        {
+          "fecha": "2017-01-09",
+          "esDiaDelEvento": false,
+          "lluviaMm": 2.8,
+          "nivel": "amarillo",
+          "desdeHora": "12:00",
+          "motivos": [
+            {
+              "codigo": "lluvia_24h",
+              "texto": "Hasta 46 mm de lluvia en 24 horas, entre lo que ya llovió y lo que se espera (umbral: 15 mm)."
+            }
+          ],
+          "variables": {
+            "lluvia24hMm": 45.6,
+            "lluvia72hMm": 4.9,
+            "pronostico24hMm": 45.6,
+            "suelo": 0.261,
+            "pendiente": "media"
+          },
+          "nivelSoloObservado": "verde",
+          "desdeHoraSoloObservado": "01:00",
+          "motivosSoloObservado": [
+            {
+              "codigo": "sin_alerta",
+              "texto": "Sin lluvias fuertes ni suelo saturado: hasta 4 mm en 24 horas y humedad del suelo de 0,27."
+            }
+          ]
+        },
+        {
+          "fecha": "2017-01-10",
+          "esDiaDelEvento": true,
+          "lluviaMm": 45.5,
+          "nivel": "rojo",
+          "desdeHora": "14:00",
+          "motivos": [
+            {
+              "codigo": "lluvia_24h",
+              "texto": "Hasta 46 mm de lluvia en 24 horas, entre lo que ya llovió y lo que se espera (umbral: 45 mm)."
+            },
+            {
+              "codigo": "suelo",
+              "texto": "El suelo ya está saturado: 0,37 m³ de agua por m³ de suelo (umbral: 0,35)."
+            }
+          ],
+          "variables": {
+            "lluvia24hMm": 45.6,
+            "lluvia72hMm": 43.9,
+            "pronostico24hMm": 6.1,
+            "suelo": 0.373,
+            "pendiente": "media"
+          },
+          "nivelSoloObservado": "rojo",
+          "desdeHoraSoloObservado": "16:00",
+          "motivosSoloObservado": [
+            {
+              "codigo": "lluvia_24h",
+              "texto": "Hasta 46 mm de lluvia en 24 horas, entre lo que ya llovió y lo que se espera (umbral: 45 mm)."
+            },
+            {
+              "codigo": "suelo",
+              "texto": "El suelo ya está saturado: 0,39 m³ de agua por m³ de suelo (umbral: 0,35)."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "zonaId": "humahuaca",
+      "nombre": "Humahuaca",
+      "celda": {
+        "lat": -23.233744,
+        "lon": -65.37735,
+        "elevacionM": 2943
+      },
+      "dias": [
+        {
+          "fecha": "2017-01-03",
+          "esDiaDelEvento": false,
+          "lluviaMm": 1.1,
+          "nivel": "verde",
+          "desdeHora": "01:00",
+          "motivos": [
+            {
+              "codigo": "sin_alerta",
+              "texto": "Sin lluvias fuertes ni suelo saturado: hasta 3 mm en 24 horas y humedad del suelo de 0,34."
+            }
+          ],
+          "variables": {
+            "lluvia24hMm": 2.5,
+            "lluvia72hMm": 9.7,
+            "pronostico24hMm": 0.6,
+            "suelo": 0.341,
+            "pendiente": "media"
+          },
+          "nivelSoloObservado": "verde",
+          "desdeHoraSoloObservado": "01:00",
+          "motivosSoloObservado": [
+            {
+              "codigo": "sin_alerta",
+              "texto": "Sin lluvias fuertes ni suelo saturado: hasta 3 mm en 24 horas y humedad del suelo de 0,34."
+            }
+          ]
+        },
+        {
+          "fecha": "2017-01-04",
+          "esDiaDelEvento": false,
+          "lluviaMm": 2.1,
+          "nivel": "amarillo",
+          "desdeHora": "16:00",
+          "motivos": [
+            {
+              "codigo": "suelo",
+              "texto": "El suelo está muy húmedo: 0,33 m³ de agua por m³ de suelo (umbral: 0,30)."
+            },
+            {
+              "codigo": "pronostico_24h",
+              "texto": "Se esperan 6 mm de lluvia en las próximas 24 horas (umbral: 5 mm)."
+            }
+          ],
+          "variables": {
+            "lluvia24hMm": 6.4,
+            "lluvia72hMm": 3,
+            "pronostico24hMm": 6.4,
+            "suelo": 0.332,
+            "pendiente": "media"
+          },
+          "nivelSoloObservado": "verde",
+          "desdeHoraSoloObservado": "01:00",
+          "motivosSoloObservado": [
+            {
+              "codigo": "sin_alerta",
+              "texto": "Sin lluvias fuertes ni suelo saturado: hasta 2 mm en 24 horas y humedad del suelo de 0,33."
+            }
+          ]
+        },
+        {
+          "fecha": "2017-01-05",
+          "esDiaDelEvento": false,
+          "lluviaMm": 6.3,
+          "nivel": "amarillo",
+          "desdeHora": "01:00",
+          "motivos": [
+            {
+              "codigo": "suelo",
+              "texto": "El suelo está muy húmedo: 0,33 m³ de agua por m³ de suelo (umbral: 0,30)."
+            },
+            {
+              "codigo": "pronostico_24h",
+              "texto": "Se esperan 10 mm de lluvia en las próximas 24 horas (umbral: 5 mm)."
+            }
+          ],
+          "variables": {
+            "lluvia24hMm": 10.4,
+            "lluvia72hMm": 3.6,
+            "pronostico24hMm": 10.4,
+            "suelo": 0.329,
+            "pendiente": "media"
+          },
+          "nivelSoloObservado": "verde",
+          "desdeHoraSoloObservado": "01:00",
+          "motivosSoloObservado": [
+            {
+              "codigo": "sin_alerta",
+              "texto": "Sin lluvias fuertes ni suelo saturado: hasta 6 mm en 24 horas y humedad del suelo de 0,34."
+            }
+          ]
+        },
+        {
+          "fecha": "2017-01-06",
+          "esDiaDelEvento": false,
+          "lluviaMm": 4.5,
+          "nivel": "verde",
+          "desdeHora": "01:00",
+          "motivos": [
+            {
+              "codigo": "sin_alerta",
+              "texto": "Sin lluvias fuertes ni suelo saturado: hasta 10 mm en 24 horas y humedad del suelo de 0,34."
+            }
+          ],
+          "variables": {
+            "lluvia24hMm": 10.4,
+            "lluvia72hMm": 9.6,
+            "pronostico24hMm": 3.9,
+            "suelo": 0.34,
+            "pendiente": "media"
+          },
+          "nivelSoloObservado": "verde",
+          "desdeHoraSoloObservado": "01:00",
+          "motivosSoloObservado": [
+            {
+              "codigo": "sin_alerta",
+              "texto": "Sin lluvias fuertes ni suelo saturado: hasta 10 mm en 24 horas y humedad del suelo de 0,38."
+            }
+          ]
+        },
+        {
+          "fecha": "2017-01-07",
+          "esDiaDelEvento": false,
+          "lluviaMm": 0.9,
+          "nivel": "verde",
+          "desdeHora": "01:00",
+          "motivos": [
+            {
+              "codigo": "sin_alerta",
+              "texto": "Sin lluvias fuertes ni suelo saturado: hasta 4 mm en 24 horas y humedad del suelo de 0,39."
+            }
+          ],
+          "variables": {
+            "lluvia24hMm": 3.9,
+            "lluvia72hMm": 12.9,
+            "pronostico24hMm": 0.9,
+            "suelo": 0.386,
+            "pendiente": "media"
+          },
+          "nivelSoloObservado": "verde",
+          "desdeHoraSoloObservado": "01:00",
+          "motivosSoloObservado": [
+            {
+              "codigo": "sin_alerta",
+              "texto": "Sin lluvias fuertes ni suelo saturado: hasta 4 mm en 24 horas y humedad del suelo de 0,39."
+            }
+          ]
+        },
+        {
+          "fecha": "2017-01-08",
+          "esDiaDelEvento": false,
+          "lluviaMm": 0.7,
+          "nivel": "verde",
+          "desdeHora": "01:00",
+          "motivos": [
+            {
+              "codigo": "sin_alerta",
+              "texto": "Sin lluvias fuertes ni suelo saturado: hasta 2 mm en 24 horas y humedad del suelo de 0,37."
+            }
+          ],
+          "variables": {
+            "lluvia24hMm": 1.8,
+            "lluvia72hMm": 9.8,
+            "pronostico24hMm": 1.8,
+            "suelo": 0.369,
+            "pendiente": "media"
+          },
+          "nivelSoloObservado": "verde",
+          "desdeHoraSoloObservado": "01:00",
+          "motivosSoloObservado": [
+            {
+              "codigo": "sin_alerta",
+              "texto": "Sin lluvias fuertes ni suelo saturado: hasta 1 mm en 24 horas y humedad del suelo de 0,38."
+            }
+          ]
+        },
+        {
+          "fecha": "2017-01-09",
+          "esDiaDelEvento": false,
+          "lluviaMm": 1.2,
+          "nivel": "amarillo",
+          "desdeHora": "11:00",
+          "motivos": [
+            {
+              "codigo": "lluvia_24h",
+              "texto": "Hasta 17 mm de lluvia en 24 horas, entre lo que ya llovió y lo que se espera (umbral: 15 mm)."
+            },
+            {
+              "codigo": "suelo",
+              "texto": "El suelo está muy húmedo: 0,37 m³ de agua por m³ de suelo (umbral: 0,30)."
+            },
+            {
+              "codigo": "pronostico_24h",
+              "texto": "Se esperan 17 mm de lluvia en las próximas 24 horas (umbral: 5 mm)."
+            }
+          ],
+          "variables": {
+            "lluvia24hMm": 16.8,
+            "lluvia72hMm": 2.8,
+            "pronostico24hMm": 16.8,
+            "suelo": 0.368,
+            "pendiente": "media"
+          },
+          "nivelSoloObservado": "verde",
+          "desdeHoraSoloObservado": "01:00",
+          "motivosSoloObservado": [
+            {
+              "codigo": "sin_alerta",
+              "texto": "Sin lluvias fuertes ni suelo saturado: hasta 2 mm en 24 horas y humedad del suelo de 0,37."
+            }
+          ]
+        },
+        {
+          "fecha": "2017-01-10",
+          "esDiaDelEvento": true,
+          "lluviaMm": 16.8,
+          "nivel": "amarillo",
+          "desdeHora": "01:00",
+          "motivos": [
+            {
+              "codigo": "lluvia_24h",
+              "texto": "Hasta 17 mm de lluvia en 24 horas, entre lo que ya llovió y lo que se espera (umbral: 15 mm)."
+            },
+            {
+              "codigo": "suelo",
+              "texto": "El suelo está muy húmedo: 0,37 m³ de agua por m³ de suelo (umbral: 0,30)."
+            },
+            {
+              "codigo": "pronostico_24h",
+              "texto": "Se esperan 17 mm de lluvia en las próximas 24 horas (umbral: 5 mm)."
+            }
+          ],
+          "variables": {
+            "lluvia24hMm": 16.8,
+            "lluvia72hMm": 3.1,
+            "pronostico24hMm": 16.5,
+            "suelo": 0.366,
+            "pendiente": "media"
+          },
+          "nivelSoloObservado": "amarillo",
+          "desdeHoraSoloObservado": "15:00",
+          "motivosSoloObservado": [
+            {
+              "codigo": "lluvia_24h",
+              "texto": "Hasta 17 mm de lluvia en 24 horas, entre lo que ya llovió y lo que se espera (umbral: 15 mm)."
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

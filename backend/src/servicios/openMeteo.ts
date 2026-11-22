@@ -90,3 +90,32 @@ export function consultarPronostico(zonas: Zona[]): Promise<Lectura[]> {
 export function consultarHistorico(zonas: Zona[], desde: string, hasta: string): Promise<Lectura[]> {
   return pedir(URL_HISTORICO, { start_date: desde, end_date: hasta }, zonas, CAPAS_SUELO_HISTORICO, 'open-meteo-archive');
 }
+
+export interface LluviaDiaria {
+  zonaId: string;
+  // Fechas locales de Jujuy, AAAA-MM-DD.
+  fechas: string[];
+  // null = el reanálisis todavía no publicó ese día (ERA5 llega con varios días de demora).
+  lluviaMm: (number | null)[];
+}
+
+// Lluvia diaria del reanálisis ERA5, para el indicador de sequía. Se fija el modelo para que
+// los últimos 90 días y el promedio 1991-2020 salgan de la misma fuente.
+export async function consultarLluviaDiaria(zonas: Zona[], desde: string, hasta: string): Promise<LluviaDiaria[]> {
+  const query = new URLSearchParams({
+    latitude: zonas.map((z) => z.lat).join(','),
+    longitude: zonas.map((z) => z.lon).join(','),
+    start_date: desde,
+    end_date: hasta,
+    daily: 'precipitation_sum',
+    timezone: 'America/Argentina/Jujuy',
+    models: 'era5',
+  });
+  const res = await fetch(`${URL_HISTORICO}?${query}`, { signal: AbortSignal.timeout(120_000) });
+  if (!res.ok) throw new Error(`Open-Meteo respondió ${res.status}: ${(await res.text()).slice(0, 200)}`);
+  type Respuesta = { daily: { time: string[]; precipitation_sum: (number | null)[] } };
+  const cuerpo = (await res.json()) as Respuesta | Respuesta[];
+  const respuestas = Array.isArray(cuerpo) ? cuerpo : [cuerpo];
+  if (respuestas.length !== zonas.length) throw new Error(`Open-Meteo devolvió ${respuestas.length} series para ${zonas.length} zonas`);
+  return zonas.map((zona, i) => ({ zonaId: zona.id, fechas: respuestas[i]!.daily.time, lluviaMm: respuestas[i]!.daily.precipitation_sum }));
+}
