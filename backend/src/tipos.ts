@@ -44,6 +44,8 @@ export interface TendenciaDia {
   // Nivel más alto que alcanzó ese día.
   nivel: Nivel;
   lluviaMm: number;
+  // Humedad del suelo promedio del día, en m³/m³. null si no hay datos.
+  sueloMedio: number | null;
 }
 
 export interface EstadoZona {

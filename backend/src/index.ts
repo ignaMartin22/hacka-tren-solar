@@ -3,8 +3,8 @@ import cors from 'cors';
 import express from 'express';
 import { ACTUALIZACION } from '../../config/riesgo';
 import { ZONAS } from '../../config/zonas';
-import { crearRouterAdmin } from './admin';
-import { historial } from './avisos/servicio';
+import { registrarAdmin } from './admin';
+import { instanteLocal } from './hora';
 import { crearRouterReplay } from './replay';
 import { almacen, cargarAlmacen, cargarRespaldo } from './servicios/almacen';
 import { actualizar, obtenerEstados, recalcular } from './servicios/estado';
@@ -43,9 +43,16 @@ app.get('/api/estado/:zonaId', (req, res) => {
   res.json({ ...resto, zona });
 });
 
-// Historial público de avisos: cuándo, a qué zona, qué nivel y a cuántas personas. No incluye datos personales.
-app.get('/api/avisos', (_req, res) => {
-  res.json(historial());
+// Tendencia de 7 días en la forma que usa el gráfico del frontend (frontend/contratos/tendencia.md).
+// El nivel de cada día es el más alto que alcanzó. 404 si la zona no existe o no tiene tendencia (sequía).
+app.get('/api/estado/:zonaId/tendencia', (req, res) => {
+  const zona = obtenerEstados().zonas.find((z) => z.zonaId === req.params.zonaId);
+  const primero = zona?.tendencia[0];
+  if (!zona || !primero) {
+    res.status(404).json({ error: `No hay tendencia para la zona "${req.params.zonaId}"` });
+    return;
+  }
+  res.json({ zonaId: zona.zonaId, desde: new Date(instanteLocal(primero.fecha) * 1000).toISOString(), hasta: zona.calculadoEn, dias: zona.tendencia });
 });
 
 // Datos del bot para armar el enlace o el QR de suscripción.
@@ -56,7 +63,8 @@ app.get('/api/bot', (_req, res) => {
 // Modo Replay: eventos pasados precalculados.
 app.use('/api/replay', await crearRouterReplay());
 
-app.use('/api/admin', crearRouterAdmin(process.env.ADMIN_PASSWORD ?? ''));
+// Vista institucional: login, historial de avisos, confirmación del rojo y simulacros.
+registrarAdmin(app, process.env.ADMIN_PASSWORD ?? '');
 
 // Para el cron externo (el servicio gratuito de Render se duerme). Requiere el secreto en el header x-job-secret.
 app.post('/api/jobs/run', async (req, res) => {

@@ -10,16 +10,23 @@ import { evaluarAludes, indiceDe, variablesEnIndice, type OpcionesVariables } fr
 export function calcularTendencia(serie: SerieHoraria, ahora: Date, pendiente: Pendiente, dias = 7): TendenciaDia[] {
   const iAhora = indiceDe(serie, ahora);
   const porDia = new Map<string, TendenciaDia>();
+  const suelos = new Map<string, number[]>();
   for (let i = 0; i <= iAhora && serie.tiempos.length - 1 - i >= 24; i++) {
     // La hora que termina en la marca i pertenece al día en que empezó.
     const fecha = fechaLocal(serie.tiempos[i]! - 3600);
-    const dia = porDia.get(fecha) ?? { fecha, nivel: 'verde', lluviaMm: 0 };
+    const dia = porDia.get(fecha) ?? { fecha, nivel: 'verde', lluviaMm: 0, sueloMedio: null };
     const nivel = evaluarAludes(variablesEnIndice(serie, i, pendiente)).nivel;
     if (NIVELES.indexOf(nivel) > NIVELES.indexOf(dia.nivel)) dia.nivel = nivel;
     dia.lluviaMm += serie.lluviaMm[i] ?? 0;
+    const suelo = serie.suelo[i];
+    if (suelo !== null && suelo !== undefined) suelos.set(fecha, [...(suelos.get(fecha) ?? []), suelo]);
     porDia.set(fecha, dia);
   }
-  return [...porDia.values()].slice(-dias).map((d) => ({ ...d, lluviaMm: Number(d.lluviaMm.toFixed(1)) }));
+  return [...porDia.values()].slice(-dias).map((d) => {
+    const s = suelos.get(d.fecha) ?? [];
+    const sueloMedio = s.length > 0 ? Number((s.reduce((a, b) => a + b, 0) / s.length).toFixed(3)) : null;
+    return { ...d, lluviaMm: Number(d.lluviaMm.toFixed(1)), sueloMedio };
+  });
 }
 
 // Resumen de un día local completo: lluvia del día y la evaluación más alta del motor entre todas sus horas.

@@ -9,7 +9,8 @@
     "typecheck": "tsc --noEmit",
     "replay": "tsx src/scripts/generarReplay.ts",
     "climatologia": "tsx src/scripts/generarClimatologia.ts",
-    "respaldo": "tsx src/scripts/generarRespaldo.ts"
+    "respaldo": "tsx src/scripts/generarRespaldo.ts",
+    "simulacro": "tsx src/scripts/simulacro.ts"
   },
   "dependencies": {
     "cors": "^2.8.6",
