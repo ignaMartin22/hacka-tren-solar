@@ -6,7 +6,7 @@ import { ZONAS } from '../../config/zonas';
 import { crearRouterAdmin } from './admin';
 import { historial } from './avisos/servicio';
 import { crearRouterReplay } from './replay';
-import { almacen, cargarAlmacen } from './servicios/almacen';
+import { almacen, cargarAlmacen, cargarRespaldo } from './servicios/almacen';
 import { actualizar, obtenerEstados, recalcular } from './servicios/estado';
 import { actualizarSequia, actualizarSequiaSiHaceFalta } from './servicios/sequia';
 import { infoBot, iniciarBot } from './telegram/arranque';
@@ -68,6 +68,8 @@ app.post('/api/jobs/run', async (req, res) => {
 });
 
 await cargarAlmacen();
+const respaldo = await cargarRespaldo();
+if (respaldo) console.log(`Lecturas de respaldo del repo cargadas (datos de ${respaldo}).`);
 if (almacen.lecturas.length > 0) recalcular();
 app.listen(PORT, () => console.log(`Yaku backend escuchando en http://localhost:${PORT}`));
 if (TELEGRAM_BOT_TOKEN) void iniciarBot(app, TELEGRAM_BOT_TOKEN, URL_PUBLICA);

@@ -8,7 +8,8 @@
     "test": "tsx --test \"src/**/*.test.ts\"",
     "typecheck": "tsc --noEmit",
     "replay": "tsx src/scripts/generarReplay.ts",
-    "climatologia": "tsx src/scripts/generarClimatologia.ts"
+    "climatologia": "tsx src/scripts/generarClimatologia.ts",
+    "respaldo": "tsx src/scripts/generarRespaldo.ts"
   },
   "dependencies": {
     "cors": "^2.8.6",

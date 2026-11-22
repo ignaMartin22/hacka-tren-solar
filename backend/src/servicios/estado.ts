@@ -69,6 +69,7 @@ export const obtenerEstados = () => ({
   calculadoEn,
   datosDe: almacen.lecturas[0]?.obtenidaEn ?? null,
   fuente: 'Open-Meteo (datos satelitales y de modelos meteorológicos)',
+  // Si no es null, la última consulta a Open-Meteo falló y se muestran los datos guardados de `datosDe`.
   errorUltimaActualizacion: ultimoError,
   zonas: estados,
 });

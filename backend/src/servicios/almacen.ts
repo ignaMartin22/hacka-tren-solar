@@ -36,3 +36,17 @@ export async function cargarAlmacen(): Promise<void> {
     }
   }
 }
+
+// Si las lecturas del repo (data/respaldo/lecturas.json) son más nuevas que las guardadas, las usa.
+// Devuelve la fecha del respaldo si lo cargó.
+export async function cargarRespaldo(): Promise<string | null> {
+  try {
+    const respaldo = JSON.parse(await readFile(new URL('../../../data/respaldo/lecturas.json', import.meta.url), 'utf8')) as Lectura[];
+    const fecha = respaldo[0]?.obtenidaEn;
+    if (!fecha || fecha <= (almacen.lecturas[0]?.obtenidaEn ?? '')) return null;
+    almacen.lecturas = respaldo;
+    return fecha;
+  } catch {
+    return null;
+  }
+}
