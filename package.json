@@ -5,8 +5,6 @@
   "scripts": {
     "dev:backend": "pnpm --filter yaku-backend dev",
     "dev:frontend": "pnpm --filter yaku-frontend dev",
-    "replay": "pnpm --filter yaku-backend replay",
-    "sequia": "pnpm --filter yaku-backend sequia",
     "test": "pnpm --filter yaku-backend test",
     "typecheck": "pnpm -r typecheck"
   }

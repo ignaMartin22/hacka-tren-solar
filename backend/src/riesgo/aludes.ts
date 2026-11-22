@@ -13,17 +13,28 @@ function sumar(valores: (number | null)[], desde: number, hasta: number): number
   return total;
 }
 
-// Calcula las variables del motor a partir de la serie horaria, parado en el instante `ahora`.
-// Lo anterior a `ahora` se toma como observado y lo posterior como pronóstico.
-export function calcularVariables(serie: SerieHoraria, ahora: Date, pendiente: Pendiente): VariablesAludes {
+export interface OpcionesVariables {
+  // Si es true no se usa nada posterior al instante evaluado (ni pronóstico ni dato futuro).
+  soloObservado?: boolean;
+}
+
+// Índice de la última hora ya transcurrida en el instante `ahora`. Lanza si la serie no lo cubre.
+export function indiceDe(serie: SerieHoraria, ahora: Date): number {
   const t = Math.floor(ahora.getTime() / 1000);
   // Cada valor de lluvia corresponde a la hora previa a su marca de tiempo.
-  const iAhora = serie.tiempos.findLastIndex((x) => x <= t);
-  if (iAhora < 0 || t - serie.tiempos[iAhora]! >= HORA) throw new Error('La serie no cubre el momento pedido');
-  if (serie.tiempos.length - 1 - iAhora < 24) throw new Error('La serie no tiene 24 horas de pronóstico');
+  const i = serie.tiempos.findLastIndex((x) => x <= t);
+  if (i < 0 || t - serie.tiempos[i]! >= HORA) throw new Error('La serie no cubre el momento pedido');
+  return i;
+}
+
+// Variables del motor paradas en la hora `iAhora` de la serie.
+// Lo anterior se toma como observado y las 24 horas siguientes como pronóstico.
+export function variablesEnIndice(serie: SerieHoraria, iAhora: number, pendiente: Pendiente, opciones: OpcionesVariables = {}): VariablesAludes {
+  const horasFuturas = opciones.soloObservado ? 0 : 24;
+  if (serie.tiempos.length - 1 - iAhora < horasFuturas) throw new Error('La serie no tiene 24 horas de pronóstico');
 
   let lluvia24hMm = 0;
-  for (let fin = iAhora; fin <= iAhora + 24; fin++) lluvia24hMm = Math.max(lluvia24hMm, sumar(serie.lluviaMm, fin - 23, fin));
+  for (let fin = iAhora; fin <= iAhora + horasFuturas; fin++) lluvia24hMm = Math.max(lluvia24hMm, sumar(serie.lluviaMm, fin - 23, fin));
 
   let suelo: number | null = null;
   for (let i = iAhora; i >= 0 && i > iAhora - 24 && suelo === null; i--) suelo = serie.suelo[i] ?? null;
@@ -31,10 +42,14 @@ export function calcularVariables(serie: SerieHoraria, ahora: Date, pendiente: P
   return {
     lluvia24hMm: redondear(lluvia24hMm, 1),
     lluvia72hMm: redondear(sumar(serie.lluviaMm, iAhora - 71, iAhora), 1),
-    pronostico24hMm: redondear(sumar(serie.lluviaMm, iAhora + 1, iAhora + 24), 1),
+    pronostico24hMm: redondear(sumar(serie.lluviaMm, iAhora + 1, iAhora + horasFuturas), 1),
     suelo: suelo === null ? null : redondear(suelo, 3),
     pendiente,
   };
+}
+
+export function calcularVariables(serie: SerieHoraria, ahora: Date, pendiente: Pendiente, opciones: OpcionesVariables = {}): VariablesAludes {
+  return variablesEnIndice(serie, indiceDe(serie, ahora), pendiente, opciones);
 }
 
 // Aplica las reglas de CONTEXT.md (sección 6) y devuelve el nivel con los motivos que lo activaron.
@@ -85,6 +100,6 @@ export function evaluarAludes(v: VariablesAludes): ResultadoRiesgo {
   ]);
 }
 
-export function calcularAludes(serie: SerieHoraria, ahora: Date, pendiente: Pendiente): ResultadoRiesgo {
-  return evaluarAludes(calcularVariables(serie, ahora, pendiente));
+export function calcularAludes(serie: SerieHoraria, ahora: Date, pendiente: Pendiente, opciones: OpcionesVariables = {}): ResultadoRiesgo {
+  return evaluarAludes(calcularVariables(serie, ahora, pendiente, opciones));
 }
